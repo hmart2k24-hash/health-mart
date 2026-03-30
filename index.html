@@ -3,202 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health Mart | Gujar Khan</title>
+    <title>Health Mart | Digital Pharmacy</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --primary: #78D1DA; --secondary: #3E6CB5; --bg: #f4f7f8; --white: #ffffff; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 30px; color: #333; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 100px; color: #333; }
         
-        header { 
-            background: var(--white); padding: 30px 20px; text-align: center; 
-            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-        .header-logo { width: 150px; height: auto; }
+        header { background: var(--white); padding: 25px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .header-logo { width: 140px; height: auto; }
         
         .container { max-width: 450px; margin: 0 auto; padding: 20px; }
 
-        .card { 
-            background: var(--white); border-radius: 24px; padding: 20px; 
-            margin-bottom: 15px; display: flex; align-items: center; gap: 18px;
-            cursor: pointer; transition: 0.3s; border: 1px solid rgba(0,0,0,0.02);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
+        /* Card UI */
+        .card { background: var(--white); border-radius: 24px; padding: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-decoration: none; }
         .card:hover { transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0,0,0,0.06); }
-        .card-icon { 
-            width: 50px; height: 50px; border-radius: 18px; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 22px; 
-        }
+        .card-icon { width: 45px; height: 45px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
         .icon-blue { background: #eef4ff; color: var(--secondary); }
         .icon-teal { background: #e0f7f9; color: #008b8b; }
+        .icon-gold { background: #fff8e1; color: #fbc02d; }
         .icon-green { background: #e8f9ef; color: #25D366; }
+        .card-text b { display: block; font-size: 15px; color: #222; }
+        .card-text span { font-size: 11px; color: #888; }
 
-        .card-text b { display: block; font-size: 16px; color: #222; margin-bottom: 2px; }
-        .card-text span { font-size: 12px; color: #888; font-weight: 500; }
+        /* VIP Badge */
+        .vip-notice { background: #e3f2fd; border: 1px solid #90caf9; padding: 15px; border-radius: 15px; margin-bottom: 20px; color: #1565c0; font-size: 12px; font-weight: 600; text-align: center; }
+        .vip-notice i { font-size: 18px; display: block; margin-bottom: 5px; color: #1e88e5; }
 
+        /* Form Styling */
         .form-section { display: none; background: var(--white); padding: 25px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); animation: fadeInUp 0.5s ease; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        h3 { font-size: 18px; color: var(--secondary); margin-bottom: 20px; text-align: center; }
+        label { display: block; font-size: 11px; font-weight: 700; color: #aaa; margin-bottom: 8px; text-transform: uppercase; }
+        input, select, textarea { width: 100%; padding: 14px; border: 1.5px solid #f0f0f0; border-radius: 12px; margin-bottom: 15px; font-size: 14px; font-family: inherit; box-sizing: border-box; background: #fafafa; }
         
-        h3 { font-size: 18px; font-weight: 700; color: var(--secondary); margin-bottom: 20px; text-align: center; }
-        label { display: block; font-size: 11px; font-weight: 700; color: #aaa; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-        input, select, textarea { width: 100%; padding: 15px; border: 1.5px solid #f0f0f0; border-radius: 15px; margin-bottom: 15px; font-size: 15px; font-family: inherit; box-sizing: border-box; background: #fafafa; }
-        input:focus { outline: none; border-color: var(--primary); background: #fff; }
+        .delivery-info { background: #fff8e1; border-radius: 12px; padding: 12px; margin-bottom: 15px; display: none; border: 1px solid #ffe082; font-size: 11px; font-weight: 600; color: #795548; }
+        .btn-main { background: var(--secondary); color: white; padding: 16px; width: 100%; border: none; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 8px 20px rgba(62, 108, 181, 0.2); }
+        .btn-back { border: none; background: none; color: #999; font-weight: 600; margin-bottom: 10px; cursor: pointer; }
 
-        .med-row { background: #fdfdfd; border: 1px solid #f0f0f0; padding: 15px; border-radius: 18px; margin-bottom: 12px; }
-        .btn-add { background: #f0fbfc; border: 1px dashed var(--primary); color: var(--secondary); width: 100%; padding: 12px; border-radius: 12px; font-weight: 700; margin-bottom: 20px; cursor: pointer; font-size: 13px; }
+        /* Service Bar */
+        .highlights { display: flex; justify-content: space-between; margin-top: 20px; }
+        .h-item { text-align: center; width: 30%; background: white; padding: 10px; border-radius: 15px; font-size: 9px; font-weight: 700; color: #666; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .h-item i { display: block; color: var(--primary); font-size: 16px; margin-bottom: 5px; }
 
-        /* Updated Delivery Info Styling */
-        .delivery-info { 
-            background: #fff8e1; border-radius: 15px; padding: 12px 15px; 
-            margin-bottom: 20px; display: none; border: 1px solid #ffe082;
-        }
-        .delivery-info p { margin: 0; font-size: 11px; color: #795548; line-height: 1.5; font-weight: 600; }
-
-        .btn-main { background: var(--secondary); color: white; padding: 18px; width: 100%; border: none; border-radius: 18px; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 8px 20px rgba(62, 108, 181, 0.2); transition: 0.3s; }
-        .btn-back { border: none; background: none; color: #999; font-weight: 600; margin-bottom: 10px; cursor: pointer; font-size: 14px; }
-
-        footer { text-align: center; padding: 30px; font-size: 11px; color: #bbb; font-weight: 500; letter-spacing: 1px; }
+        /* Nav Footer */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 12px; border-top-left-radius: 25px; border-top-right-radius: 25px; box-shadow: 0 -10px 25px rgba(0,0,0,0.05); }
+        .nav-link { text-align: center; text-decoration: none; color: #bbb; font-size: 10px; font-weight: 600; }
+        .nav-link i { font-size: 18px; display: block; margin-bottom: 3px; }
+        .nav-link.active { color: var(--secondary); }
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="image.png.png" alt="Health Mart Logo" class="header-logo">
-    </header>
+<header><img src="image.png.png" alt="Health Mart Logo" class="header-logo"></header>
 
-    <div class="container">
-        <div id="home-screen">
-            <div class="card" onclick="showForm('order-form')">
-                <div class="card-icon icon-blue"><i class="fas fa-shopping-basket"></i></div>
-                <div class="card-text">
-                    <b>Buy Medicines</b>
-                    <span>Order by tablet count</span>
-                </div>
-            </div>
-
-            <div class="card" onclick="showForm('upload-form')">
-                <div class="card-icon icon-teal"><i class="fas fa-camera"></i></div>
-                <div class="card-text">
-                    <b>Send Prescription</b>
-                    <span>Quick photo upload</span>
-                </div>
-            </div>
-
-            <a href="https://wa.me/923055047345" class="card" style="text-decoration: none;">
-                <div class="card-icon icon-green"><i class="fab fa-whatsapp"></i></div>
-                <div class="card-text">
-                    <b>WhatsApp Chat</b>
-                    <span>Talk to our pharmacist</span>
-                </div>
-            </a>
+<div class="container">
+    <div id="home-screen">
+        <div class="card" onclick="showForm('order-form')">
+            <div class="card-icon icon-blue"><i class="fas fa-shopping-basket"></i></div>
+            <div class="card-text"><b>Buy Medicines</b><span>Instant order by tablet count</span></div>
         </div>
 
-        <div id="order-form" class="form-section">
-            <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Home</button>
-            <h3>Pharmacy Order</h3>
-            
-            <label>Customer Info</label>
-            <input type="text" id="cust-name" placeholder="Full Name">
-            <input type="tel" id="cust-phone" placeholder="Phone Number">
-            
-            <label>Items</label>
-            <div id="medicine-container">
-                <div class="med-row">
-                    <input type="text" class="med-name" placeholder="Medicine Name" style="margin-bottom:10px;">
-                    <input type="text" class="med-qty" placeholder="Number of Tablets" style="margin-bottom:0;">
-                </div>
-            </div>
-            <button class="btn-add" onclick="addMedicineField()">+ Add More Items</button>
-
-            <label>Select preferred delivery method</label>
-            <select id="delivery-type" onchange="toggleDelivery(this.value)">
-                <option value="Store Pickup">Store Pickup</option>
-                <option value="Home Delivery">Home Delivery</option>
-            </select>
-
-            <div id="delivery-info" class="delivery-info">
-                <p><i class="fas fa-info-circle"></i> For free Home Delivery: Min. order should be PKR 1000 and address in 5km range.</p>
-            </div>
-            
-            <div id="address-wrapper" style="display:none;">
-                <label>Address</label>
-                <textarea id="cust-address" rows="3" placeholder="House/Street, Gujar Khan"></textarea>
-            </div>
-            
-            <button class="btn-main" onclick="sendOrder()">Confirm Order</button>
+        <div class="card" onclick="showForm('sub-form')">
+            <div class="card-icon icon-gold"><i class="fas fa-calendar-check"></i></div>
+            <div class="card-text"><b>Medicine Subscription</b><span>VIP: Free delivery & refills</span></div>
         </div>
 
-        <div id="upload-form" class="form-section">
-            <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Home</button>
-            <div style="text-align:center; padding: 10px;">
-                <i class="fas fa-prescription-bottle-alt" style="font-size: 50px; color: var(--primary); margin-bottom: 20px;"></i>
-                <p style="font-size: 13px; color: #777; line-height: 1.6;">Open WhatsApp to send us a photo of your doctor's prescription.</p>
-                <button class="btn-main" style="background: #25D366; margin-top:20px;" onclick="sendPrescription()">
-                    <i class="fab fa-whatsapp"></i> Open Camera
-                </button>
-            </div>
+        <div class="card" onclick="showForm('upload-form')">
+            <div class="card-icon icon-teal"><i class="fas fa-camera"></i></div>
+            <div class="card-text"><b>Send Prescription</b><span>Quick photo upload</span></div>
+        </div>
+
+        <a href="https://wa.me/923055047345" class="card">
+            <div class="card-icon icon-green"><i class="fab fa-whatsapp"></i></div>
+            <div class="card-text"><b>WhatsApp Chat</b><span>Talk to our pharmacist</span></div>
+        </a>
+
+        <div class="highlights">
+            <div class="h-item"><i class="fas fa-truck-loading"></i>EXPRESS</div>
+            <div class="h-item"><i class="fas fa-certificate"></i>GENUINE</div>
+            <div class="h-item"><i class="fas fa-user-md"></i>EXPERT</div>
         </div>
     </div>
 
-    <footer>HEALTH MART PHARMACY • GUJAR KHAN</footer>
+    <div id="order-form" class="form-section">
+        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Back</button>
+        <h3>One-Time Order</h3>
+        <label>Customer Name</label><input type="text" id="name" placeholder="Full Name">
+        <label>WhatsApp Number</label><input type="tel" id="phone" placeholder="0305XXXXXXX">
+        <label>Medicines & Quantity</label><textarea id="meds" rows="3" placeholder="e.g. Panadol (10 tabs)"></textarea>
+        <label>Delivery Method</label>
+        <select id="dtype" onchange="toggleDelivery(this.value, 'notice1', 'addr1')">
+            <option value="Pickup">Store Pickup</option>
+            <option value="Home Delivery">Home Delivery</option>
+        </select>
+        <div id="notice1" class="delivery-info">Min. PKR 1000 order for free delivery within 5km.</div>
+        <div id="addr1" style="display:none;"><label>Address</label><textarea id="address1" rows="2" placeholder="Street/House No."></textarea></div>
+        <button class="btn-main" onclick="sendOrder('Normal')">Confirm Order</button>
+    </div>
 
-    <script>
-        function showForm(id) { document.getElementById('home-screen').style.display = 'none'; document.getElementById(id).style.display = 'block'; window.scrollTo(0,0); }
-        function showHome() { const sections = document.querySelectorAll('.form-section'); sections.forEach(s => s.style.display = 'none'); document.getElementById('home-screen').style.display = 'block'; }
+    <div id="sub-form" class="form-section">
+        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Back</button>
+        <div class="vip-notice"><i class="fas fa-crown"></i> VIP SUBSCRIPTION: Free home delivery on all refills (No min. order required)</div>
+        <h3>Join Subscription</h3>
+        <label>Patient Name</label><input type="text" id="sname" placeholder="Full Name">
+        <label>WhatsApp Number</label><input type="tel" id="sphone" placeholder="0305XXXXXXX">
+        <label>Medicine Name</label><input type="text" id="smed" placeholder="e.g. Glucophage">
+        <label>Total Tablets</label><input type="text" id="sqty" placeholder="e.g. 30 tablets">
+        <label>Usage Details</label><input type="text" id="susage" placeholder="e.g. 1 tablet daily">
+        <label>Refill Frequency</label>
+        <select id="sfreq">
+            <option value="Weekly">Weekly</option>
+            <option value="Bi-Weekly">Bi-Weekly</option>
+            <option value="Monthly">Monthly</option>
+        </select>
+        <label>Delivery Method</label>
+        <select id="sdtype" onchange="toggleDelivery(this.value, 'none', 'addr2')">
+            <option value="Pickup">Store Pickup</option>
+            <option value="Home Delivery">Home Delivery (VIP Free)</option>
+        </select>
+        <div id="addr2" style="display:none;"><label>Address</label><textarea id="address2" rows="2" placeholder="Full Delivery Address"></textarea></div>
+        <button class="btn-main" onclick="sendOrder('Subscription')">Start Subscription</button>
+    </div>
+
+    <div id="upload-form" class="form-section">
+        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Back</button>
+        <div style="text-align:center; padding: 20px;">
+            <i class="fas fa-file-medical" style="font-size: 50px; color: var(--primary); margin-bottom: 15px;"></i>
+            <p style="font-size: 13px; color: #666;">Open WhatsApp to send us a photo of your prescription.</p>
+            <button class="btn-main" style="background: #25D366; margin-top:20px;" onclick="sendRx()"><i class="fab fa-whatsapp"></i> Open Camera</button>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <a href="#" class="nav-link active" onclick="showHome()"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone-alt"></i><span>Call</span></a>
+    <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
+</div>
+
+<script>
+    function showForm(id) { document.getElementById('home-screen').style.display = 'none'; document.getElementById(id).style.display = 'block'; window.scrollTo(0,0); }
+    function showHome() { const sections = document.querySelectorAll('.form-section'); sections.forEach(s => s.style.display = 'none'); document.getElementById('home-screen').style.display = 'block'; }
+    function toggleDelivery(val, noticeId, addrId) { 
+        if(noticeId !== 'none') document.getElementById(noticeId).style.display = (val === 'Home Delivery') ? 'block' : 'none';
+        document.getElementById(addrId).style.display = (val === 'Home Delivery') ? 'block' : 'none';
+    }
+
+    async function sendOrder(orderType) {
+        let name, phone, details, type, addr, freq = "N/A", usage = "N/A";
         
-        function toggleDelivery(val) {
-            document.getElementById('address-wrapper').style.display = (val === 'Home Delivery') ? 'block' : 'none';
-            document.getElementById('delivery-info').style.display = (val === 'Home Delivery') ? 'block' : 'none';
+        if(orderType === 'Normal') {
+            name = document.getElementById('name').value;
+            phone = document.getElementById('phone').value;
+            details = document.getElementById('meds').value;
+            type = document.getElementById('dtype').value;
+            addr = document.getElementById('address1').value;
+        } else {
+            name = document.getElementById('sname').value;
+            phone = document.getElementById('sphone').value;
+            details = document.getElementById('smed').value + " (" + document.getElementById('sqty').value + ")";
+            type = document.getElementById('sdtype').value;
+            addr = document.getElementById('address2').value;
+            freq = document.getElementById('sfreq').value;
+            usage = document.getElementById('susage').value;
         }
 
-        function addMedicineField() {
-            const container = document.getElementById('medicine-container');
-            const div = document.createElement('div');
-            div.className = 'med-row';
-            div.innerHTML = `<input type="text" class="med-name" placeholder="Medicine Name" style="margin-bottom:10px;"><input type="text" class="med-qty" placeholder="Number of Tablets" style="margin-bottom:0;">`;
-            container.appendChild(div);
-        }
+        if(!name || !phone || !details || (type === 'Home Delivery' && !addr)) { alert("Please complete all details"); return; }
 
-        async function sendOrder() {
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const type = document.getElementById('delivery-type').value;
-            const address = document.getElementById('cust-address').value;
-            const names = document.querySelectorAll('.med-name');
-            const qties = document.querySelectorAll('.med-qty');
-            
-            let items = [];
-            let waItems = "";
-            names.forEach((n, i) => {
-                if(n.value && qties[i].value) {
-                    items.push(`${n.value} (${qties[i].value})`);
-                    waItems += `• *${n.value}*: ${qties[i].value}%0A`;
-                }
-            });
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyTcrW1ScJgdyZjl6XH5aXmlR7C1TQbb2_KSjLv6Gt25XkeHoeQjb3ElMv-J16SNjw-/exec';
+        try { fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ name, phone, order: details, type: orderType, address: addr || 'Pickup', freq, usage }) }); } catch (e) {}
 
-            if (!name || !phone || items.length === 0 || (type === 'Home Delivery' && !address)) {
-                alert("Please complete all details."); return;
-            }
-
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyTcrW1ScJgdyZjl6XH5aXmlR7C1TQbb2_KSjLv6Gt25XkeHoeQjb3ElMv-J16SNjw-/exec'; 
-            const finalAddr = (type === "Home Delivery") ? address : "";
-
-            try {
-                fetch(scriptURL, {
-                    method: 'POST', mode: 'no-cors',
-                    body: JSON.stringify({ name, phone, order: items.join(", "), type, address: finalAddr })
-                });
-            } catch (e) {}
-
-            const msg = `*ORDER FROM APP*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Method:* ${type}%0A*Address:* ${finalAddr || 'Pickup'}%0A%0A*Items:*%0A${waItems}`;
-            window.open(`https://wa.me/923055047345?text=${msg}`, '_blank');
-        }
-
-        function sendPrescription() {
-            window.open(`https://wa.me/923055047345?text=*PRESCRIPTION ORDER*%0A(Sending photo below)`, '_blank');
-        }
-    </script>
+        let msg = `*NEW ${orderType.toUpperCase()} REQUEST*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Items:* ${details}`;
+        if(orderType === 'Subscription') msg += `%0A*Usage:* ${usage}%0A*Frequency:* ${freq}`;
+        msg += `%0A*Delivery:* ${type}%0A*Address:* ${addr || 'Pickup'}`;
+        
+        window.open(`https://wa.me/923055047345?text=${msg}`, '_blank');
+    }
+    function sendRx() { window.open(`https://wa.me/923055047345?text=*PRESCRIPTION ORDER*%0A(Sending photo below)`, '_blank'); }
+</script>
 </body>
 </html>
