@@ -24,9 +24,7 @@
         
         .container { max-width: 450px; margin: 0 auto; padding: 20px; flex-grow: 1; width: 100%; box-sizing: border-box; }
 
-        /* Main Tiles */
         .card { background: var(--white); border-radius: 24px; padding: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-decoration: none; color: inherit; }
-        .card:active { transform: scale(0.98); }
         .card-icon { width: 45px; height: 45px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
         .icon-blue { background: #eef4ff; color: var(--secondary); }
         .icon-gold { background: #fff8e1; color: #fbc02d; }
@@ -35,18 +33,14 @@
         .card-text b { display: block; font-size: 15px; color: #222; }
         .card-text span { font-size: 11px; color: #888; }
 
-        /* Review Card Style */
         .review-card { background: var(--white); border-radius: 24px; padding: 20px; margin-bottom: 12px; text-align: center; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-decoration: none; display: block; }
         .stars { color: var(--gold); font-size: 24px; margin-bottom: 5px; }
         .review-text { font-size: 12px; color: #666; font-weight: 600; }
 
-        /* Social Media Section */
         .social-row { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
-        .social-btn { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: white; color: var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-decoration: none; font-size: 20px; transition: 0.3s; }
-        .social-btn.fb { color: #1877F2; }
-        .social-btn.tk { color: #000000; }
+        .social-btn { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: white; color: var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-decoration: none; font-size: 20px; }
 
-        /* Form Styles */
+        /* FORM STYLES */
         .form-section { display: none; background: var(--white); padding: 25px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); animation: fadeInUp 0.4s ease; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         h3 { font-size: 18px; color: var(--secondary); margin-bottom: 20px; text-align: center; }
@@ -56,7 +50,17 @@
         .med-row { background: #fdfdfd; border: 1px solid #eee; padding: 15px; border-radius: 15px; margin-bottom: 10px; }
         .btn-main { background: var(--secondary); color: white; padding: 16px; width: 100%; border: none; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; }
         .btn-back { border: none; background: none; color: #999; font-weight: 600; margin-bottom: 10px; cursor: pointer; }
-        .delivery-info { background: #fff8e1; border-radius: 12px; padding: 12px; margin-bottom: 15px; display: none; border: 1px solid #ffe082; font-size: 11px; font-weight: 600; color: #795548; }
+
+        /* POPUP STYLES */
+        #review-popup { 
+            position: fixed; bottom: -300px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px); border-radius: 30px; padding: 25px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.1); z-index: 2000;
+            text-align: center; transition: bottom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #review-popup.show { bottom: 100px; }
+        .close-popup { position: absolute; top: 15px; right: 20px; color: #ccc; font-size: 20px; cursor: pointer; }
 
         .footer-text { text-align: center; font-size: 10px; color: #bbb; font-weight: 600; letter-spacing: 1px; padding: 20px 0 120px 0; text-transform: uppercase; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 12px 0 25px 0; border-top-left-radius: 25px; border-top-right-radius: 25px; box-shadow: 0 -10px 25px rgba(0,0,0,0.05); z-index: 1000; }
@@ -89,20 +93,14 @@
         </a>
 
         <a href="https://g.co/kgs/zRG68jD" class="review-card" target="_blank">
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-            </div>
+            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
             <div class="review-text">Leave us a review on Google</div>
         </a>
 
         <div class="social-row">
-            <a href="https://www.facebook.com/share/1Dg9jDbDzS/?mibextid=wwXIfr" class="social-btn fb" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.tiktok.com/@healthmartpharmacy?_r=1&_t=ZS-957aa01uUTp" class="social-btn tk" target="_blank"><i class="fab fa-tiktok"></i></a>
-            <a href="https://maps.app.goo.gl/E53pAqtkVvQrJHzf7?g_st=ic" class="social-btn" target="_blank" style="color:#EA4335;"><i class="fas fa-map-marker-alt"></i></a>
+            <a href="https://www.facebook.com/share/1Dg9jDbDzS/?mibextid=wwXIfr" class="social-btn" style="color:#1877F2;"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.tiktok.com/@healthmartpharmacy?_r=1&_t=ZS-957aa01uUTp" class="social-btn" style="color:#000;"><i class="fab fa-tiktok"></i></a>
+            <a href="https://maps.app.goo.gl/E53pAqtkVvQrJHzf7?g_st=ic" class="social-btn" style="color:#EA4335;"><i class="fas fa-map-marker-alt"></i></a>
         </div>
     </div>
 
@@ -118,7 +116,7 @@
         <button onclick="addMedField('med-container-order')" style="background:none; border:1px dashed var(--primary); color:var(--secondary); width:100%; padding:10px; border-radius:12px; font-weight:700; margin-bottom:15px;">+ Add More Medicine</button>
         <label class="required">Select preferred delivery method</label>
         <select id="dtype" onchange="toggleDelivery(this.value, 'notice1', 'addr1')"><option value="Pickup">Store Pickup</option><option value="Home Delivery">Home Delivery</option></select>
-        <div id="notice1" class="delivery-info">For free Home Delivery: Min. order should be PKR 1000 and address in 5km range.</div>
+        <div id="notice1" style="background:#fff8e1; border:1px solid #ffe082; padding:12px; border-radius:12px; font-size:11px; margin-bottom:15px; display:none; color:#795548;">For free Home Delivery: Min. PKR 1000 and 5km range.</div>
         <div id="addr1" style="display:none;"><label class="required">Address</label><textarea id="address1" rows="2" placeholder="Street/House No."></textarea></div>
         <button class="btn-main" onclick="processOrder('Normal')">Confirm Order</button>
     </div>
@@ -144,10 +142,12 @@
         <button class="btn-main" onclick="processOrder('Subscription')">Start Subscription</button>
     </div>
 
-    <div id="upload-form" class="form-section">
-        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Home</button>
-        <div style="text-align:center; padding: 20px;"><i class="fas fa-file-medical" style="font-size: 50px; color: var(--primary); margin-bottom: 15px;"></i><p style="font-size: 13px;">Open WhatsApp to send us a photo of your prescription.</p>
-        <button class="btn-main" style="background: #25D366; margin-top:20px;" onclick="sendRx()"><i class="fab fa-whatsapp"></i> Open Camera</button></div>
+    <div id="review-popup">
+        <span class="close-popup" onclick="closePopup()">&times;</span>
+        <div class="stars" style="margin-bottom:10px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <b style="font-size:16px; color:var(--secondary); display:block; margin-bottom:10px;">Enjoying the app?</b>
+        <p style="font-size:12px; color:#777; margin-bottom:20px;">Support Health Mart by leaving a quick review on Google.</p>
+        <button class="btn-main" onclick="goReview()">Review Now</button>
     </div>
 
     <div class="footer-text">HEALTH MART PHARMACY • GUJAR KHAN</div>
@@ -166,10 +166,27 @@
     function addMedField(id) { const div = document.createElement('div'); div.className = 'med-row'; div.innerHTML = `<input type="text" class="oname" placeholder="Medicine Name"><input type="text" class="oqty" placeholder="No. of Tablets">`; document.getElementById(id).appendChild(div); }
     function addSubMedField() { const div = document.createElement('div'); div.className = 'med-row'; div.innerHTML = `<input type="text" class="smed-name" placeholder="Medicine Name"><input type="text" class="smed-qty" placeholder="No. of Tablets"><input type="text" class="smed-usage" placeholder="Usage (e.g. 1 daily)">`; document.getElementById('med-container-sub').appendChild(div); }
     
+    // POPUP LOGIC
+    setTimeout(() => {
+        if(!localStorage.getItem('reviewDismissed')) {
+            document.getElementById('review-popup').classList.add('show');
+        }
+    }, 60000); // 1 minute delay
+
+    function closePopup() {
+        document.getElementById('review-popup').classList.remove('show');
+        localStorage.setItem('reviewDismissed', 'true');
+    }
+
+    function goReview() {
+        localStorage.setItem('reviewDismissed', 'true');
+        window.open('https://g.co/kgs/zRG68jD', '_blank');
+        document.getElementById('review-popup').classList.remove('show');
+    }
+
     async function processOrder(type) {
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyTcrW1ScJgdyZjl6XH5aXmlR7C1TQbb2_KSjLv6Gt25XkeHoeQjb3ElMv-J16SNjw-/exec';
         let name, phone, dType, addr, waMsg = "", meds = [], totalQty = [];
-
         if(type === 'Normal') {
             name = document.getElementById('name').value; phone = document.getElementById('phone').value; dType = document.getElementById('dtype').value; addr = document.getElementById('address1').value;
             document.querySelectorAll('#med-container-order .med-row').forEach(row => {
@@ -185,7 +202,6 @@
             });
             waMsg += `*Frequency:* ${freq}%0A`;
         }
-
         if(!name || !phone || meds.length === 0 || (dType === 'Home Delivery' && !addr)) { alert("Please fill all required fields marked with *"); return; }
         try { fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ name, phone, order: meds.join(", "), qty: totalQty.join(", "), type, address: addr || 'Pickup' }) }); } catch (e) {}
         window.open(`https://wa.me/923055047345?text=*NEW ORDER: HEALTH MART*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Type:* ${type}%0A*Delivery:* ${dType}%0A*Address:* ${addr || 'Pickup'}%0A%0A*Items:*%0A${waMsg}`, '_blank');
