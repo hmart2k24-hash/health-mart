@@ -15,7 +15,6 @@
 
         /* Card UI */
         .card { background: var(--white); border-radius: 24px; padding: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-decoration: none; }
-        .card:hover { transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0,0,0,0.06); }
         .card-icon { width: 45px; height: 45px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
         .icon-blue { background: #eef4ff; color: var(--secondary); }
         .icon-teal { background: #e0f7f9; color: #008b8b; }
@@ -24,20 +23,21 @@
         .card-text b { display: block; font-size: 15px; color: #222; }
         .card-text span { font-size: 11px; color: #888; }
 
-        /* VIP Badge */
         .vip-notice { background: #e3f2fd; border: 1px solid #90caf9; padding: 15px; border-radius: 15px; margin-bottom: 20px; color: #1565c0; font-size: 12px; font-weight: 600; text-align: center; }
 
         /* Form Styling */
         .form-section { display: none; background: var(--white); padding: 25px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); animation: fadeInUp 0.5s ease; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         h3 { font-size: 18px; color: var(--secondary); margin-bottom: 20px; text-align: center; }
-        label { display: block; font-size: 11px; font-weight: 700; color: #aaa; margin-bottom: 8px; text-transform: uppercase; }
-        input, select, textarea { width: 100%; padding: 14px; border: 1.5px solid #f0f0f0; border-radius: 12px; margin-bottom: 12px; font-size: 14px; font-family: inherit; box-sizing: border-box; background: #fafafa; }
         
+        label { display: block; font-size: 11px; font-weight: 700; color: #aaa; margin-bottom: 8px; text-transform: uppercase; }
+        .required::after { content: " *"; color: #ff4d4d; } /* The red asterisk style */
+
+        input, select, textarea { width: 100%; padding: 14px; border: 1.5px solid #f0f0f0; border-radius: 12px; margin-bottom: 12px; font-size: 14px; font-family: inherit; box-sizing: border-box; background: #fafafa; }
         .med-row { background: #fdfdfd; border: 1px solid #eee; padding: 15px; border-radius: 15px; margin-bottom: 10px; }
         .btn-add-small { background: none; border: 1px dashed var(--primary); color: var(--secondary); width: 100%; padding: 10px; border-radius: 10px; font-weight: 700; font-size: 12px; margin-bottom: 15px; cursor: pointer; }
-
         .delivery-info { background: #fff8e1; border-radius: 12px; padding: 12px; margin-bottom: 15px; display: none; border: 1px solid #ffe082; font-size: 11px; font-weight: 600; color: #795548; }
+        
         .btn-main { background: var(--secondary); color: white; padding: 16px; width: 100%; border: none; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 8px 20px rgba(62, 108, 181, 0.2); }
         .btn-back { border: none; background: none; color: #999; font-weight: 600; margin-bottom: 10px; cursor: pointer; }
 
@@ -74,10 +74,10 @@
     <div id="order-form" class="form-section">
         <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Home</button>
         <h3>Place Order</h3>
-        <label>Customer Name</label><input type="text" id="name" placeholder="Full Name">
-        <label>WhatsApp Number</label><input type="tel" id="phone" placeholder="0305XXXXXXX">
+        <label class="required">Customer Name</label><input type="text" id="name" placeholder="Full Name">
+        <label class="required">WhatsApp Number</label><input type="tel" id="phone" placeholder="0305XXXXXXX">
         
-        <label>Medicines</label>
+        <label class="required">Medicines</label>
         <div id="med-container-order">
             <div class="med-row">
                 <input type="text" class="oname" placeholder="Medicine Name">
@@ -86,13 +86,13 @@
         </div>
         <button class="btn-add-small" onclick="addMedField('med-container-order')">+ Add More Medicine</button>
 
-        <label>Delivery Method</label>
+        <label class="required">Select preferred delivery method</label>
         <select id="dtype" onchange="toggleDelivery(this.value, 'notice1', 'addr1')">
             <option value="Pickup">Store Pickup</option>
             <option value="Home Delivery">Home Delivery</option>
         </select>
-        <div id="notice1" class="delivery-info">Min. PKR 1000 for free delivery within 5km.</div>
-        <div id="addr1" style="display:none;"><label>Address</label><textarea id="address1" rows="2" placeholder="Street/House No."></textarea></div>
+        <div id="notice1" class="delivery-info">For free Home Delivery: Min. order should be PKR 1000 and address in 5km range.</div>
+        <div id="addr1" style="display:none;"><label class="required">Address</label><textarea id="address1" rows="2" placeholder="Street/House No."></textarea></div>
         <button class="btn-main" onclick="processOrder('Normal')">Confirm Order</button>
     </div>
 
@@ -100,10 +100,10 @@
         <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Home</button>
         <div class="vip-notice"><i class="fas fa-gem"></i> VIP: Free home delivery (No min. order)</div>
         <h3>Join Subscription</h3>
-        <label>Patient Name</label><input type="text" id="sname" placeholder="Full Name">
-        <label>WhatsApp Number</label><input type="tel" id="sphone" placeholder="0305XXXXXXX">
+        <label class="required">Patient Name</label><input type="text" id="sname" placeholder="Full Name">
+        <label class="required">WhatsApp Number</label><input type="tel" id="sphone" placeholder="0305XXXXXXX">
         
-        <label>Medicines</label>
+        <label class="required">Medicines</label>
         <div id="med-container-sub">
             <div class="med-row">
                 <input type="text" class="smed-name" placeholder="Medicine Name">
@@ -113,18 +113,18 @@
         </div>
         <button class="btn-add-small" onclick="addSubMedField()">+ Add More Medicine</button>
 
-        <label>Refill Frequency</label>
+        <label class="required">Refill Frequency</label>
         <select id="sfreq">
             <option value="Weekly">Weekly</option>
             <option value="Bi-Weekly">Bi-Weekly</option>
             <option value="Monthly">Monthly</option>
         </select>
-        <label>Delivery Method</label>
+        <label class="required">Select preferred delivery method</label>
         <select id="sdtype" onchange="toggleDelivery(this.value, 'none', 'addr2')">
             <option value="Pickup">Store Pickup</option>
             <option value="Home Delivery">Home Delivery (VIP Free)</option>
         </select>
-        <div id="addr2" style="display:none;"><label>Address</label><textarea id="address2" rows="2" placeholder="Full Address"></textarea></div>
+        <div id="addr2" style="display:none;"><label class="required">Address</label><textarea id="address2" rows="2" placeholder="Full Address"></textarea></div>
         <button class="btn-main" onclick="processOrder('Subscription')">Start Subscription</button>
     </div>
 
@@ -196,7 +196,7 @@
             waMsg += `*Frequency:* ${freq}%0A`;
         }
 
-        if(!name || !phone || meds.length === 0 || (dType === 'Home Delivery' && !addr)) { alert("Please fill all mandatory fields."); return; }
+        if(!name || !phone || meds.length === 0 || (dType === 'Home Delivery' && !addr)) { alert("Please fill all required fields marked with *"); return; }
 
         try { fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ name, phone, order: meds.join(", "), type, address: addr || 'Pickup' }) }); } catch (e) {}
         
