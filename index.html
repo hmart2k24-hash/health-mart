@@ -8,10 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* Color Palette from Logo */
         :root {
-            --primary-teal: #78D1DA; /* The main shopping bag color */
-            --dark-blue: #3E6CB5;    /* The "HEALTH MART" text color */
+            --primary-teal: #78D1DA;
+            --dark-blue: #3E6CB5;
             --white: #ffffff;
             --gray-bg: #f5f9f9;
             --text-dark: #333;
@@ -25,7 +24,6 @@
             color: var(--text-dark);
         }
 
-        /* --- Header & Logo --- */
         header {
             background-color: var(--white);
             padding: 25px 20px;
@@ -34,7 +32,6 @@
             border-bottom: 5px solid var(--primary-teal);
         }
 
-        /* SVG Logo Representation of image_0.png */
         .logo-svg {
             width: 100px;
             height: auto;
@@ -59,7 +56,6 @@
             letter-spacing: 2px;
         }
 
-        /* --- Layout Container --- */
         .container {
             max-width: 500px;
             margin: 0 auto;
@@ -67,7 +63,6 @@
             box-sizing: border-box;
         }
 
-        /* --- Home Screen Menu --- */
         .menu-grid {
             display: grid;
             gap: 20px;
@@ -106,9 +101,8 @@
             color: var(--dark-blue);
         }
 
-        /* --- Form Sections --- */
         .form-section {
-            display: none; /* Hidden by default */
+            display: none;
             background: var(--white);
             padding: 25px;
             border-radius: 25px;
@@ -124,7 +118,6 @@
             display: inline-block;
         }
 
-        /* Form Controls */
         label {
             display: block;
             font-weight: 500;
@@ -150,12 +143,10 @@
             border-color: var(--primary-teal);
         }
 
-        /* Delivery Address Field (Crucial Part) */
         #address-wrapper {
-            display: none; /* Hidden unless Home Delivery is selected */
+            display: none;
         }
 
-        /* Navigation & Submission Buttons */
         .submit-btn {
             background-color: var(--dark-blue);
             color: white;
@@ -184,7 +175,6 @@
             gap: 8px;
         }
 
-        /* --- Prescription Note --- */
         .upload-box {
             border: 2px dashed var(--primary-teal);
             padding: 20px;
@@ -195,7 +185,6 @@
             background-color: #fafdfd;
         }
 
-        /* --- Footer (Address) --- */
         footer {
             text-align: center;
             padding: 30px 20px;
@@ -218,13 +207,11 @@
             color: #555;
         }
 
-        /* Required Field Styling */
         .required::after {
             content: "*";
             color: #ff4d4d;
             margin-left: 4px;
         }
-
     </style>
 </head>
 <body>
@@ -262,7 +249,6 @@
     </header>
 
     <div class="container">
-        
         <div id="home-screen" class="menu-grid">
             <div class="btn-large" onclick="showForm('order-form')">
                 <i class="fas fa-pills"></i>
@@ -279,7 +265,7 @@
                 <span>WhatsApp Pharmacy</span>
             </a>
             
-            <a href="tel:03055046345" class="btn-large">
+            <a href="tel:03055047345" class="btn-large">
                 <i class="fas fa-phone-alt"></i>
                 <span>Call Us Now</span>
             </a>
@@ -289,29 +275,22 @@
             <button class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </button>
-            
             <h3>New Order Details</h3>
-            
             <label class="required">Full Name</label>
-            <input type="text" id="cust-name" placeholder="Enter your name" required>
-            
+            <input type="text" id="cust-name" placeholder="Enter your name">
             <label class="required">Phone Number</label>
-            <input type="tel" id="cust-phone" placeholder="e.g., 03001122333" required>
-            
+            <input type="tel" id="cust-phone" placeholder="e.g., 03055047345">
             <label class="required">Medicine Names & Quantity</label>
-            <textarea id="med-list" rows="5" placeholder="List medicines one by one (e.g., Panadol - 2 strips)" required></textarea>
-            
+            <textarea id="med-list" rows="5" placeholder="List medicines one by one"></textarea>
             <label class="required">Receive Option</label>
             <select id="delivery-type" onchange="toggleAddressField(this.value)">
                 <option value="Store Pickup">Store Pickup</option>
                 <option value="Home Delivery">Home Delivery</option>
             </select>
-            
             <div id="address-wrapper">
-                <label class="required">Delivery Address (Gujar Khan Area)</label>
-                <textarea id="cust-address" rows="3" placeholder="Enter full address for delivery"></textarea>
+                <label class="required">Delivery Address</label>
+                <textarea id="cust-address" rows="3" placeholder="Enter full address in Gujar Khan"></textarea>
             </div>
-
             <button class="submit-btn" onclick="sendOrder()">Submit Order</button>
         </div>
 
@@ -319,147 +298,72 @@
             <button class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </button>
-            
             <h3>Upload Prescription</h3>
-            
             <div class="upload-box">
                 <i class="fas fa-camera" style="font-size: 30px; margin-bottom: 10px;"></i>
-                <p>Click below to take a picture of your prescription</p>
+                <p>Take a picture of your prescription</p>
             </div>
-            
-            <label class="required">Select Prescription Image</label>
-            <input type="file" id="rx-file" accept="image/*" capture="camera" required>
-            
+            <input type="file" id="rx-file" accept="image/*" capture="camera">
             <label>Additional Note (Optional)</label>
-            <textarea id="rx-note" rows="3" placeholder="Any instructions for the pharmacist?"></textarea>
-            
+            <textarea id="rx-note" rows="3"></textarea>
             <button class="submit-btn" onclick="sendPrescription()">Submit Prescription</button>
         </div>
-
     </div>
 
     <footer>
-        <div class="contact-info">Call/WhatsApp: 0305-5046345</div>
+        <div class="contact-info">Call/WhatsApp: 0305-5047345</div>
         <div>Shop 4, Near Sarwar Shaheed College, Gujar Khan</div>
         <div class="urdu-address">شاپ 4، نزد سرور شہید کالج، گوجرخان</div>
     </footer>
 
     <script>
-        // --- 1. Basic Navigation ---
         function showForm(id) {
             document.getElementById('home-screen').style.display = 'none';
             document.getElementById(id).style.display = 'block';
-            window.scrollTo(0,0); // Scroll to top
+            window.scrollTo(0,0);
         }
 
         function showHome() {
-            // Hide all forms
             const forms = document.getElementsByClassName('form-section');
             for(let form of forms) { form.style.display = 'none'; }
-            // Show home screen
             document.getElementById('home-screen').style.display = 'grid';
         }
 
-        // --- 2. Mandate Address for Delivery ---
         function toggleAddressField(value) {
-            const addressWrapper = document.getElementById('address-wrapper');
-            const addressInput = document.getElementById('cust-address');
-            
-            if (value === 'Home Delivery') {
-                addressWrapper.style.display = 'block';
-                addressInput.setAttribute('required', ''); // Make mandatory
-            } else {
-                addressWrapper.style.display = 'none';
-                addressInput.removeAttribute('required');  // Remove mandate
-                addressInput.value = ''; // Clear the field
-            }
+            const wrapper = document.getElementById('address-wrapper');
+            wrapper.style.display = (value === 'Home Delivery') ? 'block' : 'none';
         }
 
-        // --- 3. Finalize and Submit Order ---
         async function sendOrder() {
-            // Get fields
-            const nameField = document.getElementById('cust-name');
-            const phoneField = document.getElementById('cust-phone');
-            const medsField = document.getElementById('med-list');
-            const deliveryType = document.getElementById('delivery-type').value;
-            const addressField = document.getElementById('cust-address');
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const meds = document.getElementById('med-list').value;
+            const type = document.getElementById('delivery-type').value;
+            const address = document.getElementById('cust-address').value;
 
-            // --- 3a. Validation Check ---
-            if (!nameField.value || !phoneField.value || !medsField.value) {
-                alert("Please fill in all mandatory fields (*)");
+            if (!name || !phone || !meds || (type === 'Home Delivery' && !address)) {
+                alert("Please fill all required fields.");
                 return;
             }
 
-            // Mandatory Address Check
-            if (deliveryType === 'Home Delivery' && !addressField.value) {
-                alert("An address is required for Home Delivery.");
-                addressField.focus();
-                return;
-            }
-
-            // UI feedback
-            const submitBtn = document.querySelector('#order-form .submit-btn');
-            submitBtn.innerText = "Processing...";
-            submitBtn.disabled = true;
-
-            // Prepare address data (handle empty field for Store Pickup)
-            const addressVal = (deliveryType === 'Home Delivery') ? addressField.value : 'N/A (Pickup)';
-
-            // --- 3b. Send to Google Sheets (Replace with your deployed URL) ---
-            const scriptURL = 'https://docs.google.com/spreadsheets/d/1Rgnot3vLOTJroTECu9dYFvQ5SRdbbbD7Lq6RfEIKeA4/edit?gid=0#gid=0'; // <--- PASTE YOUR URL HERE
-
-            const orderData = {
-                name: nameField.value,
-                phone: phoneField.value,
-                order: medsField.value,
-                type: deliveryType,
-                address: addressVal // Note: Add this column 'Address' to your Google Sheet!
-            };
+            const scriptURL = 'PASTE_YOUR_WEBAPP_URL_HERE'; // Replace with your Google Script URL
 
             try {
-                await fetch(scriptURL, {
+                fetch(scriptURL, {
                     method: 'POST',
-                    mode: 'no-cors', 
-                    cache: 'no-cache',
-                    body: JSON.stringify(orderData)
+                    mode: 'no-cors',
+                    body: JSON.stringify({ name, phone, order: meds, type, address: address || 'Pickup' })
                 });
-                console.log("Database updated.");
-            } catch (e) {
-                console.error("Database error", e);
-            }
+            } catch (e) { console.error(e); }
 
-            // --- 3c. Open WhatsApp ---
-            const waMessage = `*New Order: Health Mart*%0A` +
-                                `Name: ${nameField.value}%0A` +
-                                `Phone: ${phoneField.value}%0A` +
-                                `Type: ${deliveryType}%0A` +
-                                `Address: ${addressVal}%0A` +
-                                `Order:%0A${medsField.value}`;
-
-            // Replace with your real number without any hyphens or leading zero
-            window.open(`https://wa.me/923055046345?text=${waMessage}`, '_blank');
-            
-            // Reset UI
-            submitBtn.innerText = "Submit Order";
-            submitBtn.disabled = false;
+            const msg = `*New Order: Health Mart*%0AName: ${name}%0APhone: ${phone}%0AType: ${type}%0AAddress: ${address || 'Pickup'}%0AOrder: ${meds}`;
+            window.open(`https://wa.me/923055047345?text=${msg}`, '_blank');
         }
 
-        // --- 4. Submit Prescription ---
         function sendPrescription() {
-            const fileInput = document.getElementById('rx-file');
-            const noteInput = document.getElementById('rx-note');
-
-            if(!fileInput.files.length) {
-                alert("Please select a prescription image.");
-                return;
-            }
-
-            // Since browsers can't easily send binary images via `wa.me`,
-            // we send the text note first, then the user sends the photo manually.
-            const noteText = noteInput.value ? `%0ANote: ${noteInput.value}` : '';
-            const waMessage = `*Prescription Upload: Health Mart*${noteText}%0A(Note: Please send the prescription image now)`;
-
-            window.open(`https://wa.me/923055046345?text=${waMessage}`, '_blank');
+            const note = document.getElementById('rx-note').value;
+            const msg = `*Prescription Upload: Health Mart*%0ANote: ${note}%0A(Please send the photo now)`;
+            window.open(`https://wa.me/923055047345?text=${msg}`, '_blank');
         }
     </script>
 </body>
