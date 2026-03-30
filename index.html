@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Mart | Digital Pharmacy</title>
+    
+    <link rel="icon" type="image/png" href="icon.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,6 +15,7 @@
         header { background: var(--white); padding: 25px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         .header-logo { width: 140px; height: auto; }
         .container { max-width: 450px; margin: 0 auto; padding: 20px; }
+        
         .card { background: var(--white); border-radius: 24px; padding: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-decoration: none; }
         .card:hover { transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0,0,0,0.06); }
         .card-icon { width: 45px; height: 45px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
@@ -21,22 +25,30 @@
         .icon-green { background: #e8f9ef; color: #25D366; }
         .card-text b { display: block; font-size: 15px; color: #222; }
         .card-text span { font-size: 11px; color: #888; }
+
         .vip-notice { background: #e3f2fd; border: 1px solid #90caf9; padding: 15px; border-radius: 15px; margin-bottom: 20px; color: #1565c0; font-size: 12px; font-weight: 600; text-align: center; }
+
         .form-section { display: none; background: var(--white); padding: 25px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); animation: fadeInUp 0.5s ease; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
         h3 { font-size: 18px; color: var(--secondary); margin-bottom: 20px; text-align: center; }
         label { display: block; font-size: 11px; font-weight: 700; color: #aaa; margin-bottom: 8px; text-transform: uppercase; }
         .required::after { content: " *"; color: #ff4d4d; }
+
         input, select, textarea { width: 100%; padding: 14px; border: 1.5px solid #f0f0f0; border-radius: 12px; margin-bottom: 12px; font-size: 14px; font-family: inherit; box-sizing: border-box; background: #fafafa; }
         .med-row { background: #fdfdfd; border: 1px solid #eee; padding: 15px; border-radius: 15px; margin-bottom: 10px; }
         .btn-add-small { background: none; border: 1px dashed var(--primary); color: var(--secondary); width: 100%; padding: 10px; border-radius: 10px; font-weight: 700; font-size: 12px; margin-bottom: 15px; cursor: pointer; }
+        
         .delivery-info { background: #fff8e1; border-radius: 12px; padding: 12px; margin-bottom: 15px; display: none; border: 1px solid #ffe082; font-size: 11px; font-weight: 600; color: #795548; }
         .btn-main { background: var(--secondary); color: white; padding: 16px; width: 100%; border: none; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 8px 20px rgba(62, 108, 181, 0.2); }
         .btn-back { border: none; background: none; color: #999; font-weight: 600; margin-bottom: 10px; cursor: pointer; }
+
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 12px; border-top-left-radius: 25px; border-top-right-radius: 25px; box-shadow: 0 -10px 25px rgba(0,0,0,0.05); }
         .nav-link { text-align: center; text-decoration: none; color: #bbb; font-size: 10px; font-weight: 600; }
         .nav-link i { font-size: 18px; display: block; margin-bottom: 3px; }
         .nav-link.active { color: var(--secondary); }
+        
+        footer { text-align: center; padding: 20px; font-size: 10px; color: #bbb; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -136,6 +148,8 @@
     <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
 </div>
 
+<footer>HEALTH MART PHARMACY • GUJAR KHAN</footer>
+
 <script>
     function showForm(id) { document.getElementById('home-screen').style.display = 'none'; document.getElementById(id).style.display = 'block'; window.scrollTo(0,0); }
     function showHome() { const sections = document.querySelectorAll('.form-section'); sections.forEach(s => s.style.display = 'none'); document.getElementById('home-screen').style.display = 'block'; }
@@ -144,22 +158,23 @@
         document.getElementById(addrId).style.display = (val === 'Home Delivery') ? 'block' : 'none';
     }
     function addMedField(id) {
-        const div = document.createElement('div');
-        div.className = 'med-row';
+        const div = document.createElement('div'); div.className = 'med-row';
         div.innerHTML = `<input type="text" class="oname" placeholder="Medicine Name"><input type="text" class="oqty" placeholder="No. of Tablets">`;
         document.getElementById(id).appendChild(div);
     }
     function addSubMedField() {
-        const div = document.createElement('div');
-        div.className = 'med-row';
+        const div = document.createElement('div'); div.className = 'med-row';
         div.innerHTML = `<input type="text" class="smed-name" placeholder="Medicine Name"><input type="text" class="smed-qty" placeholder="No. of Tablets"><input type="text" class="smed-usage" placeholder="Usage (e.g. 1 daily)">`;
         document.getElementById('med-container-sub').appendChild(div);
     }
-    async function processOrder(type) {
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyTcrW1ScJgdyZjl6XH5aXmlR7C1TQbb2_KSjLv6Gt25XkeHoeQjb3ElMv-J16SNjw-/exec';
-        let name, phone, dType, addr, waMsg = "";
-        let meds = [];
-        if(type === 'Normal') {
+
+    async function processOrder(orderType) {
+        // UPDATED SCRIPT URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzQ6MpV4xfD5UmlyOY3GsJLzfN5wECW0ha7W6rqbRQBOkYT6_gP6b3_M6X0wD726gLA/exec';
+        let name, phone, dType, addr, waItems = "";
+        let medsArr = [], qtyArr = [];
+
+        if(orderType === 'Normal') {
             name = document.getElementById('name').value;
             phone = document.getElementById('phone').value;
             dType = document.getElementById('dtype').value;
@@ -167,7 +182,7 @@
             document.querySelectorAll('#med-container-order .med-row').forEach(row => {
                 const m = row.querySelector('.oname').value;
                 const q = row.querySelector('.oqty').value;
-                if(m && q) { meds.push(`${m} (${q})`); waMsg += `• *${m}*: ${q}%0A`; }
+                if(m && q) { medsArr.push(m); qtyArr.push(q); waItems += `• *${m}*: ${q}%0A`; }
             });
         } else {
             name = document.getElementById('sname').value;
@@ -175,20 +190,4 @@
             dType = document.getElementById('sdtype').value;
             addr = document.getElementById('address2').value;
             const freq = document.getElementById('sfreq').value;
-            document.querySelectorAll('#med-container-sub .med-row').forEach(row => {
-                const m = row.querySelector('.smed-name').value;
-                const q = row.querySelector('.smed-qty').value;
-                const u = row.querySelector('.smed-usage').value;
-                if(m && q) { meds.push(`${m} (${q}) [Usage: ${u}]`); waMsg += `• *${m}*: ${q} (Use: ${u})%0A`; }
-            });
-            waMsg += `*Frequency:* ${freq}%0A`;
-        }
-        if(!name || !phone || meds.length === 0 || (dType === 'Home Delivery' && !addr)) { alert("Please fill all required fields marked with *"); return; }
-        try { fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ name, phone, order: meds.join(", "), type, address: addr || 'Pickup' }) }); } catch (e) {}
-        const finalMsg = `*NEW ${type.toUpperCase()} REQUEST*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Delivery:* ${dType}%0A*Address:* ${addr || 'Pickup'}%0A%0A*Items:*%0A${waMsg}`;
-        window.open(`https://wa.me/923055047345?text=${finalMsg}`, '_blank');
-    }
-    function sendRx() { window.open(`https://wa.me/923055047345?text=*PRESCRIPTION ORDER*%0A(Sending photo below)`, '_blank'); }
-</script>
-</body>
-</html>
+            document.querySelectorAll('#med-container-sub .med-row').
