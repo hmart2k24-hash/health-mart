@@ -6,7 +6,13 @@
     <title>Health Mart | Digital Pharmacy</title>
     
     <link rel="icon" type="image/png" href="icon.png">
-    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3E6CB5">
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+      }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
