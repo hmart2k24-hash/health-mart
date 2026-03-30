@@ -25,6 +25,7 @@
         .container { max-width: 450px; margin: 0 auto; padding: 20px; flex-grow: 1; width: 100%; box-sizing: border-box; }
 
         .card { background: var(--white); border-radius: 24px; padding: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-decoration: none; color: inherit; }
+        .card:active { transform: scale(0.98); }
         .card-icon { width: 45px; height: 45px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
         .icon-blue { background: #eef4ff; color: var(--secondary); }
         .icon-gold { background: #fff8e1; color: #fbc02d; }
@@ -142,8 +143,19 @@
         <button class="btn-main" onclick="processOrder('Subscription')">Start Subscription</button>
     </div>
 
+    <div id="upload-form" class="form-section">
+        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Home</button>
+        <div style="text-align:center; padding: 20px;">
+            <i class="fas fa-file-medical" style="font-size: 50px; color: var(--primary); margin-bottom: 15px;"></i>
+            <p style="font-size: 13px;">Open WhatsApp to send us a photo of your prescription.</p>
+            <button class="btn-main" style="background: #25D366; margin-top:20px;" onclick="sendPrescription()">
+                <i class="fab fa-whatsapp"></i> Open Camera
+            </button>
+        </div>
+    </div>
+
     <div id="review-popup">
-        <span class="close-popup" onclick="closePopup()">&times;</span>
+        <span class="close-popup" onclick="closePopup()">×</span>
         <div class="stars" style="margin-bottom:10px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
         <b style="font-size:16px; color:var(--secondary); display:block; margin-bottom:10px;">Enjoying the app?</b>
         <p style="font-size:12px; color:#777; margin-bottom:20px;">Support Health Mart by leaving a quick review on Google.</p>
@@ -171,7 +183,7 @@
         if(!localStorage.getItem('reviewDismissed')) {
             document.getElementById('review-popup').classList.add('show');
         }
-    }, 60000); // 1 minute delay
+    }, 60000);
 
     function closePopup() {
         document.getElementById('review-popup').classList.remove('show');
@@ -206,7 +218,11 @@
         try { fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ name, phone, order: meds.join(", "), qty: totalQty.join(", "), type, address: addr || 'Pickup' }) }); } catch (e) {}
         window.open(`https://wa.me/923055047345?text=*NEW ORDER: HEALTH MART*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Type:* ${type}%0A*Delivery:* ${dType}%0A*Address:* ${addr || 'Pickup'}%0A%0A*Items:*%0A${waMsg}`, '_blank');
     }
-    function sendRx() { window.open(`https://wa.me/923055047345?text=*PRESCRIPTION ORDER*%0A(Sending photo below)`, '_blank'); }
+
+    // FIXED SEND PRESCRIPTION FUNCTION
+    function sendPrescription() {
+        window.open(`https://wa.me/923055047345?text=*PRESCRIPTION ORDER*%0A(I am sending a photo of my prescription below)`, '_blank');
+    }
 </script>
 </body>
 </html>
