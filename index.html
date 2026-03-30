@@ -126,6 +126,14 @@
             font-size: 14px;
         }
 
+        .input-hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
         input, textarea, select {
             width: 100%;
             padding: 16px;
@@ -175,16 +183,6 @@
             gap: 8px;
         }
 
-        .upload-box {
-            border: 2px dashed var(--primary-teal);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--dark-blue);
-            background-color: #fafdfd;
-        }
-
         footer {
             text-align: center;
             padding: 30px 20px;
@@ -200,12 +198,6 @@
             font-weight: 600;
             margin-bottom: 10px;
         }
-        
-        .urdu-address {
-            font-size: 16px;
-            margin-top: 8px;
-            color: #555;
-        }
 
         .required::after {
             content: "*";
@@ -217,154 +209,4 @@
 <body>
 
     <header>
-        <svg class="logo-svg" viewBox="0 0 1017 608" xmlns="http://www.w3.org/2000/svg">
-            <path d="M312.3 0H704.7C721.2 0 734.7 13.4 734.7 30V159.9C734.7 176.4 721.2 189.9 704.7 189.9H312.3C295.7 189.9 282.3 176.4 282.3 159.9V30C282.3 13.4 295.7 0 312.3 0Z" fill="#78D1DA"/>
-            <path d="M508.5 45.4C497.1 45.4 487.8 54.7 487.8 66.1V124C487.8 135.4 497.1 144.7 508.5 144.7H511.5C522.9 144.7 532.2 135.4 532.2 124V66.1C532.2 54.7 522.9 45.4 511.5 45.4H508.5Z" fill="white"/>
-            <path d="M584.2 81.3H638.2V135.2H584.2V81.3Z" fill="white"/>
-            <path d="M510.6 86.6L533 109M510.6 109L533 86.6" stroke="white" stroke-width="6" stroke-linecap="round"/>
-            <path d="M482.7 66.8L505.1 89.2M482.7 89.2L505.1 66.8" stroke="white" stroke-width="6" stroke-linecap="round"/>
-            <path d="M510.6 66.8L533 89.2M510.6 89.2L533 66.8" stroke="white" stroke-width="6" stroke-linecap="round"/>
-            <path d="M371.3 158.7C371.3 226.5 423 281.4 487.1 281.4C551.2 281.4 602.8 226.5 602.8 158.7H371.3Z" fill="white"/>
-            <path d="M508.5 210.5C497.1 210.5 487.8 219.8 487.8 231.2V289.1C487.8 300.5 497.1 309.8 508.5 309.8H511.5C522.9 309.8 532.2 300.5 532.2 289.1V231.2C532.2 219.8 522.9 210.5 511.5 210.5H508.5Z" fill="#3E6CB5"/>
-            <path d="M374.3 282.6C374.3 350.4 425.9 405.3 490.1 405.3C554.1 405.3 605.8 350.4 605.8 282.6H374.3Z" fill="#78D1DA"/>
-            <path d="M371.3 158.7H602.8C602.8 226.5 551.2 281.4 487.1 281.4C423 281.4 371.3 226.5 371.3 158.7Z" fill="white"/>
-            <path d="M309.3 274.6H707.7C724.2 274.6 737.7 288 737.7 304.6V562.6C737.7 579.1 724.2 592.6 707.7 592.6H309.3C292.8 592.6 279.3 579.1 279.3 562.6V304.6C279.3 288 292.8 274.6 309.3 274.6Z" fill="#78D1DA"/>
-            <path d="M490.1 292.3V405.3C554.1 405.3 605.8 350.4 605.8 282.6H490.1V292.3Z" fill="#3E6CB5"/>
-            <path d="M482.7 329.5V363.4" stroke="white" stroke-width="8" stroke-linecap="round"/>
-            <path d="M465.7 346.5H499.6" stroke="white" stroke-width="8" stroke-linecap="round"/>
-            <path d="M407.7 274.6L299.8 592.6" stroke="white" stroke-width="12" stroke-linecap="round"/>
-            <path d="M313.1 536.8L370.4 564.1C387.8 572.4 408.2 572.2 425.4 563.6C466.8 543 516.1 528.2 568.1 528.2V528.2C611.8 528.2 653.6 539.1 690.4 558.8C701.3 564.6 714.4 562 722.1 552.5L749.5 519.1" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M428.1 329.5V363.4" stroke="white" stroke-width="8" stroke-linecap="round"/>
-            <path d="M411.2 346.5H445" stroke="white" stroke-width="8" stroke-linecap="round"/>
-            <path d="M455.4 329.5V363.4" stroke="white" stroke-width="8" stroke-linecap="round"/>
-            <path d="M438.5 346.5H472.3" stroke="white" stroke-width="8" stroke-linecap="round"/>
-            <path d="M608 21.6H668.6V82.2H608V21.6Z" fill="white"/>
-            <path d="M510.6 86.6L533 109M510.6 109L533 86.6" stroke="white" stroke-width="6" stroke-linecap="round"/>
-            <path d="M621.7 41.7L644.1 64.1M621.7 64.1L644.1 41.7" stroke="white" stroke-width="6" stroke-linecap="round"/>
-            <path d="M638.2 41.7V64.1M627.1 52.9H649.4" stroke="white" stroke-width="6" stroke-linecap="round"/>
-            <path d="M652.7 41.7L675 64.1M652.7 64.1L675 41.7" stroke="white" stroke-width="6" stroke-linecap="round"/>
-        </svg>
-        <div class="brand-name">Health Mart</div>
-        <div class="brand-subline">Pharmacy</div>
-    </header>
-
-    <div class="container">
-        <div id="home-screen" class="menu-grid">
-            <div class="btn-large" onclick="showForm('order-form')">
-                <i class="fas fa-pills"></i>
-                <span>Order Medicines</span>
-            </div>
-            
-            <div class="btn-large" onclick="showForm('upload-form')">
-                <i class="fas fa-file-prescription"></i>
-                <span>Upload Prescription</span>
-            </div>
-
-            <a href="https://wa.me/923055047345" class="btn-large" target="_blank">
-                <i class="fab fa-whatsapp" style="color: #25D366;"></i>
-                <span>WhatsApp Pharmacy</span>
-            </a>
-            
-            <a href="tel:03055047345" class="btn-large">
-                <i class="fas fa-phone-alt"></i>
-                <span>Call Us Now</span>
-            </a>
-        </div>
-
-        <div id="order-form" class="form-section">
-            <button class="back-btn" onclick="showHome()">
-                <i class="fas fa-arrow-left"></i> Back to Home
-            </button>
-            <h3>New Order Details</h3>
-            <label class="required">Full Name</label>
-            <input type="text" id="cust-name" placeholder="Enter your name">
-            <label class="required">Phone Number</label>
-            <input type="tel" id="cust-phone" placeholder="e.g., 03055047345">
-            <label class="required">Medicine Names & Quantity</label>
-            <textarea id="med-list" rows="5" placeholder="List medicines one by one"></textarea>
-            <label class="required">Receive Option</label>
-            <select id="delivery-type" onchange="toggleAddressField(this.value)">
-                <option value="Store Pickup">Store Pickup</option>
-                <option value="Home Delivery">Home Delivery</option>
-            </select>
-            <div id="address-wrapper">
-                <label class="required">Delivery Address</label>
-                <textarea id="cust-address" rows="3" placeholder="Enter full address in Gujar Khan"></textarea>
-            </div>
-            <button class="submit-btn" onclick="sendOrder()">Submit Order</button>
-        </div>
-
-        <div id="upload-form" class="form-section">
-            <button class="back-btn" onclick="showHome()">
-                <i class="fas fa-arrow-left"></i> Back to Home
-            </button>
-            <h3>Upload Prescription</h3>
-            <div class="upload-box">
-                <i class="fas fa-camera" style="font-size: 30px; margin-bottom: 10px;"></i>
-                <p>Take a picture of your prescription</p>
-            </div>
-            <input type="file" id="rx-file" accept="image/*" capture="camera">
-            <label>Additional Note (Optional)</label>
-            <textarea id="rx-note" rows="3"></textarea>
-            <button class="submit-btn" onclick="sendPrescription()">Submit Prescription</button>
-        </div>
-    </div>
-
-    <footer>
-        <div class="contact-info">Call/WhatsApp: 0305-5047345</div>
-        <div>Shop 4, Near Sarwar Shaheed College, Gujar Khan</div>
-        <div class="urdu-address">شاپ 4، نزد سرور شہید کالج، گوجرخان</div>
-    </footer>
-
-    <script>
-        function showForm(id) {
-            document.getElementById('home-screen').style.display = 'none';
-            document.getElementById(id).style.display = 'block';
-            window.scrollTo(0,0);
-        }
-
-        function showHome() {
-            const forms = document.getElementsByClassName('form-section');
-            for(let form of forms) { form.style.display = 'none'; }
-            document.getElementById('home-screen').style.display = 'grid';
-        }
-
-        function toggleAddressField(value) {
-            const wrapper = document.getElementById('address-wrapper');
-            wrapper.style.display = (value === 'Home Delivery') ? 'block' : 'none';
-        }
-
-        async function sendOrder() {
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const meds = document.getElementById('med-list').value;
-            const type = document.getElementById('delivery-type').value;
-            const address = document.getElementById('cust-address').value;
-
-            if (!name || !phone || !meds || (type === 'Home Delivery' && !address)) {
-                alert("Please fill all required fields.");
-                return;
-            }
-
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyTcrW1ScJgdyZjl6XH5aXmlR7C1TQbb2_KSjLv6Gt25XkeHoeQjb3ElMv-J16SNjw-/exec'; 
-
-            try {
-                fetch(scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify({ name, phone, order: meds, type, address: address || 'Pickup' })
-                });
-            } catch (e) { console.error(e); }
-
-            const msg = `*New Order: Health Mart*%0AName: ${name}%0APhone: ${phone}%0AType: ${type}%0AAddress: ${address || 'Pickup'}%0AOrder: ${meds}`;
-            window.open(`https://wa.me/923055047345?text=${msg}`, '_blank');
-        }
-
-        function sendPrescription() {
-            const note = document.getElementById('rx-note').value;
-            const msg = `*Prescription Upload: Health Mart*%0ANote: ${note}%0A(Please send the photo now)`;
-            window.open(`https://wa.me/923055047345?text=${msg}`, '_blank');
-        }
-    </script>
-</body>
-</html>
+        <svg class="logo-svg" viewBox="0 0 1017 608" xmlns="http://www.w3.
