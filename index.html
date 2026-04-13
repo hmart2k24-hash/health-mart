@@ -68,7 +68,7 @@
         </div>
         <div class="card" onclick="openPage('sub-page')">
             <div class="card-icon icon-gold"><i class="fas fa-crown"></i></div>
-            <div class="card-text"><b>Medicine Subscription</b><span>VIP: Free delivery & refills</span></div>
+            <div class="card-text"><b>Subscription Program</b><span>VIP: Free delivery & refills</span></div>
         </div>
         <div class="card" onclick="window.location.href='https://wa.me/923055047345?text=*PRESCRIPTION*'">
             <div class="card-icon icon-teal"><i class="fas fa-camera"></i></div>
@@ -105,7 +105,7 @@
 
     <div id="sub-page" class="page-view">
         <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Home</button>
-        <h3>VIP Subscription</h3>
+        <h3>Subscription Program</h3>
         <label>Patient Name</label><input type="text" id="sub-name" placeholder="Enter Patient Name">
         <label>WhatsApp Number</label><input type="tel" id="sub-phone" placeholder="03XXXXXXXXX">
         
@@ -124,7 +124,7 @@
             <option value="Monthly Refill">Monthly Refill</option>
             <option value="Weekly Refill">Weekly Refill</option>
         </select>
-        <button class="btn-main" onclick="sendSub()">Start VIP Setup</button>
+        <button class="btn-main" onclick="sendSub()">Join Subscription Program</button>
     </div>
 
     <div id="history-page" class="page-view">
@@ -225,7 +225,7 @@
 
         if(!n || !p || !waItems) return alert("Fill all fields");
         fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify({ name:n, phone:p, order: "VIP: "+sheetItems, qty: pl, type: "SUBSCRIPTION", address: "VIP CLIENT" })});
-        window.location.href = "https://wa.me/923055047345?text=*VIP SUBSCRIPTION REQUEST*%0A*Name:* "+n+"%0A*Plan:* "+pl+"%0A*Meds:*%0A"+waItems;
+        window.location.href = "https://wa.me/923055047345?text=*SUBSCRIPTION PROGRAM REQUEST*%0A*Name:* "+n+"%0A*Plan:* "+pl+"%0A*Meds:*%0A"+waItems;
     }
 </script>
 </body>
