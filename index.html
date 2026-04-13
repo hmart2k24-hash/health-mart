@@ -3,286 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Health Mart | Your Digital Pharmacy</title>
-    
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="apple-touch-icon" href="favicon.png">
-    <link rel="manifest" href="manifest.json">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Vitality | Premium Pharmacy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        :root { 
-            --primary: #78D1DA; 
-            --secondary: #3E6CB5; 
-            --bg: #F8FAFC; 
-            --white: #ffffff; 
-            --gold: #FFB800;
-            --whatsapp: #25D366;
-            --shadow: 0 10px 30px -10px rgba(62, 108, 181, 0.12);
+        :root {
+            --brand-main: #0D9488;
+            --brand-secondary: #3E6CB5;
+            --bg-light: #F8FAFC;
+            --white: #ffffff;
+            --text-dark: #0F172A;
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            padding-bottom: 100px;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            padding: 50px 24px 30px;
+            background: linear-gradient(135deg, #0f766e, var(--brand-main));
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.1);
+        }
+
+        .welcome-msg h2 { font-size: 24px; font-weight: 800; margin: 0; }
+        .welcome-msg p { opacity: 0.8; font-size: 14px; margin-top: 5px; }
+
+        .container { padding: 24px; max-width: 500px; margin: 0 auto; }
+
+        /* DASHBOARD CARDS */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: -40px; }
+        
+        .card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+            border: 1px solid rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            height: 140px;
+            justify-content: space-between;
+        }
+
+        .card:active { transform: scale(0.95); background: #f1f5f9; }
+        .card i { font-size: 22px; color: var(--brand-main); }
+        .card b { font-size: 15px; display: block; margin-top: 10px; }
+        .card span { font-size: 11px; color: #64748B; }
+
+        /* FORM OVERLAYS */
+        .page-view { display: none; animation: slideUp 0.4s ease; background: var(--bg-light); min-height: 100vh; }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        h3 { font-size: 20px; font-weight: 800; color: var(--brand-main); margin-bottom: 20px; }
+        
+        input { 
+            width: 100%; padding: 16px; border-radius: 16px; border: 1.5px solid #E2E8F0; 
+            margin-bottom: 15px; background: white; font-size: 15px; outline: none;
         }
         
-        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
-
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--bg); 
-            margin: 0; 
-            display: flex; 
-            flex-direction: column; 
-            min-height: 100vh; 
-            color: #1E293B; 
+        .btn-main {
+            width: 100%; padding: 18px; border-radius: 18px; border: none;
+            background: var(--brand-main); color: white; font-weight: 700; font-size: 16px;
         }
 
-        header { 
-            background: var(--white); 
-            padding: 20px; 
-            text-align: center; 
-            border-bottom: 1px solid rgba(0,0,0,0.03);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-            position: sticky;
-            top: 0;
-            z-index: 1100;
+        /* ORDER HISTORY STYLING */
+        .history-item {
+            background: white; padding: 18px; border-radius: 20px; margin-bottom: 12px;
+            border: 1px solid #E2E8F0;
+        }
+        .status-pill {
+            display: inline-block; padding: 4px 10px; border-radius: 10px; font-size: 10px;
+            font-weight: 800; text-transform: uppercase; background: #f1f5f9;
         }
 
-        .header-logo { width: 120px; height: auto; }
-        
-        .container { 
-            max-width: 450px; 
-            margin: 0 auto; 
-            padding: 20px; 
-            flex-grow: 1; 
-            width: 100%; 
+        /* BOTTOM NAV */
+        .bottom-nav {
+            position: fixed; bottom: 20px; left: 20px; right: 20px;
+            background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            height: 75px; border-radius: 25px; display: flex; justify-content: space-around;
+            align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 1000;
         }
 
-        /* CARD IMPROVEMENTS */
-        .card { 
-            background: var(--white); 
-            border-radius: 20px; 
-            padding: 20px; 
-            margin-bottom: 16px; 
-            display: flex; 
-            align-items: center; 
-            gap: 16px; 
-            cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(0,0,0,0.04);
-            box-shadow: var(--shadow);
-            text-decoration: none; 
-            color: inherit; 
-        }
+        .nav-item { text-align: center; text-decoration: none; color: #94A3B8; font-weight: 700; font-size: 10px; }
+        .nav-item i { font-size: 20px; display: block; margin-bottom: 4px; }
+        .nav-item.active { color: var(--brand-main); }
 
-        .card:active { transform: scale(0.96); background-color: #F1F5F9; }
-        
-        .card-icon { 
-            width: 54px; 
-            height: 54px; 
-            border-radius: 16px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 22px; 
-            flex-shrink: 0;
-        }
-
-        .icon-blue { background: #EFF6FF; color: var(--secondary); }
-        .icon-gold { background: #FFFBEB; color: var(--gold); }
-        .icon-teal { background: #F0FDFA; color: #0D9488; }
-        .icon-green { background: #F0FDF4; color: var(--whatsapp); }
-
-        .card-text b { display: block; font-size: 16px; color: #0F172A; font-weight: 700; margin-bottom: 2px;}
-        .card-text span { font-size: 12px; color: #64748B; font-weight: 500;}
-
-        /* FORM SECTION IMPROVEMENTS */
-        .form-section { 
-            display: none; 
-            background: var(--white); 
-            padding: 24px; 
-            border-radius: 24px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
-            animation: slideIn 0.3s ease-out; 
-        }
-
-        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        h3 { font-size: 20px; color: var(--secondary); margin-bottom: 24px; font-weight: 800; text-align: left; }
-        
-        label { display: block; font-size: 12px; font-weight: 700; color: #94A3B8; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        input, select, textarea { 
-            width: 100%; 
-            padding: 16px; 
-            border: 1.5px solid #E2E8F0; 
-            border-radius: 14px; 
-            margin-bottom: 16px; 
-            font-size: 15px; 
-            background: #F8FAFC; 
-            transition: all 0.2s;
-            color: #1E293B;
-        }
-
-        input:focus { outline: none; border-color: var(--secondary); background: white; box-shadow: 0 0 0 4px rgba(62, 108, 181, 0.1); }
-
-        .btn-main { 
-            background: var(--secondary); 
-            color: white; 
-            padding: 18px; 
-            width: 100%; 
-            border: none; 
-            border-radius: 16px; 
-            font-weight: 700; 
-            font-size: 16px; 
-            cursor: pointer;
-            box-shadow: 0 10px 20px -5px rgba(62, 108, 181, 0.3);
-        }
-
-        .btn-whatsapp-action { background: var(--whatsapp); box-shadow: 0 10px 20px -5px rgba(37, 211, 102, 0.3); }
-
-        /* REVIEW CARD MOD */
-        .review-card { 
-            background: linear-gradient(135deg, #ffffff 0%, #F8FAFC 100%);
-            border-radius: 20px; 
-            padding: 20px; 
-            margin-bottom: 20px; 
-            text-align: center; 
-            border: 1px dashed #E2E8F0;
-            text-decoration: none; 
-            display: block; 
-        }
-
-        .stars { color: var(--gold); font-size: 20px; margin-bottom: 8px; }
-
-        /* BOTTOM NAV IMPROVEMENTS */
-        .bottom-nav { 
-            position: fixed; 
-            bottom: 20px; 
-            left: 20px; 
-            right: 20px; 
-            background: rgba(255, 255, 255, 0.9); 
-            backdrop-filter: blur(15px);
-            display: flex; 
-            justify-content: space-around; 
-            padding: 12px; 
-            border-radius: 24px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-            z-index: 1000; 
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-
-        .nav-link { text-align: center; text-decoration: none; color: #94A3B8; font-size: 11px; font-weight: 700; flex: 1; transition: 0.2s; }
-        .nav-link i { font-size: 22px; display: block; margin-bottom: 4px; }
-        .nav-link.active { color: var(--secondary); }
-
-        .footer-text { text-align: center; font-size: 10px; color: #CBD5E1; font-weight: 700; letter-spacing: 1.5px; padding: 40px 0 120px 0; }
+        .btn-back { background: none; border: none; color: var(--brand-main); font-weight: 700; margin-bottom: 20px; font-size: 14px; }
     </style>
 </head>
 <body>
 
-<header><img src="image.png.png" alt="Health Mart Logo" class="header-logo"></header>
-
-<div class="container">
-    <div id="home-screen">
-        <div class="card" onclick="showForm('order-form')">
-            <div class="card-icon icon-blue"><i class="fas fa-shopping-basket"></i></div>
-            <div class="card-text"><b>Buy Medicines</b><span>Instant order for home delivery</span></div>
-        </div>
-        <div class="card" onclick="showForm('sub-form')">
-            <div class="card-icon icon-gold"><i class="fas fa-crown"></i></div>
-            <div class="card-text"><b>Medicine Subscription</b><span>VIP: Automatic monthly refills</span></div>
-        </div>
-        <div class="card" onclick="showForm('upload-form')">
-            <div class="card-icon icon-teal"><i class="fas fa-camera"></i></div>
-            <div class="card-text"><b>Send Prescription</b><span>Upload photo via WhatsApp</span></div>
-        </div>
-        <a href="https://wa.me/923055047345?text=*CONSULTANCY REQUEST*" class="card">
-            <div class="card-icon icon-green"><i class="fas fa-user-md"></i></div>
-            <div class="card-text"><b>Free Consultancy</b><span>Chat with our qualified pharmacist</span></div>
-        </a>
-
-        <a href="https://g.co/kgs/zRG68jD" class="review-card" target="_blank">
-            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <div style="font-size: 13px; color: #475569; font-weight: 600;">Trusted by 500+ Patients in Gujar Khan</div>
-        </a>
-    </div>
-
-    <div id="order-form" class="form-section">
-        <button class="btn-back" style="border:none; background:none; color:var(--secondary); font-weight:700; margin-bottom:15px; cursor:pointer;" onclick="showHome()"><i class="fas fa-chevron-left"></i> Back</button>
-        <h3>Order Details</h3>
-        <label class="required">Customer Name</label>
-        <input type="text" id="name" placeholder="Enter your full name">
-        
-        <label class="required">WhatsApp Number</label>
-        <input type="tel" id="phone" placeholder="03XXXXXXXXX">
-        
-        <label class="required">Medicines Needed</label>
-        <div id="med-container-order">
-            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                <input type="text" class="oname" placeholder="Medicine Name" style="flex: 2; margin-bottom:0;">
-                <input type="text" class="oqty" placeholder="Qty" style="flex: 1; margin-bottom:0;">
+    <div id="home-page">
+        <header>
+            <div class="welcome-msg">
+                <h2 id="greeting">Good Morning</h2>
+                <p>Welcome to Vitality Pharmacy</p>
             </div>
-        </div>
-        <button onclick="addMedField('med-container-order')" style="background:none; border:1.5px dashed var(--primary); color:var(--secondary); width:100%; padding:12px; border-radius:12px; font-weight:700; margin-bottom:20px; font-size:13px;">+ Add Another Item</button>
-        
-        <label class="required">Delivery Type</label>
-        <select id="dtype" onchange="toggleDelivery(this.value, 'notice1', 'addr1')">
-            <option value="Pickup">I will pick up from store</option>
-            <option value="Home Delivery">Home Delivery</option>
-        </select>
-        
-        <div id="notice1" style="background:#FFFBEB; border:1px solid #FEF3C7; padding:12px; border-radius:12px; font-size:12px; margin-bottom:15px; display:none; color:#92400E;">Free Home Delivery on orders above PKR 1000 (within 5km).</div>
-        
-        <div id="addr1" style="display:none;">
-            <label class="required">Delivery Address</label>
-            <textarea id="address1" rows="2" placeholder="House #, Street, Area Name" style="width: 100%; padding: 16px; border: 1.5px solid #E2E8F0; border-radius: 14px; background: #F8FAFC; font-family: inherit;"></textarea>
-        </div>
-        
-        <button class="btn-main" onclick="processOrder('Normal')">Confirm & Order via WhatsApp</button>
-    </div>
+        </header>
 
-    <div class="footer-text">HEALTH MART PHARMACY • GUJAR KHAN</div>
-</div>
-
-<div class="bottom-nav">
-    <a href="#" class="nav-link active" onclick="showHome()"><i class="fas fa-house"></i><span>Home</span></a>
-    <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone"></i><span>Call</span></a>
-    <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
-</div>
-
-<script>
-    // Animations and Logic
-    function showForm(id) { 
-        document.getElementById('home-screen').style.display = 'none'; 
-        document.getElementById(id).style.display = 'block'; 
-        window.scrollTo({top: 0, behavior: 'smooth'}); 
-    }
-
-    function showHome() { 
-        const sections = document.querySelectorAll('.form-section'); 
-        sections.forEach(s => s.style.display = 'none'); 
-        document.getElementById('home-screen').style.display = 'block'; 
-    }
-
-    function toggleDelivery(val, noticeId, addrId) { 
-        if(noticeId !== 'none') document.getElementById(noticeId).style.display = (val === 'Home Delivery') ? 'block' : 'none'; 
-        document.getElementById(addrId).style.display = (val === 'Home Delivery') ? 'block' : 'none'; 
-    }
-
-    // Add function for medicines with better styling
-    function addMedField(id) { 
-        const div = document.createElement('div'); 
-        div.style.display = "flex";
-        div.style.gap = "10px";
-        div.style.marginBottom = "10px";
-        div.innerHTML = `<input type="text" class="oname" placeholder="Medicine Name" style="flex: 2; margin-bottom:0;"><input type="text" class="oqty" placeholder="Qty" style="flex: 1; margin-bottom:0;">`; 
-        document.getElementById(id).appendChild(div); 
-    }
-
-    // Process logic remains identical to your working Google Sheets integration
-    // ... (Your processOrder and sendPrescription functions go here)
-</script>
-</body>
-</html>
+        <div class="container">
+            <div class="grid">
+                <a href="#" class="card" onclick="showPage('order-page')">
+                    <i class="fas fa-shopping-basket"></i>
+                    <div><b>Buy Medicine</b><span>Quick Order</span></div>
+                </a>
+                <a
