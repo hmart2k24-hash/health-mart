@@ -48,8 +48,8 @@
         .btn-back { border: none; background: none; color: #94A3B8; font-weight: 600; margin-bottom: 15px; cursor: pointer; }
 
         /* HISTORY */
-        .history-item { background: #f9f9f9; padding: 15px; border-radius: 15px; margin-bottom: 10px; border: 1px solid #eee; position: relative; }
-        .status-tag { font-size: 10px; font-weight: 800; color: var(--secondary); position: absolute; top: 15px; right: 15px; }
+        .history-item { background: #f9f9f9; padding: 15px; border-radius: 15px; margin-bottom: 10px; border: 1px solid #eee; position: relative; text-align: left; }
+        .history-status { font-size: 10px; font-weight: 800; color: var(--secondary); position: absolute; top: 15px; right: 15px; text-transform: uppercase; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 12px 0 25px 0; border-top-left-radius: 25px; border-top-right-radius: 25px; box-shadow: 0 -10px 25px rgba(0,0,0,0.05); z-index: 1000; }
         .nav-link { text-align: center; text-decoration: none; color: #bbb; font-size: 10px; font-weight: 600; flex: 1; }
@@ -78,126 +78,4 @@
             <div class="card-icon icon-purple"><i class="fas fa-history"></i></div>
             <div class="card-text"><b>Order History</b><span>Check status of your orders</span></div>
         </div>
-        <a href="https://wa.me/923055047345?text=*CONSULTANCY REQUEST*" class="card">
-            <div class="card-icon icon-green"><i class="fas fa-user-md"></i></div>
-            <div class="card-text"><b>For Consultancy</b><span>Expert advice from our pharmacist</span></div>
-        </a>
-    </div>
-
-    <div id="order-form" class="form-section">
-        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Back</button>
-        <h3>Place Order</h3>
-        <label class="required">Customer Name</label><input type="text" id="name" placeholder="Full Name">
-        <label class="required">WhatsApp Number</label><input type="tel" id="phone" placeholder="03XXXXXXXXX">
-        
-        <label class="required">Medicines</label>
-        <div id="med-list">
-            <div class="med-row"><input type="text" class="m-name" placeholder="Medicine Name" style="flex:2;"><input type="text" class="m-qty" placeholder="Qty" style="flex:1;"></div>
-        </div>
-        <button class="btn-add" onclick="addMedicine()">+ Add More Medicine</button>
-
-        <label class="required">Delivery Option</label>
-        <select id="delivery-type" onchange="toggleAddress(this.value)">
-            <option value="Pickup">Store Pickup</option>
-            <option value="Home Delivery">Home Delivery</option>
-        </select>
-
-        <div id="address-box" style="display:none;">
-            <label class="required">Delivery Address</label>
-            <textarea id="address" rows="2" placeholder="Full Street Address"></textarea>
-        </div>
-
-        <button class="btn-main" onclick="submitOrder()">Confirm Order</button>
-    </div>
-
-    <div id="history-page" class="form-section">
-        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Back</button>
-        <h3>My Account</h3>
-        <input type="tel" id="lookup-phone" placeholder="Enter Registered Phone Number">
-        <button class="btn-main" id="fetch-btn" onclick="fetchHistory()">View My Orders</button>
-        <div id="history-results" style="margin-top:20px;"></div>
-    </div>
-
-    <div id="upload-form" class="form-section">
-        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Back</button>
-        <div style="text-align:center; padding: 20px;">
-            <i class="fas fa-file-medical" style="font-size: 50px; color: var(--primary); margin-bottom: 15px;"></i>
-            <p style="font-size: 13px;">Send us a photo of your prescription on WhatsApp.</p>
-            <button class="btn-main" style="background: #25D366;" onclick="window.open('https://wa.me/923055047345?text=*PRESCRIPTION*')">Open WhatsApp</button>
-        </div>
-    </div>
-</div>
-
-<div class="bottom-nav">
-    <a href="#" class="nav-link active" onclick="showHome()"><i class="fas fa-home"></i><span>Home</span></a>
-    <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone-alt"></i><span>Call</span></a>
-    <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
-</div>
-
-<script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzEgFc5kKUIvD8i8zngJ79jVHEpWWu-sC8fe4OEMZ-GL7_Z1xxq-zN1VME7xMXFghgd/exec';
-
-    function showForm(id) {
-        document.getElementById('home-screen').style.display = 'none';
-        document.querySelectorAll('.form-section').forEach(f => f.style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
-
-    function showHome() {
-        document.querySelectorAll('.form-section').forEach(f => f.style.display = 'none');
-        document.getElementById('home-screen').style.display = 'block';
-    }
-
-    function addMedicine() {
-        const div = document.createElement('div');
-        div.className = 'med-row';
-        div.innerHTML = `<input type="text" class="m-name" placeholder="Medicine Name" style="flex:2;"><input type="text" class="m-qty" placeholder="Qty" style="flex:1;">`;
-        document.getElementById('med-list').appendChild(div);
-    }
-
-    function toggleAddress(val) {
-        document.getElementById('address-box').style.display = (val === 'Home Delivery') ? 'block' : 'none';
-    }
-
-    async function fetchHistory() {
-        const phone = document.getElementById('lookup-phone').value;
-        if(!phone) return alert("Enter your number");
-        document.getElementById('fetch-btn').innerText = "Searching...";
-
-        try {
-            const response = await fetch(`${SCRIPT_URL}?phone=${phone}`);
-            const data = await response.json();
-            if(data.success) {
-                let html = `<p style="font-size:14px; font-weight:700;">Welcome, ${data.name}</p>`;
-                data.history.forEach(o => {
-                    html += `<div class="history-item">
-                        <span class="status-tag">${o.status}</span>
-                        <div style="font-size:10px; color:#aaa;">${o.date}</div>
-                        <div style="font-size:13px; font-weight:600; margin-top:5px;">${o.items}</div>
-                    </div>`;
-                });
-                document.getElementById('history-results').innerHTML = html;
-            } else { alert("No records found."); }
-        } catch (e) { alert("Error connecting."); }
-        document.getElementById('fetch-btn').innerText = "View My Orders";
-    }
-
-    function submitOrder() {
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const dtype = document.getElementById('delivery-type').value;
-        const addr = document.getElementById('address').value;
-        let items = "";
-        document.querySelectorAll('.med-row').forEach(row => {
-            const m = row.querySelector('.m-name').value;
-            const q = row.querySelector('.m-qty').value;
-            if(m) items += `• ${m}: ${q}%0A`;
-        });
-
-        if(!name || !phone || !items) return alert("Fill all fields");
-        const msg = `*NEW ORDER*%0A*Name:* ${name}%0A*Delivery:* ${dtype}%0A*Address:* ${addr || 'Pickup'}%0A*Items:*%0A${items}`;
-        window.open(`https://wa.me/923055047345?text=${msg}`, '_blank');
-    }
-</script>
-</body>
-</html>
+        <a href="
