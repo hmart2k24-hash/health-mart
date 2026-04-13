@@ -35,44 +35,22 @@
         .card-text b { display: block; font-size: 15px; color: #222; }
         .card-text span { font-size: 11px; color: #888; }
 
-        .review-card { background: var(--white); border-radius: 24px; padding: 20px; margin-bottom: 12px; text-align: center; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-decoration: none; display: block; }
-        .stars { color: var(--gold); font-size: 24px; margin-bottom: 5px; }
-        .review-text { font-size: 12px; color: #666; font-weight: 600; }
-
-        .social-row { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
-        .social-btn { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: white; color: var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-decoration: none; font-size: 20px; }
-
-        /* FORM STYLES */
         .form-section { display: none; background: var(--white); padding: 25px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); animation: fadeInUp 0.4s ease; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
         h3 { font-size: 18px; color: var(--secondary); margin-bottom: 20px; text-align: center; }
         label { display: block; font-size: 11px; font-weight: 700; color: #aaa; margin-bottom: 8px; text-transform: uppercase; }
         .required::after { content: " *"; color: #ff4d4d; }
         input, select, textarea { width: 100%; padding: 14px; border: 1.5px solid #f0f0f0; border-radius: 12px; margin-bottom: 12px; font-size: 14px; box-sizing: border-box; background: #fafafa; font-family: inherit; }
-        .med-row { background: #fdfdfd; border: 1px solid #eee; padding: 15px; border-radius: 15px; margin-bottom: 10px; }
         .btn-main { background: var(--secondary); color: white; padding: 16px; width: 100%; border: none; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; }
         .btn-back { border: none; background: none; color: #999; font-weight: 600; margin-bottom: 10px; cursor: pointer; }
 
-        /* HISTORY STYLING */
-        .history-item { background: #f9f9f9; padding: 15px; border-radius: 15px; margin-bottom: 10px; border: 1px solid #eee; text-align: left; }
+        .history-item { background: #f9f9f9; padding: 15px; border-radius: 15px; margin-bottom: 10px; border: 1px solid #eee; text-align: left; position: relative; }
         .history-date { font-size: 10px; color: #aaa; font-weight: 700; }
-        .history-status { font-size: 10px; font-weight: 800; color: var(--secondary); text-transform: uppercase; float: right; }
+        .history-status { font-size: 10px; font-weight: 800; color: var(--secondary); text-transform: uppercase; position: absolute; top: 15px; right: 15px; }
 
-        /* POPUP STYLES */
-        #review-popup { 
-            position: fixed; bottom: -300px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 400px; background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px); border-radius: 30px; padding: 25px;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.1); z-index: 2000;
-            text-align: center; transition: bottom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        #review-popup.show { bottom: 100px; }
-        .close-popup { position: absolute; top: 15px; right: 20px; color: #ccc; font-size: 20px; cursor: pointer; }
-
-        .footer-text { text-align: center; font-size: 10px; color: #bbb; font-weight: 600; letter-spacing: 1px; padding: 20px 0 120px 0; text-transform: uppercase; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 12px 0 25px 0; border-top-left-radius: 25px; border-top-right-radius: 25px; box-shadow: 0 -10px 25px rgba(0,0,0,0.05); z-index: 1000; }
         .nav-link { text-align: center; text-decoration: none; color: #bbb; font-size: 10px; font-weight: 600; flex: 1; }
-        .nav-link i { font-size: 20px; display: block; margin-bottom: 4px; }
         .nav-link.active { color: var(--secondary); }
     </style>
 </head>
@@ -102,21 +80,10 @@
             <div class="card-icon icon-green"><i class="fas fa-user-md"></i></div>
             <div class="card-text"><b>For Consultancy</b><span>Expert advice from our pharmacist</span></div>
         </a>
-
-        <a href="https://g.co/kgs/zRG68jD" class="review-card" target="_blank">
-            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <div class="review-text">Leave us a review on Google</div>
-        </a>
-
-        <div class="social-row">
-            <a href="https://www.facebook.com/share/1Dg9jDbDzS/?mibextid=wwXIfr" class="social-btn" style="color:#1877F2;"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.tiktok.com/@healthmartpharmacy?_r=1&_t=ZS-957aa01uUTp" class="social-btn" style="color:#000;"><i class="fab fa-tiktok"></i></a>
-            <a href="https://maps.app.goo.gl/E53pAqtkVvQrJHzf7?g_st=ic" class="social-btn" style="color:#EA4335;"><i class="fas fa-map-marker-alt"></i></a>
-        </div>
     </div>
 
     <div id="order-form" class="form-section">
-        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Home</button>
+        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Back</button>
         <h3>Place Order</h3>
         <label class="required">Customer Name</label><input type="text" id="name" placeholder="Full Name">
         <label class="required">WhatsApp Number</label><input type="tel" id="phone" placeholder="0305XXXXXXX">
@@ -124,17 +91,81 @@
         <div id="med-container-order">
             <div class="med-row"><input type="text" class="oname" placeholder="Medicine Name"><input type="text" class="oqty" placeholder="No. of Tablets"></div>
         </div>
-        <button onclick="addMedField('med-container-order')" style="background:none; border:1px dashed var(--primary); color:var(--secondary); width:100%; padding:10px; border-radius:12px; font-weight:700; margin-bottom:15px;">+ Add More Medicine</button>
-        <label class="required">Select preferred delivery method</label>
-        <select id="dtype" onchange="toggleDelivery(this.value, 'notice1', 'addr1')"><option value="Pickup">Store Pickup</option><option value="Home Delivery">Home Delivery</option></select>
-        <div id="notice1" style="background:#fff8e1; border:1px solid #ffe082; padding:12px; border-radius:12px; font-size:11px; margin-bottom:15px; display:none; color:#795548;">For free Home Delivery: Min. PKR 1000 and 5km range.</div>
-        <div id="addr1" style="display:none;"><label class="required">Address</label><textarea id="address1" rows="2" placeholder="Street/House No."></textarea></div>
         <button class="btn-main" onclick="processOrder('Normal')">Confirm Order</button>
     </div>
 
     <div id="sub-form" class="form-section">
-        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Home</button>
-        <div style="background:#e3f2fd; padding:12px; border-radius:15px; margin-bottom:15px; font-size:11px; text-align:center; font-weight:600; color:#1565c0;">VIP: Free home delivery (No min. order)</div>
+        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Back</button>
         <h3>Join Subscription</h3>
         <label class="required">Patient Name</label><input type="text" id="sname" placeholder="Full Name">
-        <label class="required">WhatsApp
+        <label class="required">WhatsApp Number</label><input type="tel" id="sphone" placeholder="0305XXXXXXX">
+        <button class="btn-main" onclick="processOrder('Subscription')">Start Subscription</button>
+    </div>
+
+    <div id="history-page" class="form-section">
+        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Back</button>
+        <h3>Check Order Status</h3>
+        <input type="tel" id="lookup-phone" placeholder="Enter Registered Phone Number">
+        <button class="btn-main" id="lookup-btn" onclick="fetchHistory()">View History</button>
+        <div id="history-results" style="margin-top:20px;"></div>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <a href="#" class="nav-link active" onclick="showHome()"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone-alt"></i><span>Call</span></a>
+    <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
+</div>
+
+<script>
+    const SCRIPT_URL_GET = 'https://script.google.com/macros/s/AKfycbzEgFc5kKUIvD8i8zngJ79jVHEpWWu-sC8fe4OEMZ-GL7_Z1xxq-zN1VME7xMXFghgd/exec';
+    const SCRIPT_URL_POST = 'https://script.google.com/macros/s/AKfycbyTcrW1ScJgdyZjl6XH5aXmlR7C1TQbb2_KSjLv6Gt25XkeHoeQjb3ElMv-J16SNjw-/exec';
+
+    function showForm(id) {
+        document.getElementById('home-screen').style.display = 'none';
+        document.querySelectorAll('.form-section').forEach(s => s.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
+    function showHome() {
+        document.querySelectorAll('.form-section').forEach(s => s.style.display = 'none');
+        document.getElementById('home-screen').style.display = 'block';
+    }
+
+    async function fetchHistory() {
+        const phone = document.getElementById('lookup-phone').value;
+        const btn = document.getElementById('lookup-btn');
+        if(!phone) return alert("Please enter phone number");
+        
+        btn.innerText = "Searching...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch(`${SCRIPT_URL_GET}?phone=${phone}`);
+            const data = await response.json();
+            if(data.success) {
+                let html = `<p style="font-weight:700; font-size:14px;">Welcome, ${data.name}</p>`;
+                data.history.forEach(order => {
+                    html += `<div class="history-item">
+                        <span class="history-status">${order.status}</span>
+                        <span class="history-date">${order.date}</span>
+                        <p style="margin:5px 0; font-weight:600; font-size:13px;">${order.items}</p>
+                    </div>`;
+                });
+                document.getElementById('history-results').innerHTML = html;
+            } else { alert("No records found."); }
+        } catch (e) { alert("Connection Error"); } finally {
+            btn.innerText = "View History"; btn.disabled = false;
+        }
+    }
+
+    async function processOrder(type) {
+        const name = (type === 'Normal') ? document.getElementById('name').value : document.getElementById('sname').value;
+        const phone = (type === 'Normal') ? document.getElementById('phone').value : document.getElementById('sphone').value;
+        if(!name || !phone) return alert("Fill all fields");
+        window.open(`https://wa.me/923055047345?text=*NEW ORDER*%0A*Name:* ${name}%0A*Phone:* ${phone}`, '_blank');
+    }
+</script>
+</body>
+</html>
