@@ -91,3 +91,202 @@
         h3 { font-size: 18px; color: var(--secondary); margin-bottom: 25px; text-align: center; }
         label { display: block; font-size: 11px; font-weight: 700; color: #bbb; margin-bottom: 8px; text-transform: uppercase; }
         input, select, textarea { width: 100%; padding: 15px; border: 1.5px solid #f5f5f5; border-radius: 15px; margin-bottom: 15px; font-size: 14px; box-sizing: border-box; background: #fafafa; font-family: inherit; }
+        
+        .med-row, .sub-med-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; padding: 15px; background: #fcfcfc; border-radius: 15px; border: 1px solid #f0f0f0; }
+        .btn-add { background: none; border: 1.5px dashed var(--primary); color: var(--secondary); width: 100%; padding: 12px; border-radius: 15px; font-weight: 700; cursor: pointer; margin-bottom: 20px; font-size: 12px; }
+        .btn-main { background: var(--secondary); color: white; padding: 18px; width: 100%; border: none; border-radius: 20px; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 10px 20px rgba(62, 108, 181, 0.2); }
+        .btn-back { border: none; background: none; color: #94A3B8; font-weight: 600; margin-bottom: 15px; cursor: pointer; }
+
+        /* HISTORY CARDS */
+        .history-item { background: #ffffff; padding: 18px; border-radius: 22px; margin-bottom: 12px; border: 1px solid #f5f5f5; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .history-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .history-date { font-size: 11px; color: #94A3B8; font-weight: 600; }
+        .history-status { font-size: 10px; font-weight: 800; padding: 5px 12px; border-radius: 10px; text-transform: uppercase; }
+        .status-pending { background: #FFF7ED; color: #C2410C; }
+        .status-completed { background: #F0FDF4; color: #15803D; }
+
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 15px 0 35px 0; border-top-left-radius: 35px; border-top-right-radius: 35px; box-shadow: 0 -10px 30px rgba(0,0,0,0.08); z-index: 1000; }
+        .nav-link { text-align: center; text-decoration: none; color: #bbb; font-size: 10px; font-weight: 600; flex: 1; }
+        .nav-link i { font-size: 20px; display: block; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="favicon.png" alt="Health Mart" class="header-logo">
+    <span class="pharmacy-title">Health Mart Pharmacy</span>
+    <span class="welcome-msg">Your Trusted Health Partner</span>
+</header>
+
+<div class="container">
+    <div id="home-screen">
+        <div class="card" onclick="openPage('order-page')">
+            <span class="badge badge-fast">Express</span>
+            <div class="card-icon icon-blue"><i class="fas fa-shopping-basket"></i></div>
+            <div class="card-text"><b>Buy Medicines</b><span>Buy as you need</span></div>
+        </div>
+        
+        <div class="card" onclick="openPage('sub-page')">
+            <span class="badge badge-vip">VIP Plan</span>
+            <div class="card-icon icon-gold"><i class="fas fa-crown"></i></div>
+            <div class="card-text"><b>Subscription Program</b><span>Never miss a dose again</span></div>
+        </div>
+        
+        <div class="card" onclick="window.location.href='https://wa.me/923055047345?text=*PRESCRIPTION*'">
+            <div class="card-icon icon-teal"><i class="fas fa-camera"></i></div>
+            <div class="card-text"><b>Send Prescription</b><span>Upload photo for quick review</span></div>
+        </div>
+        
+        <div class="card" onclick="openPage('history-page')">
+            <div class="card-icon icon-purple"><i class="fas fa-history"></i></div>
+            <div class="card-text"><b>Order History</b><span>Track your past orders and status</span></div>
+        </div>
+        
+        <div class="card" onclick="window.location.href='https://wa.me/923055047345?text=*CONSULTANCY*'">
+            <span class="badge badge-live">Online</span>
+            <div class="card-icon icon-green"><i class="fas fa-user-md"></i></div>
+            <div class="card-text"><b>For Consultancy</b><span>Talk to our expert pharmacist</span></div>
+        </div>
+    </div>
+
+    <div id="order-page" class="page-view">
+        <button class="btn-back" onclick="goHome()">← Back to Home</button>
+        <h3>Place Order</h3>
+        <label>Customer Name</label><input type="text" id="cust-name" placeholder="Enter Full Name">
+        <label>WhatsApp Number</label><input type="tel" id="cust-phone" placeholder="03XXXXXXXXX">
+        <label>Medicines List</label>
+        <div id="med-list">
+            <div class="med-row"><input type="text" class="m-name" placeholder="Medicine Name" style="flex:2;"><input type="text" class="m-qty" placeholder="Qty" style="flex:1;"></div>
+        </div>
+        <button class="btn-add" onclick="addMedRow()">+ Add Medicine</button>
+        <label>How to receive?</label>
+        <select id="del-type" onchange="document.getElementById('addr-box').style.display=(this.value=='Home Delivery'?'block':'none')">
+            <option value="Pickup">Pickup from Store</option>
+            <option value="Home Delivery">Home Delivery</option>
+        </select>
+        <div id="addr-box" style="display:none;"><label>Delivery Address</label><textarea id="cust-addr" rows="2" placeholder="House no, Street, Area"></textarea></div>
+        <button class="btn-main" onclick="sendOrder()">Send on WhatsApp</button>
+    </div>
+
+    <div id="sub-page" class="page-view">
+        <button class="btn-back" onclick="goHome()">← Back to Home</button>
+        <h3>Subscription Program</h3>
+        <label>Patient Name</label><input type="text" id="sub-name" placeholder="Full Name">
+        <label>WhatsApp Number</label><input type="tel" id="sub-phone" placeholder="03XXXXXXXXX">
+        <label>Medicine List</label>
+        <div id="sub-med-list">
+            <div class="sub-med-row">
+                <input type="text" class="sm-name" placeholder="Medicine Name" style="width: 100%;">
+                <input type="text" class="sm-qty" placeholder="Quantity (e.g. 30)" style="flex: 1;">
+                <input type="text" class="sm-usage" placeholder="Usage (e.g. 2 times a day)" style="flex: 2;">
+            </div>
+        </div>
+        <button class="btn-add" onclick="addSubMedRow()">+ Add Another Medicine</button>
+        <label>Plan Type</label>
+        <select id="sub-plan">
+            <option value="Monthly Refill">Monthly Refill</option>
+            <option value="Weekly Refill">Weekly Refill</option>
+        </select>
+        <button class="btn-main" onclick="sendSub()">Join Subscription Program</button>
+    </div>
+
+    <div id="history-page" class="page-view">
+        <button class="btn-back" onclick="goHome()">← Back to Home</button>
+        <h3>My Account</h3>
+        <input type="tel" id="log-phone" placeholder="Enter WhatsApp Number">
+        <button class="btn-main" id="log-btn" onclick="getHistory()">View History</button>
+        <div id="res-box" style="margin-top:20px;"></div>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <a href="#" class="nav-link" onclick="goHome()" style="color:var(--secondary)"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone-alt"></i><span>Call</span></a>
+    <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
+</div>
+
+<script>
+    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxRSt4vVaf_6Duc3LMr61oCqBo5MGOnbUDWFUDXKsczQ5Kt4X8-G8Z5_b_qJLcUUpA/exec';
+
+    function openPage(id) {
+        document.getElementById('home-screen').style.display = 'none';
+        var views = document.querySelectorAll('.page-view');
+        for(var i=0; i<views.length; i++) { views[i].style.display = 'none'; }
+        document.getElementById(id).style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
+    function goHome() {
+        var views = document.querySelectorAll('.page-view');
+        for(var i=0; i<views.length; i++) { views[i].style.display = 'none'; }
+        document.getElementById('home-screen').style.display = 'block';
+    }
+
+    function addMedRow() {
+        var div = document.createElement('div'); div.className = 'med-row';
+        div.innerHTML = '<input type="text" class="m-name" placeholder="Medicine Name" style="flex:2;"><input type="text" class="m-qty" placeholder="Qty" style="flex:1;">';
+        document.getElementById('med-list').appendChild(div);
+    }
+
+    function addSubMedRow() {
+        var div = document.createElement('div'); div.className = 'sub-med-row';
+        div.innerHTML = '<input type="text" class="sm-name" placeholder="Medicine Name" style="width: 100%;"><input type="text" class="sm-qty" placeholder="Quantity (e.g. 30)" style="flex: 1;"><input type="text" class="sm-usage" placeholder="Usage (e.g. 2 times a day)" style="flex: 2;">';
+        document.getElementById('sub-med-list').appendChild(div);
+    }
+
+    function getHistory() {
+        var ph = document.getElementById('log-phone').value;
+        if(!ph) return alert("Enter Phone Number");
+        var btn = document.getElementById('log-btn');
+        btn.innerText = "Loading Records...";
+        fetch(SCRIPT_URL + '?phone=' + ph)
+        .then(function(res){ return res.json(); })
+        .then(function(d){
+            if(d.success) {
+                var h = '<p style="font-weight:700; margin-bottom:15px;">Order History for ' + d.name + '</p>';
+                d.history.forEach(function(o){
+                    var sCls = (o.status||'').toLowerCase()==='completed'?'status-completed':'status-pending';
+                    var cleanM = o.items.split('(Qty:')[0].trim();
+                    var rawQ = o.items.includes('(Qty:') ? o.items.split('(Qty:')[1].split(')')[0] : '';
+                    var cleanQ = rawQ.split('GMT')[0].split('2026')[0].trim();
+                    h += '<div class="history-item"><div class="history-header"><span class="history-date">'+o.date+'</span><span class="history-status '+sCls+'">'+(o.status||'Pending')+'</span></div><p style="font-weight:700;margin:0;font-size:14px;">'+cleanM+'</p><div style="font-size:12px;color:#666;margin-top:4px;">Qty: '+cleanQ+'</div></div>';
+                });
+                document.getElementById('res-box').innerHTML = h;
+            } else { alert("No history found for this number"); }
+            btn.innerText = "View History";
+        }).catch(function(){ alert("Connection Error"); btn.innerText = "View History"; });
+    }
+
+    function sendOrder() {
+        var n = document.getElementById('cust-name').value;
+        var p = document.getElementById('cust-phone').value;
+        var dt = document.getElementById('del-type').value;
+        var ad = document.getElementById('cust-addr').value;
+        var wa = "", ml = "", ql = "";
+        document.querySelectorAll('.med-row').forEach(function(r){
+            var m = r.querySelector('.m-name').value; var q = r.querySelector('.m-qty').value;
+            if(m) { wa += '• ' + m + ': ' + q + '%0A'; ml += m + ", "; ql += q + ", "; }
+        });
+        if(!n || !p || !ml) return alert("Fill all fields");
+        fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify({ name:n, phone:p, order:ml, qty:ql, type:dt, address:ad||'Pickup' })});
+        window.location.href = "https://wa.me/923055047345?text=*NEW ORDER*%0A*Name:* "+n+"%0A*Items:*%0A"+wa;
+    }
+
+    function sendSub() {
+        var n = document.getElementById('sub-name').value;
+        var p = document.getElementById('sub-phone').value;
+        var pl = document.getElementById('sub-plan').value;
+        var waItems = "", sheetItems = "";
+        document.querySelectorAll('.sub-med-row').forEach(function(r){
+            var m = r.querySelector('.sm-name').value;
+            var q = r.querySelector('.sm-qty').value;
+            var u = r.querySelector('.sm-usage').value;
+            if(m) { waItems += `• ${m} | Qty: ${q} | Usage: ${u}%0A`; sheetItems += `${m} (${q} - ${u}), `; }
+        });
+        if(!n || !p || !waItems) return alert("Fill all fields");
+        fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify({ name:n, phone:p, order: "VIP: "+sheetItems, qty: pl, type: "SUBSCRIPTION", address: "VIP CLIENT" })});
+        window.location.href = "https://wa.me/923055047345?text=*SUBSCRIPTION PROGRAM REQUEST*%0A*Name:* "+n+"%0A*Plan:* "+pl+"%0A*Meds:*%0A"+waItems;
+    }
+</script>
+</body>
+</html>
