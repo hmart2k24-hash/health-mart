@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Health Mart | Your Digital Pharmacy</title>
     
     <link rel="icon" type="image/png" href="favicon.png">
@@ -20,7 +20,6 @@
         
         .container { max-width: 450px; margin: 0 auto; padding: 20px; flex-grow: 1; width: 100%; box-sizing: border-box; }
 
-        /* CARDS */
         .card { background: var(--white); border-radius: 24px; padding: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-decoration: none; color: inherit; }
         .card:active { transform: scale(0.98); }
         .card-icon { width: 45px; height: 45px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
@@ -32,7 +31,6 @@
         .card-text b { display: block; font-size: 15px; color: #222; }
         .card-text span { font-size: 11px; color: #888; }
 
-        /* FORMS */
         .form-section { display: none; background: var(--white); padding: 25px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); animation: fadeInUp 0.4s ease; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
@@ -47,7 +45,6 @@
         .btn-main { background: var(--secondary); color: white; padding: 16px; width: 100%; border: none; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; }
         .btn-back { border: none; background: none; color: #94A3B8; font-weight: 600; margin-bottom: 15px; cursor: pointer; }
 
-        /* HISTORY */
         .history-item { background: #f9f9f9; padding: 15px; border-radius: 15px; margin-bottom: 10px; border: 1px solid #eee; position: relative; text-align: left; }
         .history-status { font-size: 10px; font-weight: 800; color: var(--secondary); position: absolute; top: 15px; right: 15px; text-transform: uppercase; }
 
@@ -107,7 +104,7 @@
             <textarea id="address" rows="2" placeholder="Full Street Address"></textarea>
         </div>
 
-        <button class="btn-main" onclick="submitFullOrder()">Confirm Order</button>
+        <button class="btn-main" id="order-btn" onclick="submitFullOrder()">Confirm Order</button>
     </div>
 
     <div id="history-page" class="form-section">
@@ -135,7 +132,7 @@
 </div>
 
 <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwv-vPfouxSrCNg0nGA0MUc34v7D0aTTGyKPUKk8kPSKO4G8i-6RJnOITRFYmR2Wxa5/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxRSt4vVaf_6Duc3LMr61oCqBo5MGOnbUDWFUDXKsczQ5Kt4X8-G8Z5_b_qJLcUUpA/exec';
 
     function showForm(id) {
         document.getElementById('home-screen').style.display = 'none';
@@ -189,20 +186,26 @@
         const dtype = document.getElementById('delivery-type').value;
         const addr = document.getElementById('address').value;
         let itemsForWA = "";
-        let itemsForSheet = "";
+        let medsList = "";
+        let qtyList = "";
 
         document.querySelectorAll('.med-row').forEach(row => {
             const m = row.querySelector('.m-name').value;
             const q = row.querySelector('.m-qty').value;
             if(m) {
                 itemsForWA += `• ${m}: ${q}%0A`;
-                itemsForSheet += `${m} (${q}), `;
+                medsList += `${m}, `;
+                qtyList += `${q}, `;
             }
         });
 
-        if(!name || !phone || !itemsForSheet) return alert("Please fill all required fields");
+        if(!name || !phone || !medsList) return alert("Please fill all required fields");
 
-        // 1. SAVE TO SHEET
+        const btn = document.getElementById('order-btn');
+        btn.innerText = "Sending...";
+        btn.disabled = true;
+
+        // 1. SAVE TO SHEET (POST)
         try {
             fetch(SCRIPT_URL, {
                 method: 'POST',
@@ -210,7 +213,8 @@
                 body: JSON.stringify({
                     name: name,
                     phone: phone,
-                    order: itemsForSheet,
+                    order: medsList.replace(/,\s*$/, ""),
+                    qty: qtyList.replace(/,\s*$/, ""),
                     type: dtype,
                     address: addr || 'Pickup'
                 })
@@ -218,8 +222,12 @@
         } catch (e) { console.log("Sheet Error:", e); }
 
         // 2. OPEN WHATSAPP
-        const msg = `*NEW ORDER*%0A*Name:* ${name}%0A*Delivery:* ${dtype}%0A*Address:* ${addr || 'Pickup'}%0A*Items:*%0A${itemsForWA}`;
-        window.open(`https://wa.me/923055047345?text=${msg}`, '_blank');
+        setTimeout(() => {
+            const msg = `*NEW ORDER*%0A*Name:* ${name}%0A*Delivery:* ${dtype}%0A*Address:* ${addr || 'Pickup'}%0A*Items:*%0A${itemsForWA}`;
+            window.open(`https://wa.me/923055047345?text=${msg}`, '_blank');
+            btn.innerText = "Confirm Order";
+            btn.disabled = false;
+        }, 1000);
     }
 </script>
 </body>
