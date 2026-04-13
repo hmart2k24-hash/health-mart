@@ -18,22 +18,23 @@
             --bg: #f4f7f8; 
             --white: #ffffff; 
             --text: #2c3e50;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
 
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 120px; color: var(--text); overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 140px; color: var(--text); overflow-x: hidden; }
         
+        /* BRANDED GRADIENT HEADER */
         header { 
-            background: var(--white); 
-            padding: 30px 20px; 
+            background: var(--gradient); 
+            padding: 40px 20px; 
             text-align: center; 
-            border-bottom-left-radius: 35px; 
-            border-bottom-right-radius: 35px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-bottom: 1px solid rgba(120, 209, 218, 0.2);
+            border-bottom-left-radius: 40px; 
+            border-bottom-right-radius: 40px; 
+            box-shadow: 0 10px 30px rgba(62, 108, 181, 0.2);
         }
-        .header-logo { width: 110px; height: auto; margin-bottom: 8px; }
-        .pharmacy-title { display: block; font-size: 20px; font-weight: 700; color: var(--secondary); letter-spacing: 0.5px; }
-        .welcome-msg { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; display: block; }
+        .header-logo { width: 110px; height: auto; margin-bottom: 10px; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1)); }
+        .pharmacy-title { display: block; font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: 0.5px; }
+        .welcome-msg { font-size: 11px; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; display: block; }
 
         .container { max-width: 450px; margin: 0 auto; padding: 25px 20px; width: 100%; box-sizing: border-box; }
 
@@ -99,8 +100,23 @@
         .status-pending { background: #FFF7ED; color: #C2410C; }
         .status-completed { background: #F0FDF4; color: #15803D; }
 
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 15px 0 35px 0; border-top-left-radius: 35px; border-top-right-radius: 35px; box-shadow: 0 -10px 30px rgba(0,0,0,0.08); z-index: 1000; }
-        .nav-link { text-align: center; text-decoration: none; color: #bbb; font-size: 10px; font-weight: 600; flex: 1; }
+        /* BRANDED GRADIENT FOOTER */
+        .bottom-nav { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            background: var(--gradient); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 15px 0 35px 0; 
+            border-top-left-radius: 35px; 
+            border-top-right-radius: 35px; 
+            box-shadow: 0 -10px 30px rgba(62, 108, 181, 0.2); 
+            z-index: 1000; 
+        }
+        .nav-link { text-align: center; text-decoration: none; color: rgba(255,255,255,0.7); font-size: 10px; font-weight: 600; flex: 1; transition: 0.3s; }
+        .nav-link.active { color: var(--white); }
         .nav-link i { font-size: 20px; display: block; margin-bottom: 5px; }
     </style>
 </head>
@@ -197,11 +213,10 @@
     <div id="history-page" class="page-view">
         <button class="btn-back" onclick="goHome()">← Back to Home</button>
         <h3>My Account</h3>
-        
         <p style="font-size: 13px; color: #555; text-align: center; margin-bottom: 20px; line-height: 1.6; padding: 0 10px;">
             <b>Want to see what you have ordered in past?</b><br>
             Enter your number and get the detailed history.<br>
-            <span style="font-size: 11px; color: #888;">(Works with or without the leading '0')</span>
+            <span style="font-size: 11px; color: rgba(0,0,0,0.4);">(Works with or without the leading '0')</span>
         </p>
 
         <input type="tel" id="log-phone" placeholder="Enter WhatsApp Number (e.g. 0305...)">
@@ -211,7 +226,7 @@
 </div>
 
 <div class="bottom-nav">
-    <a href="#" class="nav-link" onclick="goHome()" style="color:var(--secondary)"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="#" class="nav-link active" onclick="goHome()"><i class="fas fa-home"></i><span>Home</span></a>
     <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone-alt"></i><span>Call</span></a>
     <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
 </div>
@@ -248,13 +263,9 @@
     function getHistory() {
         var phInput = document.getElementById('log-phone').value.trim();
         if(!phInput) return alert("Enter Phone Number");
-        
-        // AUTO-FIX: Remove leading zero if they type it (e.g., 0305 -> 305)
         var ph = phInput.startsWith('0') ? phInput.substring(1) : phInput;
-        
         var btn = document.getElementById('log-btn');
         btn.innerText = "Finding Records...";
-        
         fetch(SCRIPT_URL + '?phone=' + ph)
         .then(function(res){ return res.json(); })
         .then(function(d){
@@ -262,16 +273,13 @@
                 var h = '<p style="font-weight:700; margin-bottom:15px;">Orders for ' + d.name + '</p>';
                 d.history.forEach(function(o){
                     var sCls = (o.status||'').toLowerCase()==='completed'?'status-completed':'status-pending';
-                    
-                    // Logic to clean out tech text from the Sheet
                     var cleanM = o.items.split('(Qty:')[0].trim();
                     var rawQ = o.items.includes('(Qty:') ? o.items.split('(Qty:')[1].split(')')[0] : '';
                     var cleanQ = rawQ.split('GMT')[0].split('2026')[0].trim();
-
                     h += '<div class="history-item"><div class="history-header"><span class="history-date">'+o.date+'</span><span class="history-status '+sCls+'">'+(o.status||'Pending')+'</span></div><p style="font-weight:700;margin:0;font-size:14px;">'+cleanM+'</p><div style="font-size:12px;color:#666;margin-top:4px;">Qty: '+cleanQ+'</div></div>';
                 });
                 document.getElementById('res-box').innerHTML = h;
-            } else { alert("No history found. Ensure you used the same number as your order."); }
+            } else { alert("No history found."); }
             btn.innerText = "View History";
         }).catch(function(){ alert("Connection Error"); btn.innerText = "View History"; });
     }
@@ -282,10 +290,7 @@
         var dt = document.getElementById('del-type').value;
         var ad = document.getElementById('cust-addr').value;
         var wa = "", ml = "", ql = "";
-        
-        // Strip zero for internal database storage
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
-        
         document.querySelectorAll('.med-row').forEach(function(r){
             var m = r.querySelector('.m-name').value; var q = r.querySelector('.m-qty').value;
             if(m) { wa += '• ' + m + ': ' + q + '%0A'; ml += m + ", "; ql += q + ", "; }
@@ -302,10 +307,7 @@
         var dt = document.getElementById('sub-del-type').value;
         var ad = document.getElementById('sub-cust-addr').value;
         var waItems = "", sheetItems = "";
-        
-        // Strip zero for internal database storage
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
-        
         document.querySelectorAll('.sub-med-row').forEach(function(r){
             var m = r.querySelector('.sm-name').value;
             var q = r.querySelector('.sm-qty').value;
