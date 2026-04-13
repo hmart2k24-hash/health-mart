@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        :root { --primary: #78D1DA; --secondary: #3E6CB5; --bg: #f4f7f8; --white: #ffffff; }
+        :root { --primary: #78D1DA; --secondary: #3E6CB5; --bg: #f4f7f8; --white: #ffffff; --gold: #FFD700; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 120px; color: #333; }
         
         header { background: var(--white); padding: 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
@@ -24,9 +24,11 @@
         .card { background: var(--white); border-radius: 24px; padding: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-decoration: none; color: inherit; }
         .card-icon { width: 45px; height: 45px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
         .icon-blue { background: #eef4ff; color: var(--secondary); }
+        .icon-gold { background: #fff8e1; color: #fbc02d; }
         .icon-teal { background: #e0f7f9; color: #008b8b; }
         .icon-green { background: #e8f9ef; color: #25D366; }
         .icon-purple { background: #f3e5f5; color: #9c27b0; }
+        
         .card-text b { display: block; font-size: 15px; color: #222; }
         .card-text span { font-size: 11px; color: #888; }
 
@@ -64,6 +66,10 @@
             <div class="card-icon icon-blue"><i class="fas fa-shopping-basket"></i></div>
             <div class="card-text"><b>Buy Medicines</b><span>Fast checkout</span></div>
         </div>
+        <div class="card" onclick="openPage('sub-page')">
+            <div class="card-icon icon-gold"><i class="fas fa-crown"></i></div>
+            <div class="card-text"><b>Medicine Subscription</b><span>VIP: Free delivery & refills</span></div>
+        </div>
         <div class="card" onclick="window.location.href='https://wa.me/923055047345?text=*PRESCRIPTION*'">
             <div class="card-icon icon-teal"><i class="fas fa-camera"></i></div>
             <div class="card-text"><b>Send Prescription</b><span>Photo upload</span></div>
@@ -95,6 +101,16 @@
         </select>
         <div id="addr-box" style="display:none;"><label>Address</label><textarea id="cust-addr" rows="2"></textarea></div>
         <button class="btn-main" onclick="sendOrder()">Confirm Order</button>
+    </div>
+
+    <div id="sub-page" class="page-view">
+        <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Home</button>
+        <h3>VIP Subscription</h3>
+        <div style="text-align:center; padding: 10px;">
+            <p style="font-size: 14px; color: #666;">Get free home delivery and automatic monthly refills for your regular medicines.</p>
+            <label>Patient Name</label><input type="text" id="sub-name" placeholder="Enter Name">
+            <button class="btn-main" onclick="window.location.href='https://wa.me/923055047345?text=*VIP SUBSCRIPTION REQUEST*%0A*Name:* ' + document.getElementById('sub-name').value">Setup on WhatsApp</button>
+        </div>
     </div>
 
     <div id="history-page" class="page-view">
