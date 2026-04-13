@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Health Mart | Your Digital Pharmacy</title>
+    <title>Health Mart Pharmacy | Online</title>
     
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
@@ -21,9 +21,8 @@
             --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
 
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 140px; color: var(--text); overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 160px; color: var(--text); overflow-x: hidden; }
         
-        /* BRANDED GRADIENT HEADER */
         header { 
             background: var(--gradient); 
             padding: 40px 20px; 
@@ -32,7 +31,7 @@
             border-bottom-right-radius: 40px; 
             box-shadow: 0 10px 30px rgba(62, 108, 181, 0.2);
         }
-        .header-logo { width: 110px; height: auto; margin-bottom: 10px; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1)); }
+        .header-logo { width: 110px; height: auto; margin-bottom: 10px; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.15)); }
         .pharmacy-title { display: block; font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: 0.5px; }
         .welcome-msg { font-size: 11px; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; display: block; }
 
@@ -61,7 +60,6 @@
             transition: 0.3s;
         }
         .card:active { transform: scale(0.96); background: #fcfcfc; }
-
         .card:nth-child(1) { animation-delay: 0.1s; }
         .card:nth-child(2) { animation-delay: 0.2s; }
         .card:nth-child(3) { animation-delay: 0.3s; }
@@ -78,10 +76,17 @@
         .card-text b { display: block; font-size: 16px; color: #222; margin-bottom: 3px; }
         .card-text span { font-size: 12px; color: #888; line-height: 1.4; }
 
-        .badge { position: absolute; top: 12px; right: 15px; font-size: 9px; font-weight: 800; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge { position: absolute; top: 12px; right: 15px; font-size: 9px; font-weight: 800; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; }
         .badge-fast { background: #eef4ff; color: var(--secondary); }
         .badge-vip { background: #fff8e1; color: #fbc02d; }
-        .badge-live { background: #e8f9ef; color: #25D366; }
+
+        /* SOCIAL SECTION */
+        .social-footer { text-align: center; margin-top: 20px; padding: 20px 0; border-top: 1px solid #eee; }
+        .social-footer p { font-size: 13px; font-weight: 600; color: #888; margin-bottom: 15px; }
+        .social-links { display: flex; justify-content: center; gap: 20px; }
+        .social-icon { width: 45px; height: 45px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-decoration: none; transition: 0.3s; }
+        .social-icon:active { transform: scale(0.9); background: var(--bg); }
+        .review-btn { display: inline-block; margin-top: 15px; background: #FFD700; color: #222; padding: 10px 20px; border-radius: 20px; font-size: 12px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3); }
 
         .page-view { display: none; background: var(--white); padding: 25px; border-radius: 35px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
         h3 { font-size: 18px; color: var(--secondary); margin-bottom: 25px; text-align: center; }
@@ -100,24 +105,13 @@
         .status-pending { background: #FFF7ED; color: #C2410C; }
         .status-completed { background: #F0FDF4; color: #15803D; }
 
-        /* BRANDED GRADIENT FOOTER */
-        .bottom-nav { 
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
-            background: var(--gradient); 
-            display: flex; 
-            justify-content: space-around; 
-            padding: 15px 0 35px 0; 
-            border-top-left-radius: 35px; 
-            border-top-right-radius: 35px; 
-            box-shadow: 0 -10px 30px rgba(62, 108, 181, 0.2); 
-            z-index: 1000; 
-        }
-        .nav-link { text-align: center; text-decoration: none; color: rgba(255,255,255,0.7); font-size: 10px; font-weight: 600; flex: 1; transition: 0.3s; }
-        .nav-link.active { color: var(--white); }
-        .nav-link i { font-size: 20px; display: block; margin-bottom: 5px; }
+        /* FOOTER */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--gradient); display: flex; justify-content: space-around; padding: 15px 0 35px 0; border-top-left-radius: 35px; border-top-right-radius: 35px; box-shadow: 0 -10px 30px rgba(62, 108, 181, 0.2); z-index: 1000; }
+        .nav-link { text-align: center; text-decoration: none; color: rgba(255,255,255,0.6); font-size: 10px; font-weight: 600; flex: 1; transition: 0.3s; display: flex; flex-direction: column; align-items: center; }
+        .nav-link.active { color: white; }
+        .nav-link i { font-size: 20px; margin-bottom: 5px; }
+        .active-dot { width: 5px; height: 5px; background: white; border-radius: 50%; margin-top: 4px; display: none; }
+        .nav-link.active .active-dot { display: block; }
     </style>
 </head>
 <body>
@@ -153,9 +147,18 @@
         </div>
         
         <div class="card" onclick="window.location.href='https://wa.me/923055047345?text=*CONSULTANCY*'">
-            <span class="badge badge-live">Online</span>
             <div class="card-icon icon-green"><i class="fas fa-user-md"></i></div>
             <div class="card-text"><b>For Consultancy</b><span>Talk to our expert pharmacist</span></div>
+        </div>
+
+        <div class="social-footer">
+            <p>Connect with Us</p>
+            <div class="social-links">
+                <a href="https://www.facebook.com/" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                <a href="https://maps.google.com/?q=Health+Mart+Pharmacy+Gujar+Khan" target="_blank" class="social-icon"><i class="fas fa-map-marker-alt"></i></a>
+            </div>
+            <a href="#" class="review-btn"><i class="fas fa-star"></i> Leave a Review</a>
         </div>
     </div>
 
@@ -183,7 +186,6 @@
         <h3>Subscription Program</h3>
         <label>Patient Name</label><input type="text" id="sub-name" placeholder="Full Name">
         <label>WhatsApp Number</label><input type="tel" id="sub-phone" placeholder="03XXXXXXXXX">
-        
         <label>Medicine List</label>
         <div id="sub-med-list">
             <div class="sub-med-row">
@@ -193,20 +195,17 @@
             </div>
         </div>
         <button class="btn-add" onclick="addSubMedRow()">+ Add Another Medicine</button>
-
         <label>Plan Type</label>
         <select id="sub-plan">
             <option value="Monthly Refill">Monthly Refill</option>
             <option value="Weekly Refill">Weekly Refill</option>
         </select>
-
         <label>How to receive?</label>
         <select id="sub-del-type" onchange="document.getElementById('sub-addr-box').style.display=(this.value=='Home Delivery'?'block':'none')">
             <option value="Pickup">Pickup from Store</option>
             <option value="Home Delivery">Home Delivery</option>
         </select>
         <div id="sub-addr-box" style="display:none;"><label>Delivery Address</label><textarea id="sub-cust-addr" rows="2" placeholder="House no, Street, Area"></textarea></div>
-
         <button class="btn-main" onclick="sendSub()">Join Subscription Program</button>
     </div>
 
@@ -215,10 +214,8 @@
         <h3>My Account</h3>
         <p style="font-size: 13px; color: #555; text-align: center; margin-bottom: 20px; line-height: 1.6; padding: 0 10px;">
             <b>Want to see what you have ordered in past?</b><br>
-            Enter your number and get the detailed history.<br>
-            <span style="font-size: 11px; color: rgba(0,0,0,0.4);">(Works with or without the leading '0')</span>
+            Enter your number and get the detailed history.
         </p>
-
         <input type="tel" id="log-phone" placeholder="Enter WhatsApp Number (e.g. 0305...)">
         <button class="btn-main" id="log-btn" onclick="getHistory()">View History</button>
         <div id="res-box" style="margin-top:20px;"></div>
@@ -226,9 +223,9 @@
 </div>
 
 <div class="bottom-nav">
-    <a href="#" class="nav-link active" onclick="goHome()"><i class="fas fa-home"></i><span>Home</span></a>
-    <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone-alt"></i><span>Call</span></a>
-    <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
+    <a href="#" class="nav-link active" id="home-nav" onclick="goHome()"><i class="fas fa-home"></i><span>Home</span><div class="active-dot"></div></a>
+    <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone-alt"></i><span>Call</span><div class="active-dot"></div></a>
+    <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span><div class="active-dot"></div></a>
 </div>
 
 <script>
@@ -239,6 +236,7 @@
         var views = document.querySelectorAll('.page-view');
         for(var i=0; i<views.length; i++) { views[i].style.display = 'none'; }
         document.getElementById(id).style.display = 'block';
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         window.scrollTo(0,0);
     }
 
@@ -246,6 +244,8 @@
         var views = document.querySelectorAll('.page-view');
         for(var i=0; i<views.length; i++) { views[i].style.display = 'none'; }
         document.getElementById('home-screen').style.display = 'block';
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        document.getElementById('home-nav').classList.add('active');
     }
 
     function addMedRow() {
@@ -256,7 +256,7 @@
 
     function addSubMedRow() {
         var div = document.createElement('div'); div.className = 'sub-med-row';
-        div.innerHTML = '<input type="text" class="sm-name" placeholder="Medicine Name" style="width: 100%;"><input type="text" class="sm-qty" placeholder="Quantity (e.g. 30)" style="flex: 1;"><input type="text" class="sm-usage" placeholder="Usage (e.g. 2 times a day)" style="flex: 2;">';
+        div.innerHTML = '<input type="text" class="sm-name" placeholder="Medicine Name" style="width: 100%;"><input type="text" class="sm-qty" placeholder="Quantity" style="flex: 1;"><input type="text" class="sm-usage" placeholder="Usage" style="flex: 2;">';
         document.getElementById('sub-med-list').appendChild(div);
     }
 
