@@ -12,23 +12,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --primary: #78D1DA; --secondary: #3E6CB5; --bg: #f4f7f8; --white: #ffffff; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 100px; color: #333; }
-        header { background: var(--white); padding: 25px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 120px; color: #333; }
+        
+        header { background: var(--white); padding: 25px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .header-logo { width: 140px; height: auto; }
-        .container { max-width: 450px; margin: 0 auto; padding: 20px; width: 100%; box-sizing: border-box; }
+        
+        .container { max-width: 450px; margin: 0 auto; padding: 0 20px; width: 100%; box-sizing: border-box; }
 
         /* DASHBOARD CARDS */
         .card { background: var(--white); border-radius: 24px; padding: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-decoration: none; color: inherit; }
-        .card-icon { width: 45px; height: 45px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 20px; pointer-events: none; }
+        .card:active { transform: scale(0.98); }
+        .card-icon { width: 45px; height: 45px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
         .icon-blue { background: #eef4ff; color: var(--secondary); }
+        .icon-gold { background: #fff8e1; color: #fbc02d; }
         .icon-teal { background: #e0f7f9; color: #008b8b; }
         .icon-green { background: #e8f9ef; color: #25D366; }
         .icon-purple { background: #f3e5f5; color: #9c27b0; }
-        .card-text { pointer-events: none; }
         .card-text b { display: block; font-size: 15px; color: #222; }
         .card-text span { font-size: 11px; color: #888; }
 
-        /* SECTIONS */
+        /* PAGE VIEWS */
         .page-view { display: none; background: var(--white); padding: 25px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
         h3 { font-size: 18px; color: var(--secondary); margin-bottom: 20px; text-align: center; }
         label { display: block; font-size: 11px; font-weight: 700; color: #aaa; margin-bottom: 8px; text-transform: uppercase; }
@@ -36,7 +39,7 @@
         
         .med-row { display: flex; gap: 10px; margin-bottom: 10px; }
         .btn-add { background: none; border: 1.5px dashed var(--primary); color: var(--secondary); width: 100%; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-bottom: 15px; font-size: 12px; }
-        .btn-main { background: var(--secondary); color: white; padding: 16px; width: 100%; border: none; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; }
+        .btn-main { background: var(--secondary); color: white; padding: 18px; width: 100%; border: none; border-radius: 18px; font-weight: 700; font-size: 16px; cursor: pointer; }
         .btn-back { border: none; background: none; color: #94A3B8; font-weight: 600; margin-bottom: 15px; cursor: pointer; }
 
         /* HISTORY UI */
@@ -47,14 +50,14 @@
         .status-pending { background: #FFF7ED; color: #C2410C; }
         .status-completed { background: #F0FDF4; color: #15803D; }
 
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 12px 0 25px 0; border-top-left-radius: 25px; border-top-right-radius: 25px; box-shadow: 0 -10px 25px rgba(0,0,0,0.05); }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 12px 0 25px 0; border-top-left-radius: 25px; border-top-right-radius: 25px; box-shadow: 0 -10px 25px rgba(0,0,0,0.05); z-index: 1000; }
         .nav-link { text-align: center; text-decoration: none; color: #bbb; font-size: 10px; font-weight: 600; flex: 1; }
         .nav-link.active { color: var(--secondary); }
     </style>
 </head>
 <body>
 
-<header><img src="favicon.png" alt="Health Mart Logo" class="header-logo"></header>
+<header><img src="image.png.png" alt="Health Mart Logo" class="header-logo"></header>
 
 <div class="container">
     <div id="home-screen">
@@ -62,3 +65,49 @@
             <div class="card-icon icon-blue"><i class="fas fa-shopping-basket"></i></div>
             <div class="card-text"><b>Buy Medicines</b><span>Fast checkout for your medicines</span></div>
         </div>
+        <div class="card" onclick="openPage('sub-page')">
+            <div class="card-icon icon-gold"><i class="fas fa-crown"></i></div>
+            <div class="card-text"><b>Medicine Subscription</b><span>VIP: Free delivery & refills</span></div>
+        </div>
+        <div class="card" onclick="openPage('upload-page')">
+            <div class="card-icon icon-teal"><i class="fas fa-camera"></i></div>
+            <div class="card-text"><b>Send Prescription</b><span>Quick photo upload</span></div>
+        </div>
+        <div class="card" onclick="openPage('history-page')">
+            <div class="card-icon icon-purple"><i class="fas fa-history"></i></div>
+            <div class="card-text"><b>Order History</b><span>Check status of your orders</span></div>
+        </div>
+        <a href="https://wa.me/923055047345?text=*CONSULTANCY*" class="card">
+            <div class="card-icon icon-green"><i class="fas fa-user-md"></i></div>
+            <div class="card-text"><b>For Consultancy</b><span>Expert advice from pharmacist</span></div>
+        </a>
+    </div>
+
+    <div id="order-page" class="page-view">
+        <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Home</button>
+        <h3>Place Order</h3>
+        <label>Full Name</label><input type="text" id="cust-name" placeholder="Enter Name">
+        <label>WhatsApp Number</label><input type="tel" id="cust-phone" placeholder="03XXXXXXXXX">
+        <label>Medicines</label>
+        <div id="med-list">
+            <div class="med-row"><input type="text" class="m-name" placeholder="Medicine" style="flex:2;"><input type="text" class="m-qty" placeholder="Qty" style="flex:1;"></div>
+        </div>
+        <button class="btn-add" onclick="addMedRow()">+ Add More Medicine</button>
+        <label>Delivery Option</label>
+        <select id="del-type" onchange="toggleAddr(this.value)">
+            <option value="Pickup">Store Pickup</option>
+            <option value="Home Delivery">Home Delivery</option>
+        </select>
+        <div id="addr-box" style="display:none;"><label>Delivery Address</label><textarea id="cust-addr" rows="2" placeholder="Full Address"></textarea></div>
+        <button class="btn-main" onclick="sendOrder()">Confirm Order</button>
+    </div>
+
+    <div id="sub-page" class="page-view">
+        <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Home</button>
+        <h3>VIP Subscription</h3>
+        <label>Patient Name</label><input type="text" id="s-name" placeholder="Enter Name">
+        <button class="btn-main" onclick="window.location.href='https://wa.me/923055047345?text=*SUBSCRIPTION*'">Start WhatsApp Setup</button>
+    </div>
+
+    <div id="history-page" class="page-view">
+        <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> Home</button>
