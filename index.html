@@ -157,11 +157,12 @@
         <h3>Place Order</h3>
         <label>Customer Name</label><input type="text" id="cust-name" placeholder="Full Name">
         <label>WhatsApp Number</label><input type="tel" id="cust-phone" placeholder="03XXXXXXXXX">
-        <div id="med-list">
-            <div class="med-row" style="display:flex; gap:10px; margin-bottom:10px;">
-                <input type="text" class="m-name" placeholder="Medicine" style="flex:2;">
-                <input type="text" class="m-qty" placeholder="Qty" style="flex:1;">
-            </div>
+       <div id="med-list">
+    <div class="med-row" style="display:flex; gap:10px; margin-bottom:10px;">
+        <input type="text" class="m-name" placeholder="Medicine Name" style="flex:2;">
+        <input type="text" class="m-qty" placeholder="No. of Tablets" style="flex:1;">
+    </div>
+</div>
         </div>
         <button onclick="addMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:10px; border-radius:10px; margin-bottom:15px; cursor:pointer;">+ Add Medicine</button>
         <label>Delivery Option</label>
@@ -178,15 +179,15 @@
         <h3>Subscription Program</h3>
         <label>Patient Name</label><input type="text" id="sub-name" placeholder="Patient Full Name">
         <label>WhatsApp Number</label><input type="tel" id="sub-phone" placeholder="03XXXXXXXXX">
-        <div id="sub-med-list">
-            <div class="sub-med-row" style="padding:10px; background:#f9f9f9; border-radius:10px; margin-bottom:10px;">
-                <input type="text" class="sm-name" placeholder="Medicine Name">
-                <div style="display:flex; gap:10px; margin-top:5px;">
-                    <input type="text" class="sm-qty" placeholder="Qty" style="flex:1;">
-                    <input type="text" class="sm-usage" placeholder="Usage" style="flex:1;">
-                </div>
-            </div>
+       <div id="sub-med-list">
+    <div class="sub-med-row" style="padding:10px; background:#f9f9f9; border-radius:10px; margin-bottom:10px;">
+        <input type="text" class="sm-name" placeholder="Medicine Name" style="width:100%;">
+        <div style="display:flex; gap:10px; margin-top:5px;">
+            <input type="text" class="sm-qty" placeholder="No. of Tablets" style="flex:1;">
+            <input type="text" class="sm-usage" placeholder="Daily Usage (e.g. 1 daily)" style="flex:1;">
         </div>
+    </div>
+</div>
         <button onclick="addSubMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:10px; border-radius:10px; margin-bottom:15px; cursor:pointer;">+ Add Another</button>
         <label>Plan Type</label>
         <select id="sub-plan">
@@ -237,19 +238,21 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         document.getElementById('home-nav').classList.add('active');
     }
 
-    function addMedRow() {
-        var div = document.createElement('div'); div.className = 'med-row';
-        div.style.cssText = "display:flex; gap:10px; margin-bottom:10px;";
-        div.innerHTML = '<input type="text" class="m-name" placeholder="Medicine" style="flex:2;"><input type="text" class="m-qty" placeholder="Qty" style="flex:1;">';
-        document.getElementById('med-list').appendChild(div);
-    }
+   function addMedRow() {
+    var div = document.createElement('div'); div.className = 'med-row';
+    div.style.cssText = "display:flex; gap:10px; margin-bottom:10px;";
+    // Updated Placeholder here:
+    div.innerHTML = '<input type="text" class="m-name" placeholder="Medicine Name" style="flex:2;"><input type="text" class="m-qty" placeholder="No. of Tablets" style="flex:1;">';
+    document.getElementById('med-list').appendChild(div);
+}
 
     function addSubMedRow() {
-        var div = document.createElement('div'); div.className = 'sub-med-row';
-        div.style.cssText = "padding:10px; background:#f9f9f9; border-radius:10px; margin-bottom:10px;";
-        div.innerHTML = '<input type="text" class="sm-name" placeholder="Medicine Name" style="width:100%;"><div style="display:flex; gap:10px; margin-top:5px;"><input type="text" class="sm-qty" placeholder="Qty" style="flex:1;"><input type="text" class="sm-usage" placeholder="Usage" style="flex:1;"></div>';
-        document.getElementById('sub-med-list').appendChild(div);
-    }
+    var div = document.createElement('div'); div.className = 'sub-med-row';
+    div.style.cssText = "padding:10px; background:#f9f9f9; border-radius:10px; margin-bottom:10px;";
+    // Updated Placeholders here:
+    div.innerHTML = '<input type="text" class="sm-name" placeholder="Medicine Name" style="width:100%;"><div style="display:flex; gap:10px; margin-top:5px;"><input type="text" class="sm-qty" placeholder="No. of Tablets" style="flex:1;"><input type="text" class="sm-usage" placeholder="Daily Usage (e.g. 1 daily)" style="flex:1;"></div>';
+    document.getElementById('sub-med-list').appendChild(div);
+}
 
     function getHistory() {
         var phInput = document.getElementById('log-phone').value.trim();
@@ -280,17 +283,27 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         var ad = document.getElementById('cust-addr').value;
         var waItems = "", ml = "", ql = "";
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
-        document.querySelectorAll('.med-row').forEach(r => {
-            var m = r.querySelector('.m-name').value; var q = r.querySelector('.m-qty').value;
-            if(m) { waItems += '• ' + m + ' (Qty: ' + q + ')%0A'; ml += m + ", "; ql += q + ", "; }
+      document.querySelectorAll('.med-row').forEach(r => {
+            var m = r.querySelector('.m-name').value; 
+            var q = r.querySelector('.m-qty').value;
+            if(m) { 
+                // This makes it say "Tablets" in the WhatsApp message
+                waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; 
+                ml += m + ", "; 
+                ql += q + ", "; 
+            }
         });
+
         if(!n || !pInput || !ml) return alert("Fill all fields");
+
         fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify({ name:n, phone:p, order:ml, qty:ql, type:dt, address:ad||'Pickup' })});
+
+        // Updated Header and Format
         var waMsg = "*NEW ORDER HEALTH MART*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
         if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
-        waMsg += "%0A*Items:*%0A" + waItems;
+        waMsg += "%0A*Meds:*%0A" + waItems;
+        
         window.location.href = "https://wa.me/923055047345?text=" + waMsg;
-    }
 
     function sendSub() {
         var n = document.getElementById('sub-name').value;
@@ -303,47 +316,31 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
 
         document.querySelectorAll('.sub-med-row').forEach(r => {
-            var m = r.querySelector('.sm-name').value;
-            var q = r.querySelector('.sm-qty').value;
-            var u = r.querySelector('.sm-usage').value;
-            if(m) { 
-                waItems += '• ' + m + ' (Qty: ' + q + ', Usage: ' + u + ')%0A'; 
-                sheetItems += m + ", "; 
-                totalQty += q + " (" + u + "), "; 
-            }
-        });
+        var m = r.querySelector('.sm-name').value;
+        var q = r.querySelector('.sm-qty').value;
+        var u = r.querySelector('.sm-usage').value;
+        if(m) { 
+            // This includes the Usage and Tablets in the message
+            waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; 
+            sheetItems += m + ", "; 
+            totalQty += q + " (" + u + "), "; 
+        }
+    });
 
-        if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
+    if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
 
-        // The Payload now matches the Script exactly
-var payload = {
-            name: n,
-            phone: p,
-            order: sheetItems, 
-            qty: totalQty, 
-            plan: pl,           // This ensures "Monthly Refill" goes to Column F
-            type: "SUB: " + dt, 
-            address: ad || 'Pickup'
-        };
-        
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(payload)
-        });
+    var payload = { name: n, phone: p, order: sheetItems, qty: totalQty, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
+    fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
 
-        // WhatsApp Redirect for Subscriptions with Usage included
+    // Updated Format for Subscription WhatsApp message
     var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A" +
                 "*Name:* " + n + "%0A" +
                 "*Phone:* " + pInput + "%0A" +
                 "*Plan:* " + pl + "%0A" +
                 "*Type:* " + dt + "%0A";
     
-    if(dt == "Home Delivery") {
-        waMsg += "*Address:* " + ad + "%0A";
-    }
-
-    waMsg += "%0A*Meds:*%0A" + waItems; // waItems already includes Usage from your loop
+    if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
+    waMsg += "%0A*Meds:*%0A" + waItems;
 
     window.location.href = "https://wa.me/923055047345?text=" + waMsg;
     }
