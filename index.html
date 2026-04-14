@@ -208,6 +208,7 @@
     <div id="history-page" class="page-view">
         <button class="btn-back" onclick="goHome()">← Back to Home</button>
         <h3>My Account</h3>
+        <p style="font-size: 13px; color: #64748b; text-align: center; margin-bottom: 20px;">Enter your WhatsApp number to track your orders.</p>
         <input type="tel" id="log-phone" placeholder="03XXXXXXXXX">
         <button class="btn-main" id="log-btn" onclick="getHistory()">View My Orders</button>
         <div id="res-box" style="margin-top:25px;"></div>
@@ -221,7 +222,8 @@
 </div>
 
 <script>
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp_XWZPenmuB6OqqbfSS9Q5LvRP8PNavRTDW4SfIEPebO_1/exec';
+// --- UPDATED SCRIPT URL ---
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz7gItSxSa8z-sWKVpbO2chpJHtYQ7kzMcSbScTJDWfQ7xpIRoJqJbKtfRFN05imMLi/exec';
 
     function openPage(id) {
         document.getElementById('home-screen').style.display = 'none';
@@ -274,12 +276,16 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
                 d.history.forEach(o => {
                     var status = o.status || 'Pending';
                     var badgeClass = (status.toLowerCase() === 'completed') ? 'status-completed' : 'status-pending';
+                    var subLabel = o.isSubscription ? '<span style="font-size:10px; font-weight:800; padding:4px 10px; border-radius:8px; background:#E0F2FE; color:#0369A1; margin-right:5px;">SUBSCRIPTION</span>' : '';
+                    var refillLine = (o.isSubscription && o.nextRefill) ? '<div style="margin-top:10px; font-size:12px; color:#0369A1; font-weight:600;"><i class="fas fa-sync-alt"></i> Next Refill: ' + o.nextRefill + '</div>' : '';
+
                     h += '<div style="background:white; padding:18px; border-radius:20px; border:1px solid #f1f5f9; margin-bottom:12px; box-shadow:0 4px 10px rgba(0,0,0,0.02);">' +
                          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
                          '<span style="font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase;">' + o.date + '</span>' +
-                         '<span class="status-badge ' + badgeClass + '">' + status.toUpperCase() + '</span>' +
+                         '<div>' + subLabel + '<span class="status-badge ' + badgeClass + '">' + status.toUpperCase() + '</span></div>' +
                          '</div>' +
                          '<p style="margin:0; font-size:14px; font-weight:600; color:#1e293b; line-height:1.5;">' + o.items + '</p>' +
+                         refillLine + 
                          '</div>';
                 });
                 document.getElementById('res-box').innerHTML = h;
@@ -324,19 +330,24 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         var pl = document.getElementById('sub-plan').value; 
         var dt = document.getElementById('sub-del-type').value;
         var ad = document.getElementById('sub-cust-addr').value;
-        var waItems = "", sheetItems = "", totalQty = "";
+        var waItems = "", medNames = "", justQtys = "", justUsages = "";
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
 
         document.querySelectorAll('.sub-med-row').forEach(r => {
             var m = r.querySelector('.sm-name').value;
             var q = r.querySelector('.sm-qty').value;
             var u = r.querySelector('.sm-usage').value;
-            if(m) { waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; sheetItems += m + ", "; totalQty += q + " (" + u + "), "; }
+            if(m) { 
+                waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; 
+                medNames += m + ", "; 
+                justQtys += q + ", "; 
+                justUsages += u + ", ";
+            }
         });
 
-        if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
+        if(!n || !pInput || !medNames) return alert("Please fill all fields");
 
-        var payload = { name: n, phone: p, order: sheetItems, qty: totalQty, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
+        var payload = { name: n, phone: p, order: medNames, qty: justQtys, usage: justUsages, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
 
         setTimeout(function() {
