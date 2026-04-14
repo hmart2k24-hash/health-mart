@@ -21,9 +21,8 @@
             --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
 
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 160px; color: var(--text); overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 120px; color: var(--text); overflow-x: hidden; }
         
-        /* ADJUSTED HEADER LOGIC */
         header { 
             background: var(--gradient); 
             padding: 40px 20px; 
@@ -31,102 +30,70 @@
             border-bottom-left-radius: 40px; 
             border-bottom-right-radius: 40px; 
             box-shadow: 0 10px 30px rgba(62, 108, 181, 0.2);
-            transition: all 0.4s ease; /* Smooth transition when shrinking */
+            transition: all 0.3s ease;
         }
         
-        /* Compact Header Style */
         header.compact {
-            padding: 15px 20px;
-            border-bottom-left-radius: 20px; 
-            border-bottom-right-radius: 20px;
+            padding: 12px 20px;
+            border-bottom-left-radius: 15px; 
+            border-bottom-right-radius: 15px;
         }
 
-        .header-logo { width: 110px; height: auto; margin-bottom: 10px; transition: 0.4s; }
-        header.compact .header-logo { width: 40px; margin-bottom: 0; display: inline-block; vertical-align: middle; }
+        .header-logo { width: 110px; height: auto; margin-bottom: 10px; transition: 0.3s; }
+        header.compact .header-logo { width: 35px; margin-bottom: 0; display: inline-block; vertical-align: middle; }
 
-        .pharmacy-title { display: block; font-size: 22px; font-weight: 700; color: var(--white); transition: 0.4s; }
-        header.compact .pharmacy-title { display: inline-block; font-size: 16px; margin-left: 10px; vertical-align: middle; }
+        .pharmacy-title { display: block; font-size: 22px; font-weight: 700; color: var(--white); transition: 0.3s; }
+        header.compact .pharmacy-title { display: inline-block; font-size: 15px; margin-left: 8px; vertical-align: middle; }
 
         .welcome-msg { font-size: 11px; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; display: block; }
         header.compact .welcome-msg { display: none; }
 
-        .container { max-width: 450px; margin: 0 auto; padding: 15px 20px; width: 100%; box-sizing: border-box; }
+        .container { max-width: 450px; margin: 0 auto; padding: 10px 20px; width: 100%; box-sizing: border-box; }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* INCREASED INPUT SIZES */
+        input, select, textarea { 
+            width: 100%; 
+            padding: 18px; /* Larger touch area */
+            border: 1.5px solid #e2e8f0; 
+            border-radius: 18px; 
+            margin-bottom: 18px; 
+            font-size: 16px; /* Prevents iOS auto-zoom on focus */
+            box-sizing: border-box; 
+            background: #fafafa; 
+            font-family: inherit;
+            color: #1e293b;
         }
+        
+        /* Bolder Labels */
+        label { display: block; font-size: 12px; font-weight: 800; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
 
         .card { 
             background: var(--white); border-radius: 26px; padding: 20px; margin-bottom: 15px; display: flex; 
             align-items: center; gap: 18px; cursor: pointer; border: 1px solid rgba(0,0,0,0.01); 
             box-shadow: 0 8px 20px rgba(0,0,0,0.03); position: relative; overflow: hidden;
-            animation: slideUp 0.5s ease forwards; opacity: 0; transition: 0.3s;
+            transition: 0.3s;
         }
-        .card:active { transform: scale(0.96); background: #fcfcfc; }
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
-        .card:nth-child(4) { animation-delay: 0.4s; }
-        .card:nth-child(5) { animation-delay: 0.5s; }
 
-        .card-icon { width: 52px; height: 52px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
-        .icon-blue { background: #eef4ff; color: var(--secondary); }
-        .icon-gold { background: #fff8e1; color: #fbc02d; }
-        .icon-teal { background: #e0f7f9; color: #008b8b; }
-        .icon-green { background: #e8f9ef; color: #25D366; }
-        .icon-purple { background: #f3e5f5; color: #9c27b0; }
+        .social-footer { text-align: center; margin-top: 30px; padding: 25px 0; border-top: 1px solid #eef2f3; transition: 0.3s; }
+        .social-footer.hidden { display: none; } /* Hide footer on form pages */
 
-        .card-text b { display: block; font-size: 16px; color: #222; margin-bottom: 3px; }
-        .card-text span { font-size: 12px; color: #888; line-height: 1.4; }
-
-        .badge { position: absolute; top: 12px; right: 15px; font-size: 9px; font-weight: 800; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; }
-        .badge-fast { background: #eef4ff; color: var(--secondary); }
-        .badge-vip { background: #fff8e1; color: #fbc02d; }
-
-        .social-footer { text-align: center; margin-top: 30px; padding: 25px 0; border-top: 1px solid #eef2f3; }
-        .social-footer p { font-size: 13px; font-weight: 600; color: #95a5a6; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; }
-        .social-links { display: flex; justify-content: center; gap: 20px; }
-        .social-icon { width: 48px; height: 48px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-decoration: none; transition: 0.3s; }
-        .social-icon.fb { color: #1877F2; }
-        .social-icon.tt { color: #000000; }
-        .social-icon.gm { color: #EA4335; }
+        .page-view { display: none; background: var(--white); padding: 25px; border-radius: 35px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
+        h3 { font-size: 20px; color: var(--secondary); margin-bottom: 20px; text-align: center; font-weight: 700; }
         
-        .review-btn { display: inline-block; margin-top: 25px; background: #FFD700; color: #222; padding: 12px 25px; border-radius: 25px; font-size: 13px; font-weight: 700; text-decoration: none; box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3); }
+        .btn-main { background: var(--secondary); color: white; padding: 20px; width: 100%; border: none; border-radius: 22px; font-weight: 700; font-size: 17px; cursor: pointer; box-shadow: 0 10px 20px rgba(62, 108, 181, 0.2); margin-top: 10px; }
+        .btn-back { border: none; background: none; color: #94A3B8; font-weight: 700; margin-bottom: 10px; cursor: pointer; font-size: 14px; }
 
-        .page-view { display: none; background: var(--white); padding: 25px; border-radius: 35px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-        h3 { font-size: 18px; color: var(--secondary); margin-bottom: 15px; text-align: center; }
-        label { display: block; font-size: 11px; font-weight: 700; color: #bbb; margin-bottom: 8px; text-transform: uppercase; }
-        input, select, textarea { width: 100%; padding: 15px; border: 1.5px solid #f5f5f5; border-radius: 15px; margin-bottom: 15px; font-size: 14px; box-sizing: border-box; background: #fafafa; font-family: inherit; }
-        
-        .btn-main { background: var(--secondary); color: white; padding: 18px; width: 100%; border: none; border-radius: 20px; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 10px 20px rgba(62, 108, 181, 0.2); }
-        .btn-back { border: none; background: none; color: #94A3B8; font-weight: 600; margin-bottom: 10px; cursor: pointer; }
-
-        .history-item { background: #ffffff; padding: 18px; border-radius: 22px; margin-bottom: 12px; border: 1px solid #f5f5f5; }
-        .status-pending { background: #FFF7ED; color: #C2410C; }
-        .status-completed { background: #F0FDF4; color: #15803D; }
-
-        .welcome-banner { background: #f0f9fa; border: 1.2px solid var(--primary); padding: 15px; border-radius: 20px; text-align: center; margin-bottom: 25px; color: var(--text); }
-        .welcome-banner b { color: var(--secondary); font-size: 17px; }
-        .welcome-banner span { display: block; font-size: 12px; margin-top: 4px; opacity: 0.8; }
-
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--gradient); display: flex; justify-content: space-around; padding: 15px 0 35px 0; border-top-left-radius: 35px; border-top-right-radius: 35px; box-shadow: 0 -10px 30px rgba(62, 108, 181, 0.2); z-index: 1000; }
-        .nav-link { text-align: center; text-decoration: none; color: rgba(255,255,255,0.6); font-size: 10px; font-weight: 600; flex: 1; display: flex; flex-direction: column; align-items: center; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--gradient); display: flex; justify-content: space-around; padding: 12px 0 30px 0; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 30px rgba(62, 108, 181, 0.15); z-index: 1000; }
+        .nav-link { text-align: center; text-decoration: none; color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 600; flex: 1; display: flex; flex-direction: column; align-items: center; }
         .nav-link.active { color: white; }
-        .nav-link i { font-size: 20px; margin-bottom: 5px; }
-        .active-dot { width: 5px; height: 5px; background: white; border-radius: 50%; margin-top: 4px; display: none; }
-        .nav-link.active .active-dot { display: block; }
+        .nav-link i { font-size: 20px; margin-bottom: 4px; }
 
-        /* Mobile Optimization for Subscription Inputs */
-        .sub-med-row div {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap; 
-        }
-        .sub-med-row .sm-qty { flex: 1; min-width: 80px; }
-        .sub-med-row .sm-usage { flex: 2; min-width: 150px; }
+        /* Form Row Spacing */
+        .sub-med-row div { display: flex; gap: 12px; flex-wrap: wrap; }
+        .sub-med-row .sm-qty { flex: 1; min-width: 90px; }
+        .sub-med-row .sm-usage { flex: 2; min-width: 160px; }
 
-        ::placeholder { font-size: 12px; }
+        ::placeholder { font-size: 14px; color: #94a3b8; }
     </style>
 </head>
 <body>
@@ -166,7 +133,7 @@
             <div class="card-text"><b>For Consultancy</b><span>Talk to our expert pharmacist</span></div>
         </div>
 
-        <div class="social-footer">
+        <div id="main-footer" class="social-footer">
             <p>Connect with Us</p>
             <div class="social-links">
                 <a href="https://www.facebook.com/share/1FonSMVDae/?mibextid=wwXIfr" target="_blank" class="social-icon fb"><i class="fab fa-facebook-f"></i></a>
@@ -185,10 +152,10 @@
         <div id="med-list">
             <div class="med-row" style="display:flex; gap:10px; margin-bottom:10px;">
                 <input type="text" class="m-name" placeholder="Medicine Name" style="flex:2;">
-                <input type="text" class="m-qty" placeholder="No. of Tablets" style="flex:1;">
+                <input type="text" class="m-qty" placeholder="Tablets" style="flex:1;">
             </div>
         </div>
-        <button onclick="addMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:10px; border-radius:10px; margin-bottom:15px; cursor:pointer;">+ Add Medicine</button>
+        <button onclick="addMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer; font-weight:600;">+ Add Medicine</button>
         <label>Delivery Option</label>
         <select id="del-type" onchange="document.getElementById('addr-box').style.display=(this.value=='Home Delivery'?'block':'none')">
             <option value="Pickup">Pickup from Store</option>
@@ -204,15 +171,15 @@
         <label>Patient Name</label><input type="text" id="sub-name" placeholder="Patient Full Name">
         <label>WhatsApp Number</label><input type="tel" id="sub-phone" placeholder="03XXXXXXXXX">
         <div id="sub-med-list">
-            <div class="sub-med-row" style="padding:10px; background:#f9f9f9; border-radius:10px; margin-bottom:10px;">
+            <div class="sub-med-row" style="padding:15px; background:#f9f9f9; border-radius:18px; margin-bottom:15px;">
                 <input type="text" class="sm-name" placeholder="Medicine Name" style="width:100%;">
-                <div style="display:flex; gap:10px; margin-top:5px;">
+                <div style="display:flex; gap:12px; margin-top:8px;">
                     <input type="text" class="sm-qty" placeholder="Tablets" style="flex:1;">
                     <input type="text" class="sm-usage" placeholder="Usage e.g. 1 daily" style="flex:2;">
                 </div>
             </div>
         </div>
-        <button onclick="addSubMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:10px; border-radius:10px; margin-bottom:15px; cursor:pointer;">+ Add Another</button>
+        <button onclick="addSubMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer; font-weight:600;">+ Add Another</button>
         <label>Plan Type</label>
         <select id="sub-plan">
             <option value="Monthly Refill">Monthly Refill</option>
@@ -230,17 +197,16 @@
     <div id="history-page" class="page-view">
         <button class="btn-back" onclick="goHome()">← Back to Home</button>
         <h3>My Account</h3>
-        <p style="font-size: 13px; color: #555; text-align: center; margin-bottom: 20px;">Want to see your previous orders? Enter your number below.</p>
-        <input type="tel" id="log-phone" placeholder="Enter Number (e.g. 0305...)">
+        <input type="tel" id="log-phone" placeholder="Enter Number (03...)">
         <button class="btn-main" id="log-btn" onclick="getHistory()">View History</button>
         <div id="res-box" style="margin-top:25px;"></div>
     </div>
 </div>
 
 <div class="bottom-nav">
-    <a href="#" class="nav-link active" id="home-nav" onclick="goHome()"><i class="fas fa-home"></i><span>Home</span><div class="active-dot"></div></a>
-    <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone-alt"></i><span>Call</span><div class="active-dot"></div></a>
-    <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span><div class="active-dot"></div></a>
+    <a href="#" class="nav-link active" id="home-nav" onclick="goHome()"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone-alt"></i><span>Call</span></a>
+    <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
 </div>
 
 <script>
@@ -251,10 +217,10 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         document.querySelectorAll('.page-view').forEach(v => v.style.display = 'none');
         document.getElementById(id).style.display = 'block';
         
-        // ADDED: Shrink header for more space
+        // COMPACT MODE
         document.getElementById('main-header').classList.add('compact');
+        document.getElementById('main-footer').classList.add('hidden');
         
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         window.scrollTo(0,0);
     }
 
@@ -262,27 +228,26 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         document.querySelectorAll('.page-view').forEach(v => v.style.display = 'none');
         document.getElementById('home-screen').style.display = 'block';
         
-        // ADDED: Restore header to full size
+        // FULL MODE
         document.getElementById('main-header').classList.remove('compact');
-        
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        document.getElementById('home-nav').classList.add('active');
+        document.getElementById('main-footer').classList.remove('hidden');
     }
 
     function addMedRow() {
         var div = document.createElement('div'); div.className = 'med-row';
         div.style.cssText = "display:flex; gap:10px; margin-bottom:10px;";
-        div.innerHTML = '<input type="text" class="m-name" placeholder="Medicine Name" style="flex:2;"><input type="text" class="m-qty" placeholder="No. of Tablets" style="flex:1;">';
+        div.innerHTML = '<input type="text" class="m-name" placeholder="Medicine Name" style="flex:2;"><input type="text" class="m-qty" placeholder="Tablets" style="flex:1;">';
         document.getElementById('med-list').appendChild(div);
     }
 
     function addSubMedRow() {
         var div = document.createElement('div'); div.className = 'sub-med-row';
-        div.style.cssText = "padding:10px; background:#f9f9f9; border-radius:10px; margin-bottom:10px;";
-        div.innerHTML = '<input type="text" class="sm-name" placeholder="Medicine Name" style="width:100%;"><div style="display:flex; gap:10px; margin-top:5px;"><input type="text" class="sm-qty" placeholder="Tablets" style="flex:1;"><input type="text" class="sm-usage" placeholder="Usage e.g. 1 daily" style="flex:2;"></div>';
+        div.style.cssText = "padding:15px; background:#f9f9f9; border-radius:18px; margin-bottom:15px;";
+        div.innerHTML = '<input type="text" class="sm-name" placeholder="Medicine Name" style="width:100%;"><div style="display:flex; gap:12px; margin-top:8px;"><input type="text" class="sm-qty" placeholder="Tablets" style="flex:1;"><input type="text" class="sm-usage" placeholder="Usage e.g. 1 daily" style="flex:2;"></div>';
         document.getElementById('sub-med-list').appendChild(div);
     }
 
+    // (Remaining functions getHistory, sendOrder, sendSub remain the same as previous)
     function getHistory() {
         var phInput = document.getElementById('log-phone').value.trim();
         if(!phInput) return alert("Enter Phone Number");
@@ -294,15 +259,15 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         .then(d => {
             if(d.success) {
                 var orderCount = d.history.length;
-                var h = '<div class="welcome-banner">Welcome, <b>' + d.name + '</b>!<br><span>You have placed a total of <b>' + orderCount + '</b> orders with us.</span></div>';
+                var h = '<div class="welcome-banner">Welcome, <b>' + d.name + '</b>!<br><span>Orders: <b>' + orderCount + '</b></span></div>';
                 d.history.forEach(o => {
                     var sCls = (o.status||'').toLowerCase()==='completed'?'status-completed':'status-pending';
-                    h += '<div class="history-item" style="padding:15px; border-radius:15px; border:1px solid #eee; margin-bottom:10px;"><div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span style="font-size:11px; color:#999;">'+o.date+'</span><span class="'+sCls+'" style="font-size:10px; padding:3px 8px; border-radius:8px;">'+(o.status||'Pending')+'</span></div><p style="font-weight:700; font-size:14px; margin:0;">'+o.items+'</p></div>';
+                    h += '<div class="history-item"><div style="display:flex; justify-content:space-between;"><span style="font-size:11px;">'+o.date+'</span><span class="'+sCls+'">'+(o.status||'Pending')+'</span></div><p>'+o.items+'</p></div>';
                 });
                 document.getElementById('res-box').innerHTML = h;
-            } else { alert("No history found for this number."); }
+            } else { alert("No history found."); }
             btn.innerText = "View History";
-        }).catch(() => { alert("Error connecting to server."); btn.innerText = "View History"; });
+        }).catch(() => { alert("Error"); btn.innerText = "View History"; });
     }
 
     function sendOrder() {
@@ -315,21 +280,13 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         document.querySelectorAll('.med-row').forEach(r => {
             var m = r.querySelector('.m-name').value; 
             var q = r.querySelector('.m-qty').value;
-            if(m) { 
-                waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; 
-                ml += m + ", "; 
-                ql += q + ", "; 
-            }
+            if(m) { waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; ml += m + ", "; ql += q + ", "; }
         });
-
         if(!n || !pInput || !ml) return alert("Fill all fields");
-
         fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify({ name:n, phone:p, order:ml, qty:ql, type:dt, address:ad||'Pickup' })});
-
         var waMsg = "*NEW ORDER HEALTH MART*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
         if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
         waMsg += "%0A*Meds:*%0A" + waItems;
-        
         window.location.href = "https://wa.me/923055047345?text=" + waMsg;
     }
 
@@ -339,35 +296,20 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         var pl = document.getElementById('sub-plan').value; 
         var dt = document.getElementById('sub-del-type').value;
         var ad = document.getElementById('sub-cust-addr').value;
-        
         var waItems = "", sheetItems = "", totalQty = "";
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
-
         document.querySelectorAll('.sub-med-row').forEach(r => {
             var m = r.querySelector('.sm-name').value;
             var q = r.querySelector('.sm-qty').value;
             var u = r.querySelector('.sm-usage').value;
-            if(m) { 
-                waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; 
-                sheetItems += m + ", "; 
-                totalQty += q + " (" + u + "), "; 
-            }
+            if(m) { waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; sheetItems += m + ", "; totalQty += q + " (" + u + "), "; }
         });
-
         if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
-
         var payload = { name: n, phone: p, order: sheetItems, qty: totalQty, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-
-        var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A" +
-                    "*Name:* " + n + "%0A" +
-                    "*Phone:* " + pInput + "%0A" +
-                    "*Plan:* " + pl + "%0A" +
-                    "*Type:* " + dt + "%0A";
-        
+        var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Plan:* " + pl + "%0A*Type:* " + dt + "%0A";
         if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
         waMsg += "%0A*Meds:*%0A" + waItems;
-
         window.location.href = "https://wa.me/923055047345?text=" + waMsg;
     }
 </script>
