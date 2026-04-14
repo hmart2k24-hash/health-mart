@@ -219,7 +219,9 @@
 </div>
 
 <script>
+// MAKE SURE THIS IS THE URL FROM YOUR LATEST "NEW VERSION" DEPLOYMENT
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbya4mLNUa7Yr8U5PacWZCQe3Ud82KFm_XVBgoq7k3BzmImiAcU8w1VTQT18HoQGk2KY/exec';
+
     function openPage(id) {
         document.getElementById('home-screen').style.display = 'none';
         document.querySelectorAll('.page-view').forEach(v => v.style.display = 'none');
@@ -260,9 +262,7 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbya4mLNUa7Yr8U5PacWZCQ
         .then(d => {
             if(d.success) {
                 var orderCount = d.history.length;
-                // Added Personalized Greeting and Count
                 var h = '<div class="welcome-banner">Welcome, <b>' + d.name + '</b>!<br><span>You have placed a total of <b>' + orderCount + '</b> orders with us.</span></div>';
-                
                 d.history.forEach(o => {
                     var sCls = (o.status||'').toLowerCase()==='completed'?'status-completed':'status-pending';
                     h += '<div class="history-item" style="padding:15px; border-radius:15px; border:1px solid #eee; margin-bottom:10px;"><div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span style="font-size:11px; color:#999;">'+o.date+'</span><span class="'+sCls+'" style="font-size:10px; padding:3px 8px; border-radius:8px;">'+(o.status||'Pending')+'</span></div><p style="font-weight:700; font-size:14px; margin:0;">'+o.items+'</p></div>';
@@ -293,48 +293,48 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbya4mLNUa7Yr8U5PacWZCQ
     }
 
     function sendSub() {
-    var n = document.getElementById('sub-name').value;
-    var pInput = document.getElementById('sub-phone').value.trim();
-    var pl = document.getElementById('sub-plan').value; 
-    var dt = document.getElementById('sub-del-type').value;
-    var ad = document.getElementById('sub-cust-addr').value;
-    
-    var waItems = "", sheetItems = "", totalQty = "";
-    var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
+        var n = document.getElementById('sub-name').value;
+        var pInput = document.getElementById('sub-phone').value.trim();
+        var pl = document.getElementById('sub-plan').value; 
+        var dt = document.getElementById('sub-del-type').value;
+        var ad = document.getElementById('sub-cust-addr').value;
+        
+        var waItems = "", sheetItems = "", totalQty = "";
+        var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
 
-    document.querySelectorAll('.sub-med-row').forEach(r => {
-        var m = r.querySelector('.sm-name').value;
-        var q = r.querySelector('.sm-qty').value;
-        var u = r.querySelector('.sm-usage').value;
-        if(m) { 
-            waItems += '• ' + m + ' (Qty: ' + q + ', Usage: ' + u + ')%0A'; 
-            sheetItems += m + ", "; 
-            totalQty += q + " (" + u + "), "; 
-        }
-    });
+        document.querySelectorAll('.sub-med-row').forEach(r => {
+            var m = r.querySelector('.sm-name').value;
+            var q = r.querySelector('.sm-qty').value;
+            var u = r.querySelector('.sm-usage').value;
+            if(m) { 
+                waItems += '• ' + m + ' (Qty: ' + q + ', Usage: ' + u + ')%0A'; 
+                sheetItems += m + ", "; 
+                totalQty += q + " (" + u + "), "; 
+            }
+        });
 
-    if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
+        if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
 
-    // THE FIX: This sends the exact structure the script is looking for
-    var payload = {
-        name: n,
-        phone: p,
-        order: sheetItems, 
-        qty: totalQty, 
-        type: "SUB: " + dt, // CRITICAL: The script looks for "SUB" here
-        address: ad || 'Pickup'
-    };
+        // The Payload now matches the Script exactly
+        var payload = {
+            name: n,
+            phone: p,
+            order: sheetItems, 
+            qty: totalQty, 
+            plan: pl,           // Added this line
+            type: "SUB: " + dt, 
+            address: ad || 'Pickup'
+        };
 
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify(payload)
-    });
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify(payload)
+        });
 
-    // WhatsApp Redirect
-    var waMsg = "*NEW SUBSCRIPTION*%0A%0A*Name:* " + n + "%0A*Plan:* " + pl + "%0A*Items:*%0A" + waItems;
-    window.location.href = "https://wa.me/923055047345?text=" + waMsg;
-}
+        var waMsg = "*NEW SUBSCRIPTION*%0A%0A*Name:* " + n + "%0A*Plan:* " + pl + "%0A*Items:*%0A" + waItems;
+        window.location.href = "https://wa.me/923055047345?text=" + waMsg;
+    }
 </script>
 </body>
 </html>
