@@ -332,8 +332,20 @@ var payload = {
             body: JSON.stringify(payload)
         });
 
-        var waMsg = "*NEW SUBSCRIPTION*%0A%0A*Name:* " + n + "%0A*Plan:* " + pl + "%0A*Items:*%0A" + waItems;
-        window.location.href = "https://wa.me/923055047345?text=" + waMsg;
+        // WhatsApp Redirect for Subscriptions with Usage included
+    var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A" +
+                "*Name:* " + n + "%0A" +
+                "*Phone:* " + pInput + "%0A" +
+                "*Plan:* " + pl + "%0A" +
+                "*Type:* " + dt + "%0A";
+    
+    if(dt == "Home Delivery") {
+        waMsg += "*Address:* " + ad + "%0A";
+    }
+
+    waMsg += "%0A*Meds:*%0A" + waItems; // waItems already includes Usage from your loop
+
+    window.location.href = "https://wa.me/923055047345?text=" + waMsg;
     }
 </script>
 </body>
