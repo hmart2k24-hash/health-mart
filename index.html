@@ -302,13 +302,26 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz7gItSxSa8z-sWKVpbO2c
         var waItems = "", ml = "", ql = "";
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
         
-        document.querySelectorAll('.med-row').forEach(r => {
-            var m = r.querySelector('.m-name').value; 
-            var q = r.querySelector('.m-qty').value;
-            if(m) { waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; ml += m + ", "; ql += q + ", "; }
+        var rows = document.querySelectorAll('.med-row');
+        var validationError = false;
+
+        rows.forEach(r => {
+            var m = r.querySelector('.m-name').value.trim(); 
+            var q = r.querySelector('.m-qty').value.trim();
+            
+            if(m || q) { // If user started typing in either field
+                if(!m || !q) { // Check if one is missing
+                    validationError = true;
+                } else {
+                    waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; 
+                    ml += m + ", "; 
+                    ql += q + ", "; 
+                }
+            }
         });
 
-        if(!n || !pInput || !ml) return alert("Fill all fields");
+        if(!n || !pInput || !ml) return alert("Please enter Customer Name, Phone, and at least one Medicine with Quantity.");
+        if(validationError) return alert("Please provide both Medicine Name and Quantity for all rows.");
 
         fetch(SCRIPT_URL, { 
             method:'POST', 
@@ -333,19 +346,28 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz7gItSxSa8z-sWKVpbO2c
         var waItems = "", medNames = "", justQtys = "", justUsages = "";
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
 
-        document.querySelectorAll('.sub-med-row').forEach(r => {
-            var m = r.querySelector('.sm-name').value;
-            var q = r.querySelector('.sm-qty').value;
-            var u = r.querySelector('.sm-usage').value;
-            if(m) { 
-                waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; 
-                medNames += m + ", "; 
-                justQtys += q + ", "; 
-                justUsages += u + ", ";
+        var rows = document.querySelectorAll('.sub-med-row');
+        var validationError = false;
+
+        rows.forEach(r => {
+            var m = r.querySelector('.sm-name').value.trim();
+            var q = r.querySelector('.sm-qty').value.trim();
+            var u = r.querySelector('.sm-usage').value.trim();
+            
+            if(m || q || u) { // If user started typing in any field
+                if(!m || !q || !u) { // Check if any part of the row is missing
+                    validationError = true;
+                } else {
+                    waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; 
+                    medNames += m + ", "; 
+                    justQtys += q + ", "; 
+                    justUsages += u + ", ";
+                }
             }
         });
 
-        if(!n || !pInput || !medNames) return alert("Please fill all fields");
+        if(!n || !pInput || !medNames) return alert("Please enter Patient Name, Phone, and at least one Medicine with Quantity and Usage.");
+        if(validationError) return alert("Please provide Medicine Name, Quantity, AND Usage for all subscription rows.");
 
         var payload = { name: n, phone: p, order: medNames, qty: justQtys, usage: justUsages, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
