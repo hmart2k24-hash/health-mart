@@ -101,6 +101,22 @@
         .nav-link i { font-size: 20px; margin-bottom: 5px; }
         .active-dot { width: 5px; height: 5px; background: white; border-radius: 50%; margin-top: 4px; display: none; }
         .nav-link.active .active-dot { display: block; }
+        /* Fix for squished inputs on mobile */
+.sub-med-row div {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; /* Allows boxes to stack if they run out of space */
+}
+
+.sub-med-row input {
+    min-width: 120px; /* Ensures the placeholder stays readable */
+    flex: 1;
+}
+
+/* Optional: Slightly smaller font for placeholders to help them fit */
+::placeholder {
+    font-size: 12px;
+}
     </style>
 </head>
 <body>
