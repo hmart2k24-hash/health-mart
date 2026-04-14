@@ -294,68 +294,43 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
     }
 
     function sendOrder() {
-        var n = document.getElementById('cust-name').value;
-        var pInput = document.getElementById('cust-phone').value.trim();
-        var dt = document.getElementById('del-type').value;
-        var ad = document.getElementById('cust-addr').value;
-        var waItems = "", ml = "", ql = "";
-        var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
-        
-        document.querySelectorAll('.med-row').forEach(r => {
-            var m = r.querySelector('.m-name').value; 
-            var q = r.querySelector('.m-qty').value;
-            if(m) { 
-                waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; 
-                ml += m + ", "; 
-                ql += q + ", "; 
-            }
-        });
+        // ... (Keep all your existing variable collection code at the top)
 
         if(!n || !pInput || !ml) return alert("Fill all fields");
 
-        // SHEET INTEGRATION
+        // 1. Start sending to Sheets
         fetch(SCRIPT_URL, { 
             method:'POST', 
             mode:'no-cors', 
             body: JSON.stringify({ name:n, phone:p, order:ml, qty:ql, type:dt, address:ad||'Pickup' })
         });
 
-        var waMsg = "*NEW ORDER HEALTH MART*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
-        if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
-        waMsg += "%0A*Meds:*%0A" + waItems;
-        window.location.href = "https://wa.me/923055047345?text=" + waMsg;
+        // 2. Wait 500ms before moving to WhatsApp
+        setTimeout(function() {
+            var waMsg = "*NEW ORDER HEALTH MART*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
+            if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
+            waMsg += "%0A*Meds:*%0A" + waItems;
+            window.location.href = "https://wa.me/923055047345?text=" + waMsg;
+        }, 500); 
     }
 
     function sendSub() {
-        var n = document.getElementById('sub-name').value;
-        var pInput = document.getElementById('sub-phone').value.trim();
-        var pl = document.getElementById('sub-plan').value; 
-        var dt = document.getElementById('sub-del-type').value;
-        var ad = document.getElementById('sub-cust-addr').value;
-        var waItems = "", sheetItems = "", totalQty = "";
-        var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
-
-        document.querySelectorAll('.sub-med-row').forEach(r => {
-            var m = r.querySelector('.sm-name').value;
-            var q = r.querySelector('.sm-qty').value;
-            var u = r.querySelector('.sm-usage').value;
-            if(m) { 
-                waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; 
-                sheetItems += m + ", "; 
-                totalQty += q + " (" + u + "), "; 
-            }
-        });
+        // ... (Keep all your existing variable collection code at the top)
 
         if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
 
-        // SHEET INTEGRATION
         var payload = { name: n, phone: p, order: sheetItems, qty: totalQty, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
+        
+        // 1. Start sending to Sheets
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
 
-        var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Plan:* " + pl + "%0A*Type:* " + dt + "%0A";
-        if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
-        waMsg += "%0A*Meds:*%0A" + waItems;
-        window.location.href = "https://wa.me/923055047345?text=" + waMsg;
+        // 2. Wait 500ms before moving to WhatsApp
+        setTimeout(function() {
+            var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Plan:* " + pl + "%0A*Type:* " + dt + "%0A";
+            if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
+            waMsg += "%0A*Meds:*%0A" + waItems;
+            window.location.href = "https://wa.me/923055047345?text=" + waMsg;
+        }, 500);
     }
 </script>
 </body>
