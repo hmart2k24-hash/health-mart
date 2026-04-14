@@ -23,7 +23,6 @@
 
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 120px; color: var(--text); overflow-x: hidden; }
         
-        /* DYNAMIC HEADER */
         header { 
             background: var(--gradient); 
             padding: 40px 20px; 
@@ -51,7 +50,6 @@
 
         .container { max-width: 450px; margin: 0 auto; padding: 10px 20px; width: 100%; box-sizing: border-box; }
 
-        /* ENHANCED INPUT SIZES */
         input, select, textarea { 
             width: 100%; 
             padding: 18px; 
@@ -86,7 +84,6 @@
         .nav-link { text-align: center; text-decoration: none; color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 600; flex: 1; display: flex; flex-direction: column; align-items: center; }
         .nav-link.active { color: white; }
 
-        /* Usage Field Fix */
         .sub-med-row div { display: flex; gap: 12px; }
         .sub-med-row .sm-qty { flex: 1; }
         .sub-med-row .sm-usage { flex: 2; }
@@ -105,69 +102,54 @@
 <div class="container">
     <div id="home-screen">
         <div class="card" onclick="openPage('order-page')">
-            <span class="badge badge-fast">Express</span>
             <div class="card-icon icon-blue"><i class="fas fa-shopping-basket"></i></div>
-            <div class="card-text"><b>Buy Medicines</b><span>Buy as you need</span></div>
+            <div class="card-text"><b>Buy Medicines</b><span>Order now for quick delivery</span></div>
         </div>
-        
         <div class="card" onclick="openPage('sub-page')">
-            <span class="badge badge-vip">VIP Plan</span>
             <div class="card-icon icon-gold"><i class="fas fa-crown"></i></div>
-            <div class="card-text"><b>Subscription Program</b><span>Never miss a dose again</span></div>
+            <div class="card-text"><b>Subscription Program</b><span>Automatic monthly refills</span></div>
         </div>
-        
-        <div class="card" onclick="window.location.href='https://wa.me/923055047345?text=*PRESCRIPTION*'">
-            <div class="card-icon icon-teal"><i class="fas fa-camera"></i></div>
-            <div class="card-text"><b>Send Prescription</b><span>Upload photo for quick review</span></div>
-        </div>
-        
         <div class="card" onclick="openPage('history-page')">
             <div class="card-icon icon-purple"><i class="fas fa-history"></i></div>
-            <div class="card-text"><b>Order History</b><span>Track your past orders and status</span></div>
-        </div>
-        
-        <div class="card" onclick="window.location.href='https://wa.me/923055047345?text=*CONSULTANCY*'">
-            <div class="card-icon icon-green"><i class="fas fa-user-md"></i></div>
-            <div class="card-text"><b>For Consultancy</b><span>Talk to our expert pharmacist</span></div>
+            <div class="card-text"><b>Order History</b><span>Check status of orders</span></div>
         </div>
 
         <div id="main-footer" class="social-footer">
             <p>Connect with Us</p>
             <div class="social-links">
-                <a href="https://www.facebook.com/share/1FonSMVDae/?mibextid=wwXIfr" target="_blank" class="social-icon fb"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.tiktok.com/@healthmartpharmacy?_r=1&_t=ZS-95VBWe4Elvs" target="_blank" class="social-icon tt"><i class="fab fa-tiktok"></i></a>
-                <a href="https://g.co/kgs/zRG68jD" target="_blank" class="social-icon gm"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="https://www.facebook.com/share/1FonSMVDae/?mibextid=wwXIfr" class="social-icon fb"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@healthmartpharmacy" class="social-icon tt"><i class="fab fa-tiktok"></i></a>
+                <a href="https://g.co/kgs/zRG68jD" class="social-icon gm"><i class="fas fa-map-marker-alt"></i></a>
             </div>
-            <a href="https://g.co/kgs/zRG68jD" target="_blank" class="review-btn"><i class="fas fa-star"></i> Leave a Google Review</a>
         </div>
     </div>
 
     <div id="order-page" class="page-view">
-        <button class="btn-back" onclick="goHome()">← Back to Home</button>
+        <button class="btn-back" onclick="goHome()">← Back</button>
         <h3>Place Order</h3>
-        <label>Customer Name</label><input type="text" id="cust-name" placeholder="Full Name">
-        <label>WhatsApp Number</label><input type="tel" id="cust-phone" placeholder="03XXXXXXXXX">
+        <label>Name</label><input type="text" id="cust-name" placeholder="Full Name">
+        <label>WhatsApp</label><input type="tel" id="cust-phone" placeholder="03XXXXXXXXX">
         <div id="med-list">
             <div class="med-row" style="display:flex; gap:10px; margin-bottom:10px;">
                 <input type="text" class="m-name" placeholder="Medicine Name" style="flex:2;">
                 <input type="text" class="m-qty" placeholder="Tablets" style="flex:1;">
             </div>
         </div>
-        <button onclick="addMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer;">+ Add Medicine</button>
-        <label>Delivery Option</label>
+        <button onclick="addMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px;">+ Add Medicine</button>
+        <label>Delivery</label>
         <select id="del-type" onchange="document.getElementById('addr-box').style.display=(this.value=='Home Delivery'?'block':'none')">
-            <option value="Pickup">Pickup from Store</option>
+            <option value="Pickup">Store Pickup</option>
             <option value="Home Delivery">Home Delivery</option>
         </select>
-        <div id="addr-box" style="display:none;"><textarea id="cust-addr" rows="2" placeholder="Home Address"></textarea></div>
-        <button class="btn-main" onclick="sendOrder()">Confirm Order Details</button>
+        <div id="addr-box" style="display:none;"><textarea id="cust-addr" rows="2" placeholder="Address"></textarea></div>
+        <button class="btn-main" onclick="sendOrder()">Send Order</button>
     </div>
 
     <div id="sub-page" class="page-view">
-        <button class="btn-back" onclick="goHome()">← Back to Home</button>
-        <h3>Subscription Program</h3>
-        <label>Patient Name</label><input type="text" id="sub-name" placeholder="Patient Full Name">
-        <label>WhatsApp Number</label><input type="tel" id="sub-phone" placeholder="03XXXXXXXXX">
+        <button class="btn-back" onclick="goHome()">← Back</button>
+        <h3>Subscriptions</h3>
+        <label>Name</label><input type="text" id="sub-name" placeholder="Full Name">
+        <label>WhatsApp</label><input type="tel" id="sub-phone" placeholder="03XXXXXXXXX">
         <div id="sub-med-list">
             <div class="sub-med-row" style="padding:15px; background:#f9f9f9; border-radius:18px; margin-bottom:15px;">
                 <input type="text" class="sm-name" placeholder="Medicine Name" style="width:100%;">
@@ -177,38 +159,34 @@
                 </div>
             </div>
         </div>
-        <button onclick="addSubMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer;">+ Add Another</button>
-        <label>Plan Type</label>
-        <select id="sub-plan">
-            <option value="Monthly Refill">Monthly Refill</option>
-            <option value="Weekly Refill">Weekly Refill</option>
-        </select>
-        <label>Delivery Method</label>
+        <button onclick="addSubMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px;">+ Add Another</button>
+        <label>Plan</label>
+        <select id="sub-plan"><option value="Monthly Refill">Monthly</option><option value="Weekly Refill">Weekly</option></select>
+        <label>Delivery</label>
         <select id="sub-del-type" onchange="document.getElementById('sub-addr-box').style.display=(this.value=='Home Delivery'?'block':'none')">
-            <option value="Pickup">Pickup from Store</option>
-            <option value="Home Delivery">Home Delivery</option>
+            <option value="Pickup">Pickup</option><option value="Home Delivery">Delivery</option>
         </select>
-        <div id="sub-addr-box" style="display:none;"><textarea id="sub-cust-addr" rows="2" placeholder="Home Address"></textarea></div>
-        <button class="btn-main" onclick="sendSub()">Join Subscription Program</button>
+        <div id="sub-addr-box" style="display:none;"><textarea id="sub-cust-addr" rows="2" placeholder="Address"></textarea></div>
+        <button class="btn-main" onclick="sendSub()">Join Program</button>
     </div>
 
     <div id="history-page" class="page-view">
-        <button class="btn-back" onclick="goHome()">← Back to Home</button>
-        <h3>My Account</h3>
-        <input type="tel" id="log-phone" placeholder="Enter Number (03...)">
-        <button class="btn-main" id="log-btn" onclick="getHistory()">View History</button>
-        <div id="res-box" style="margin-top:25px;"></div>
+        <button class="btn-back" onclick="goHome()">← Back</button>
+        <h3>History</h3>
+        <input type="tel" id="log-phone" placeholder="Phone (03...)">
+        <button class="btn-main" id="log-btn" onclick="getHistory()">Check History</button>
+        <div id="res-box" style="margin-top:20px;"></div>
     </div>
 </div>
 
 <div class="bottom-nav">
-    <a href="#" class="nav-link active" id="home-nav" onclick="goHome()"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="#" class="nav-link active" onclick="goHome()"><i class="fas fa-home"></i><span>Home</span></a>
     <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone-alt"></i><span>Call</span></a>
     <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
 </div>
 
 <script>
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp_XWZPenmuB6OqqbfSS9Q5LvRP8PNavRTDW4SfIEPebO_1/exec';
+    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp_XWZPenmuB6OqqbfSS9Q5LvRP8PNavRTDW4SfIEPebO_1/exec';
 
     function openPage(id) {
         document.getElementById('home-screen').style.display = 'none';
@@ -240,28 +218,6 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         document.getElementById('sub-med-list').appendChild(div);
     }
 
-    function getHistory() {
-        var phInput = document.getElementById('log-phone').value.trim();
-        if(!phInput) return alert("Enter Phone Number");
-        var ph = phInput.startsWith('0') ? phInput.substring(1) : phInput;
-        var btn = document.getElementById('log-btn');
-        btn.innerText = "Finding Records...";
-        fetch(SCRIPT_URL + '?phone=' + ph)
-        .then(res => res.json())
-        .then(d => {
-            if(d.success) {
-                var orderCount = d.history.length;
-                var h = '<div class="welcome-banner">Welcome, <b>' + d.name + '</b>!<br><span>Orders: <b>' + orderCount + '</b></span></div>';
-                d.history.forEach(o => {
-                    var sCls = (o.status||'').toLowerCase()==='completed'?'status-completed':'status-pending';
-                    h += '<div class="history-item"><div style="display:flex; justify-content:space-between;"><span style="font-size:11px;">'+o.date+'</span><span class="'+sCls+'">'+(o.status||'Pending')+'</span></div><p>'+o.items+'</p></div>';
-                });
-                document.getElementById('res-box').innerHTML = h;
-            } else { alert("No history found."); }
-            btn.innerText = "View History";
-        }).catch(() => { alert("Error"); btn.innerText = "View History"; });
-    }
-
     function sendOrder() {
         var n = document.getElementById('cust-name').value;
         var pInput = document.getElementById('cust-phone').value.trim();
@@ -269,17 +225,16 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         var ad = document.getElementById('cust-addr').value;
         var waItems = "", ml = "", ql = "";
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
+
         document.querySelectorAll('.med-row').forEach(r => {
             var m = r.querySelector('.m-name').value; 
             var q = r.querySelector('.m-qty').value;
             if(m) { waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; ml += m + ", "; ql += q + ", "; }
         });
+
         if(!n || !pInput || !ml) return alert("Fill all fields");
         fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify({ name:n, phone:p, order:ml, qty:ql, type:dt, address:ad||'Pickup' })});
-        var waMsg = "*NEW ORDER HEALTH MART*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
-        if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
-        waMsg += "%0A*Meds:*%0A" + waItems;
-        window.location.href = "https://wa.me/923055047345?text=" + waMsg;
+        window.location.href = "https://wa.me/923055047345?text=*NEW ORDER HEALTH MART*%0A%0A*Name:* "+n+"%0A*Phone:* "+pInput+"%0A*Type:* "+dt+"%0A*Meds:*%0A"+waItems;
     }
 
     function sendSub() {
@@ -290,19 +245,36 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         var ad = document.getElementById('sub-cust-addr').value;
         var waItems = "", sheetItems = "", totalQty = "";
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
+
         document.querySelectorAll('.sub-med-row').forEach(r => {
             var m = r.querySelector('.sm-name').value;
             var q = r.querySelector('.sm-qty').value;
             var u = r.querySelector('.sm-usage').value;
             if(m) { waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; sheetItems += m + ", "; totalQty += q + " (" + u + "), "; }
         });
-        if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
+
+        if(!n || !pInput || !sheetItems) return alert("Fill all fields");
         var payload = { name: n, phone: p, order: sheetItems, qty: totalQty, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-        var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Plan:* " + pl + "%0A*Type:* " + dt + "%0A";
-        if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
-        waMsg += "%0A*Meds:*%0A" + waItems;
-        window.location.href = "https://wa.me/923055047345?text=" + waMsg;
+        window.location.href = "https://wa.me/923055047345?text=*NEW ORDER HEALTH MART (Subscription)*%0A%0A*Name:* "+n+"%0A*Phone:* "+pInput+"%0A*Plan:* "+pl+"%0A*Meds:*%0A"+waItems;
+    }
+
+    function getHistory() {
+        var phInput = document.getElementById('log-phone').value.trim();
+        if(!phInput) return alert("Enter Phone Number");
+        var ph = phInput.startsWith('0') ? phInput.substring(1) : phInput;
+        var btn = document.getElementById('log-btn');
+        btn.innerText = "Finding...";
+        fetch(SCRIPT_URL + '?phone=' + ph)
+        .then(res => res.json())
+        .then(d => {
+            if(d.success) {
+                var h = '<b>Welcome, ' + d.name + '</b><br>';
+                d.history.forEach(o => { h += '<div style="background:white; padding:10px; margin-top:5px; border-radius:10px; border:1px solid #eee;">' + o.date + ' - ' + o.items + '</div>'; });
+                document.getElementById('res-box').innerHTML = h;
+            } else { alert("No history found."); }
+            btn.innerText = "Check History";
+        }).catch(() => { alert("Error connecting"); btn.innerText = "Check History"; });
     }
 </script>
 </body>
