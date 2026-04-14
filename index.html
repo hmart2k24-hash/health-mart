@@ -100,8 +100,8 @@
         .sub-med-row .sm-usage { flex: 2; }
 
         ::placeholder { font-size: 14px; color: #94a3b8; }
-
-        /* History Status Badge Styles */
+        
+        /* History Classes */
         .status-badge { font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 8px; text-transform: uppercase; }
         .status-completed { background: #F0FDF4; color: #15803D; }
         .status-pending { background: #FFF7ED; color: #C2410C; }
@@ -208,7 +208,6 @@
     <div id="history-page" class="page-view">
         <button class="btn-back" onclick="goHome()">← Back to Home</button>
         <h3>My Account</h3>
-        <p style="font-size: 13px; color: #64748b; text-align: center; margin-bottom: 20px;">Enter your WhatsApp number to track your orders.</p>
         <input type="tel" id="log-phone" placeholder="03XXXXXXXXX">
         <button class="btn-main" id="log-btn" onclick="getHistory()">View My Orders</button>
         <div id="res-box" style="margin-top:25px;"></div>
@@ -266,18 +265,16 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         .then(d => {
             if(d.success && d.history.length > 0) {
                 var orderCount = d.history.length;
-                // HEADER WITH NAME AND COUNT
-                var h = '<div class="welcome-banner" style="background:#f0f9fa; border:1px solid var(--primary); padding:20px; border-radius:20px; text-align:center; margin-bottom:20px;">' +
+                var h = '<div style="background:#f0f9fa; border:1px solid var(--primary); padding:20px; border-radius:20px; text-align:center; margin-bottom:20px;">' +
                         '<span style="font-size:14px; color:#64748b;">Welcome back,</span>' +
                         '<div style="font-size:20px; font-weight:700; color:var(--secondary);">' + d.name + '</div>' +
                         '<div style="margin-top:8px; font-size:13px; font-weight:600; background:white; display:inline-block; padding:5px 15px; border-radius:15px; color:var(--primary); border:1px solid #eef2f3;">' + orderCount + ' Total Orders</div>' +
                         '</div>';
 
-                // ORDER LIST
                 d.history.forEach(o => {
                     var status = o.status || 'Pending';
                     var badgeClass = (status.toLowerCase() === 'completed') ? 'status-completed' : 'status-pending';
-                    h += '<div class="history-item" style="background:white; padding:18px; border-radius:20px; border:1px solid #f1f5f9; margin-bottom:12px; box-shadow:0 4px 10px rgba(0,0,0,0.02);">' +
+                    h += '<div style="background:white; padding:18px; border-radius:20px; border:1px solid #f1f5f9; margin-bottom:12px; box-shadow:0 4px 10px rgba(0,0,0,0.02);">' +
                          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
                          '<span style="font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase;">' + o.date + '</span>' +
                          '<span class="status-badge ' + badgeClass + '">' + status.toUpperCase() + '</span>' +
@@ -286,51 +283,68 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
                          '</div>';
                 });
                 document.getElementById('res-box').innerHTML = h;
-            } else { 
-                document.getElementById('res-box').innerHTML = '<div style="text-align:center; padding:20px; color:#94a3b8;">No orders found for this number.</div>';
-            }
+            } else { alert("No history found."); }
             btn.innerText = "View My Orders";
         }).catch(() => { alert("Error connecting to server."); btn.innerText = "View My Orders"; });
     }
 
     function sendOrder() {
-        // ... (Keep all your existing variable collection code at the top)
+        var n = document.getElementById('cust-name').value;
+        var pInput = document.getElementById('cust-phone').value.trim();
+        var dt = document.getElementById('del-type').value;
+        var ad = document.getElementById('cust-addr').value;
+        var waItems = "", ml = "", ql = "";
+        var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
+        
+        document.querySelectorAll('.med-row').forEach(r => {
+            var m = r.querySelector('.m-name').value; 
+            var q = r.querySelector('.m-qty').value;
+            if(m) { waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; ml += m + ", "; ql += q + ", "; }
+        });
 
         if(!n || !pInput || !ml) return alert("Fill all fields");
 
-        // 1. Start sending to Sheets
         fetch(SCRIPT_URL, { 
             method:'POST', 
             mode:'no-cors', 
             body: JSON.stringify({ name:n, phone:p, order:ml, qty:ql, type:dt, address:ad||'Pickup' })
         });
 
-        // 2. Wait 500ms before moving to WhatsApp
         setTimeout(function() {
             var waMsg = "*NEW ORDER HEALTH MART*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
             if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
             waMsg += "%0A*Meds:*%0A" + waItems;
             window.location.href = "https://wa.me/923055047345?text=" + waMsg;
-        }, 500); 
+        }, 600);
     }
 
     function sendSub() {
-        // ... (Keep all your existing variable collection code at the top)
+        var n = document.getElementById('sub-name').value;
+        var pInput = document.getElementById('sub-phone').value.trim();
+        var pl = document.getElementById('sub-plan').value; 
+        var dt = document.getElementById('sub-del-type').value;
+        var ad = document.getElementById('sub-cust-addr').value;
+        var waItems = "", sheetItems = "", totalQty = "";
+        var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
+
+        document.querySelectorAll('.sub-med-row').forEach(r => {
+            var m = r.querySelector('.sm-name').value;
+            var q = r.querySelector('.sm-qty').value;
+            var u = r.querySelector('.sm-usage').value;
+            if(m) { waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; sheetItems += m + ", "; totalQty += q + " (" + u + "), "; }
+        });
 
         if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
 
         var payload = { name: n, phone: p, order: sheetItems, qty: totalQty, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
-        
-        // 1. Start sending to Sheets
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
 
-        // 2. Wait 500ms before moving to WhatsApp
         setTimeout(function() {
             var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Plan:* " + pl + "%0A*Type:* " + dt + "%0A";
             if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
             waMsg += "%0A*Meds:*%0A" + waItems;
             window.location.href = "https://wa.me/923055047345?text=" + waMsg;
-        }, 500);
+        }, 600);
     }
 </script>
 </body>
