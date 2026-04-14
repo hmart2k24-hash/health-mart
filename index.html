@@ -101,22 +101,19 @@
         .nav-link i { font-size: 20px; margin-bottom: 5px; }
         .active-dot { width: 5px; height: 5px; background: white; border-radius: 50%; margin-top: 4px; display: none; }
         .nav-link.active .active-dot { display: block; }
-        /* Fix for squished inputs on mobile */
-.sub-med-row div {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap; /* Allows boxes to stack if they run out of space */
-}
 
-.sub-med-row input {
-    min-width: 120px; /* Ensures the placeholder stays readable */
-    flex: 1;
-}
+        /* Mobile Optimization for Subscription Inputs */
+        .sub-med-row div {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap; 
+        }
+        .sub-med-row .sm-qty { flex: 1; min-width: 80px; }
+        .sub-med-row .sm-usage { flex: 2; min-width: 150px; }
 
-/* Optional: Slightly smaller font for placeholders to help them fit */
-::placeholder {
-    font-size: 12px;
-}
+        ::placeholder {
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -197,8 +194,8 @@
             <div class="sub-med-row" style="padding:10px; background:#f9f9f9; border-radius:10px; margin-bottom:10px;">
                 <input type="text" class="sm-name" placeholder="Medicine Name" style="width:100%;">
                 <div style="display:flex; gap:10px; margin-top:5px;">
-                    <input type="text" class="sm-qty" placeholder="No. of Tablets" style="flex:1;">
-                    <input type="text" class="sm-usage" placeholder="Daily Usage (e.g. 1 daily)" style="flex:1;">
+                    <input type="text" class="sm-qty" placeholder="Tablets" style="flex:1;">
+                    <input type="text" class="sm-usage" placeholder="Usage e.g. 1 daily" style="flex:2;">
                 </div>
             </div>
         </div>
@@ -261,7 +258,7 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
     function addSubMedRow() {
         var div = document.createElement('div'); div.className = 'sub-med-row';
         div.style.cssText = "padding:10px; background:#f9f9f9; border-radius:10px; margin-bottom:10px;";
-        div.innerHTML = '<input type="text" class="sm-name" placeholder="Medicine Name" style="width:100%;"><div style="display:flex; gap:10px; margin-top:5px;"><input type="text" class="sm-qty" placeholder="No. of Tablets" style="flex:1;"><input type="text" class="sm-usage" placeholder="Daily Usage (e.g. 1 daily)" style="flex:1;"></div>';
+        div.innerHTML = '<input type="text" class="sm-name" placeholder="Medicine Name" style="width:100%;"><div style="display:flex; gap:10px; margin-top:5px;"><input type="text" class="sm-qty" placeholder="Tablets" style="flex:1;"><input type="text" class="sm-usage" placeholder="Usage e.g. 1 daily" style="flex:2;"></div>';
         document.getElementById('sub-med-list').appendChild(div);
     }
 
