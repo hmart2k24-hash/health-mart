@@ -23,6 +23,7 @@
 
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 120px; color: var(--text); overflow-x: hidden; }
         
+        /* DYNAMIC HEADER */
         header { 
             background: var(--gradient); 
             padding: 40px 20px; 
@@ -50,48 +51,45 @@
 
         .container { max-width: 450px; margin: 0 auto; padding: 10px 20px; width: 100%; box-sizing: border-box; }
 
-        /* INCREASED INPUT SIZES */
+        /* ENHANCED INPUT SIZES */
         input, select, textarea { 
             width: 100%; 
-            padding: 18px; /* Larger touch area */
+            padding: 18px; 
             border: 1.5px solid #e2e8f0; 
             border-radius: 18px; 
             margin-bottom: 18px; 
-            font-size: 16px; /* Prevents iOS auto-zoom on focus */
+            font-size: 16px; 
             box-sizing: border-box; 
             background: #fafafa; 
             font-family: inherit;
             color: #1e293b;
         }
         
-        /* Bolder Labels */
         label { display: block; font-size: 12px; font-weight: 800; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
 
         .card { 
             background: var(--white); border-radius: 26px; padding: 20px; margin-bottom: 15px; display: flex; 
             align-items: center; gap: 18px; cursor: pointer; border: 1px solid rgba(0,0,0,0.01); 
             box-shadow: 0 8px 20px rgba(0,0,0,0.03); position: relative; overflow: hidden;
-            transition: 0.3s;
         }
 
-        .social-footer { text-align: center; margin-top: 30px; padding: 25px 0; border-top: 1px solid #eef2f3; transition: 0.3s; }
-        .social-footer.hidden { display: none; } /* Hide footer on form pages */
+        .social-footer { text-align: center; margin-top: 30px; padding: 25px 0; border-top: 1px solid #eef2f3; }
+        .social-footer.hidden { display: none; }
 
         .page-view { display: none; background: var(--white); padding: 25px; border-radius: 35px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
         h3 { font-size: 20px; color: var(--secondary); margin-bottom: 20px; text-align: center; font-weight: 700; }
         
-        .btn-main { background: var(--secondary); color: white; padding: 20px; width: 100%; border: none; border-radius: 22px; font-weight: 700; font-size: 17px; cursor: pointer; box-shadow: 0 10px 20px rgba(62, 108, 181, 0.2); margin-top: 10px; }
+        .btn-main { background: var(--secondary); color: white; padding: 20px; width: 100%; border: none; border-radius: 22px; font-weight: 700; font-size: 17px; cursor: pointer; box-shadow: 0 10px 20px rgba(62, 108, 181, 0.2); }
         .btn-back { border: none; background: none; color: #94A3B8; font-weight: 700; margin-bottom: 10px; cursor: pointer; font-size: 14px; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--gradient); display: flex; justify-content: space-around; padding: 12px 0 30px 0; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 30px rgba(62, 108, 181, 0.15); z-index: 1000; }
         .nav-link { text-align: center; text-decoration: none; color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 600; flex: 1; display: flex; flex-direction: column; align-items: center; }
         .nav-link.active { color: white; }
-        .nav-link i { font-size: 20px; margin-bottom: 4px; }
 
-        /* Form Row Spacing */
-        .sub-med-row div { display: flex; gap: 12px; flex-wrap: wrap; }
-        .sub-med-row .sm-qty { flex: 1; min-width: 90px; }
-        .sub-med-row .sm-usage { flex: 2; min-width: 160px; }
+        /* Usage Field Fix */
+        .sub-med-row div { display: flex; gap: 12px; }
+        .sub-med-row .sm-qty { flex: 1; }
+        .sub-med-row .sm-usage { flex: 2; }
 
         ::placeholder { font-size: 14px; color: #94a3b8; }
     </style>
@@ -155,7 +153,7 @@
                 <input type="text" class="m-qty" placeholder="Tablets" style="flex:1;">
             </div>
         </div>
-        <button onclick="addMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer; font-weight:600;">+ Add Medicine</button>
+        <button onclick="addMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer;">+ Add Medicine</button>
         <label>Delivery Option</label>
         <select id="del-type" onchange="document.getElementById('addr-box').style.display=(this.value=='Home Delivery'?'block':'none')">
             <option value="Pickup">Pickup from Store</option>
@@ -179,7 +177,7 @@
                 </div>
             </div>
         </div>
-        <button onclick="addSubMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer; font-weight:600;">+ Add Another</button>
+        <button onclick="addSubMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer;">+ Add Another</button>
         <label>Plan Type</label>
         <select id="sub-plan">
             <option value="Monthly Refill">Monthly Refill</option>
@@ -216,19 +214,14 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         document.getElementById('home-screen').style.display = 'none';
         document.querySelectorAll('.page-view').forEach(v => v.style.display = 'none');
         document.getElementById(id).style.display = 'block';
-        
-        // COMPACT MODE
         document.getElementById('main-header').classList.add('compact');
         document.getElementById('main-footer').classList.add('hidden');
-        
         window.scrollTo(0,0);
     }
 
     function goHome() {
         document.querySelectorAll('.page-view').forEach(v => v.style.display = 'none');
         document.getElementById('home-screen').style.display = 'block';
-        
-        // FULL MODE
         document.getElementById('main-header').classList.remove('compact');
         document.getElementById('main-footer').classList.remove('hidden');
     }
@@ -247,7 +240,6 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         document.getElementById('sub-med-list').appendChild(div);
     }
 
-    // (Remaining functions getHistory, sendOrder, sendSub remain the same as previous)
     function getHistory() {
         var phInput = document.getElementById('log-phone').value.trim();
         if(!phInput) return alert("Enter Phone Number");
