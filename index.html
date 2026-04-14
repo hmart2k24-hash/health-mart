@@ -23,7 +23,6 @@
 
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 140px; color: var(--text); overflow-x: hidden; }
         
-        /* DYNAMIC HEADER */
         header { 
             background: var(--gradient); 
             padding: 40px 20px; 
@@ -51,14 +50,12 @@
 
         .container { max-width: 450px; margin: 0 auto; padding: 20px; width: 100%; box-sizing: border-box; }
 
-        /* INPUT STYLING */
         label { display: block; font-size: 12px; font-weight: 800; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
         input, select, textarea { 
             width: 100%; padding: 18px; border: 1.5px solid #e2e8f0; border-radius: 18px; 
             margin-bottom: 20px; font-size: 16px; box-sizing: border-box; background: #fafafa; font-family: inherit;
         }
 
-        /* CARD STYLING RESTORED */
         .card { 
             background: var(--white); border-radius: 26px; padding: 20px; margin-bottom: 15px; display: flex; 
             align-items: center; gap: 18px; cursor: pointer; border: 1px solid rgba(0,0,0,0.01); 
@@ -80,12 +77,11 @@
         .badge-fast { background: #eef4ff; color: var(--secondary); }
         .badge-vip { background: #fff8e1; color: #fbc02d; }
 
-        /* FOOTER & SOCIAL RESTORED */
-        .social-footer { text-align: center; margin-top: 30px; padding: 25px 0; border-top: 1px solid #eef2f3; transition: 0.3s; }
+        .social-footer { text-align: center; margin-top: 30px; padding: 25px 0; border-top: 1px solid #eef2f3; }
         .social-footer.hidden { display: none; }
         .social-footer p { font-size: 13px; font-weight: 600; color: #95a5a6; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; }
         .social-links { display: flex; justify-content: center; gap: 20px; }
-        .social-icon { width: 48px; height: 48px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-decoration: none; color: #2c3e50; }
+        .social-icon { width: 48px; height: 48px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-decoration: none; }
         
         .review-btn { display: inline-block; margin-top: 25px; background: #FFD700; color: #222; padding: 12px 25px; border-radius: 25px; font-size: 13px; font-weight: 700; text-decoration: none; box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3); }
 
@@ -99,12 +95,16 @@
         .nav-link { text-align: center; text-decoration: none; color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 600; flex: 1; display: flex; flex-direction: column; align-items: center; }
         .nav-link.active { color: white; }
 
-        /* Usage Field Fix */
         .sub-med-row div { display: flex; gap: 12px; margin-top: 8px; }
         .sub-med-row .sm-qty { flex: 1; }
         .sub-med-row .sm-usage { flex: 2; }
 
         ::placeholder { font-size: 14px; color: #94a3b8; }
+
+        /* History Status Badge Styles */
+        .status-badge { font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 8px; text-transform: uppercase; }
+        .status-completed { background: #F0FDF4; color: #15803D; }
+        .status-pending { background: #FFF7ED; color: #C2410C; }
     </style>
 </head>
 <body>
@@ -208,8 +208,9 @@
     <div id="history-page" class="page-view">
         <button class="btn-back" onclick="goHome()">← Back to Home</button>
         <h3>My Account</h3>
-        <input type="tel" id="log-phone" placeholder="Enter Number (03...)">
-        <button class="btn-main" id="log-btn" onclick="getHistory()">View History</button>
+        <p style="font-size: 13px; color: #64748b; text-align: center; margin-bottom: 20px;">Enter your WhatsApp number to track your orders.</p>
+        <input type="tel" id="log-phone" placeholder="03XXXXXXXXX">
+        <button class="btn-main" id="log-btn" onclick="getHistory()">View My Orders</button>
         <div id="res-box" style="margin-top:25px;"></div>
     </div>
 </div>
@@ -255,22 +256,41 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
 
     function getHistory() {
         var phInput = document.getElementById('log-phone').value.trim();
-        if(!phInput) return alert("Enter Phone Number");
+        if(!phInput) return alert("Please enter your number");
         var ph = phInput.startsWith('0') ? phInput.substring(1) : phInput;
         var btn = document.getElementById('log-btn');
         btn.innerText = "Finding Records...";
+        
         fetch(SCRIPT_URL + '?phone=' + ph)
         .then(res => res.json())
         .then(d => {
-            if(d.success) {
-                var h = '<div class="welcome-banner">Welcome, <b>' + d.name + '</b>!</div>';
+            if(d.success && d.history.length > 0) {
+                var orderCount = d.history.length;
+                // HEADER WITH NAME AND COUNT
+                var h = '<div class="welcome-banner" style="background:#f0f9fa; border:1px solid var(--primary); padding:20px; border-radius:20px; text-align:center; margin-bottom:20px;">' +
+                        '<span style="font-size:14px; color:#64748b;">Welcome back,</span>' +
+                        '<div style="font-size:20px; font-weight:700; color:var(--secondary);">' + d.name + '</div>' +
+                        '<div style="margin-top:8px; font-size:13px; font-weight:600; background:white; display:inline-block; padding:5px 15px; border-radius:15px; color:var(--primary); border:1px solid #eef2f3;">' + orderCount + ' Total Orders</div>' +
+                        '</div>';
+
+                // ORDER LIST
                 d.history.forEach(o => {
-                    h += '<div class="history-item"><p>'+o.items+'</p></div>';
+                    var status = o.status || 'Pending';
+                    var badgeClass = (status.toLowerCase() === 'completed') ? 'status-completed' : 'status-pending';
+                    h += '<div class="history-item" style="background:white; padding:18px; border-radius:20px; border:1px solid #f1f5f9; margin-bottom:12px; box-shadow:0 4px 10px rgba(0,0,0,0.02);">' +
+                         '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
+                         '<span style="font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase;">' + o.date + '</span>' +
+                         '<span class="status-badge ' + badgeClass + '">' + status.toUpperCase() + '</span>' +
+                         '</div>' +
+                         '<p style="margin:0; font-size:14px; font-weight:600; color:#1e293b; line-height:1.5;">' + o.items + '</p>' +
+                         '</div>';
                 });
                 document.getElementById('res-box').innerHTML = h;
-            } else { alert("No history found."); }
-            btn.innerText = "View History";
-        }).catch(() => { alert("Error"); btn.innerText = "View History"; });
+            } else { 
+                document.getElementById('res-box').innerHTML = '<div style="text-align:center; padding:20px; color:#94a3b8;">No orders found for this number.</div>';
+            }
+            btn.innerText = "View My Orders";
+        }).catch(() => { alert("Error connecting to server."); btn.innerText = "View My Orders"; });
     }
 
     function sendOrder() {
@@ -280,13 +300,26 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         var ad = document.getElementById('cust-addr').value;
         var waItems = "", ml = "", ql = "";
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
+        
         document.querySelectorAll('.med-row').forEach(r => {
             var m = r.querySelector('.m-name').value; 
             var q = r.querySelector('.m-qty').value;
-            if(m) { waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; ml += m + ", "; ql += q + ", "; }
+            if(m) { 
+                waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; 
+                ml += m + ", "; 
+                ql += q + ", "; 
+            }
         });
+
         if(!n || !pInput || !ml) return alert("Fill all fields");
-        fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify({ name:n, phone:p, order:ml, qty:ql, type:dt, address:ad||'Pickup' })});
+
+        // SHEET INTEGRATION
+        fetch(SCRIPT_URL, { 
+            method:'POST', 
+            mode:'no-cors', 
+            body: JSON.stringify({ name:n, phone:p, order:ml, qty:ql, type:dt, address:ad||'Pickup' })
+        });
+
         var waMsg = "*NEW ORDER HEALTH MART*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
         if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
         waMsg += "%0A*Meds:*%0A" + waItems;
@@ -301,15 +334,24 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         var ad = document.getElementById('sub-cust-addr').value;
         var waItems = "", sheetItems = "", totalQty = "";
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
+
         document.querySelectorAll('.sub-med-row').forEach(r => {
             var m = r.querySelector('.sm-name').value;
             var q = r.querySelector('.sm-qty').value;
             var u = r.querySelector('.sm-usage').value;
-            if(m) { waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; sheetItems += m + ", "; totalQty += q + " (" + u + "), "; }
+            if(m) { 
+                waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; 
+                sheetItems += m + ", "; 
+                totalQty += q + " (" + u + "), "; 
+            }
         });
+
         if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
+
+        // SHEET INTEGRATION
         var payload = { name: n, phone: p, order: sheetItems, qty: totalQty, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+
         var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Plan:* " + pl + "%0A*Type:* " + dt + "%0A";
         if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
         waMsg += "%0A*Meds:*%0A" + waItems;
