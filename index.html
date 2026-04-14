@@ -23,6 +23,7 @@
 
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 160px; color: var(--text); overflow-x: hidden; }
         
+        /* ADJUSTED HEADER LOGIC */
         header { 
             background: var(--gradient); 
             padding: 40px 20px; 
@@ -30,12 +31,26 @@
             border-bottom-left-radius: 40px; 
             border-bottom-right-radius: 40px; 
             box-shadow: 0 10px 30px rgba(62, 108, 181, 0.2);
+            transition: all 0.4s ease; /* Smooth transition when shrinking */
         }
-        .header-logo { width: 110px; height: auto; margin-bottom: 10px; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.15)); }
-        .pharmacy-title { display: block; font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: 0.5px; }
-        .welcome-msg { font-size: 11px; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; display: block; }
+        
+        /* Compact Header Style */
+        header.compact {
+            padding: 15px 20px;
+            border-bottom-left-radius: 20px; 
+            border-bottom-right-radius: 20px;
+        }
 
-        .container { max-width: 450px; margin: 0 auto; padding: 25px 20px; width: 100%; box-sizing: border-box; }
+        .header-logo { width: 110px; height: auto; margin-bottom: 10px; transition: 0.4s; }
+        header.compact .header-logo { width: 40px; margin-bottom: 0; display: inline-block; vertical-align: middle; }
+
+        .pharmacy-title { display: block; font-size: 22px; font-weight: 700; color: var(--white); transition: 0.4s; }
+        header.compact .pharmacy-title { display: inline-block; font-size: 16px; margin-left: 10px; vertical-align: middle; }
+
+        .welcome-msg { font-size: 11px; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; display: block; }
+        header.compact .welcome-msg { display: none; }
+
+        .container { max-width: 450px; margin: 0 auto; padding: 15px 20px; width: 100%; box-sizing: border-box; }
 
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
@@ -80,12 +95,12 @@
         .review-btn { display: inline-block; margin-top: 25px; background: #FFD700; color: #222; padding: 12px 25px; border-radius: 25px; font-size: 13px; font-weight: 700; text-decoration: none; box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3); }
 
         .page-view { display: none; background: var(--white); padding: 25px; border-radius: 35px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-        h3 { font-size: 18px; color: var(--secondary); margin-bottom: 25px; text-align: center; }
+        h3 { font-size: 18px; color: var(--secondary); margin-bottom: 15px; text-align: center; }
         label { display: block; font-size: 11px; font-weight: 700; color: #bbb; margin-bottom: 8px; text-transform: uppercase; }
         input, select, textarea { width: 100%; padding: 15px; border: 1.5px solid #f5f5f5; border-radius: 15px; margin-bottom: 15px; font-size: 14px; box-sizing: border-box; background: #fafafa; font-family: inherit; }
         
         .btn-main { background: var(--secondary); color: white; padding: 18px; width: 100%; border: none; border-radius: 20px; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 10px 20px rgba(62, 108, 181, 0.2); }
-        .btn-back { border: none; background: none; color: #94A3B8; font-weight: 600; margin-bottom: 15px; cursor: pointer; }
+        .btn-back { border: none; background: none; color: #94A3B8; font-weight: 600; margin-bottom: 10px; cursor: pointer; }
 
         .history-item { background: #ffffff; padding: 18px; border-radius: 22px; margin-bottom: 12px; border: 1px solid #f5f5f5; }
         .status-pending { background: #FFF7ED; color: #C2410C; }
@@ -111,14 +126,12 @@
         .sub-med-row .sm-qty { flex: 1; min-width: 80px; }
         .sub-med-row .sm-usage { flex: 2; min-width: 150px; }
 
-        ::placeholder {
-            font-size: 12px;
-        }
+        ::placeholder { font-size: 12px; }
     </style>
 </head>
 <body>
 
-<header>
+<header id="main-header">
     <img src="favicon.png" alt="Health Mart" class="header-logo">
     <span class="pharmacy-title">Health Mart Pharmacy</span>
     <span class="welcome-msg">Your Trusted Health Partner</span>
@@ -237,6 +250,10 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
         document.getElementById('home-screen').style.display = 'none';
         document.querySelectorAll('.page-view').forEach(v => v.style.display = 'none');
         document.getElementById(id).style.display = 'block';
+        
+        // ADDED: Shrink header for more space
+        document.getElementById('main-header').classList.add('compact');
+        
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         window.scrollTo(0,0);
     }
@@ -244,6 +261,10 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp
     function goHome() {
         document.querySelectorAll('.page-view').forEach(v => v.style.display = 'none');
         document.getElementById('home-screen').style.display = 'block';
+        
+        // ADDED: Restore header to full size
+        document.getElementById('main-header').classList.remove('compact');
+        
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         document.getElementById('home-nav').classList.add('active');
     }
