@@ -293,26 +293,58 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzAQCTHNKjvtMgtiZ1nSTH
     }
 
     function sendSub() {
-        var n = document.getElementById('sub-name').value;
-        var pInput = document.getElementById('sub-phone').value.trim();
-        var pl = document.getElementById('sub-plan').value;
-        var dt = document.getElementById('sub-del-type').value;
-        var ad = document.getElementById('sub-cust-addr').value;
-        var waItems = "", sheetItems = "";
-        var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
-        document.querySelectorAll('.sub-med-row').forEach(r => {
-            var m = r.querySelector('.sm-name').value;
-            var q = r.querySelector('.sm-qty').value;
-            var u = r.querySelector('.sm-usage').value;
-            if(m) { waItems += `• ${m} (Qty: ${q}, Usage: ${u})%0A`; sheetItems += `${m} (${q} - ${u}), `; }
-        });
-        if(!n || !pInput || !waItems) return alert("Fill all fields");
-        fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify({ name:n, phone:p, order: "VIP: "+sheetItems, qty: pl, type: "SUB: "+dt, address: ad||'Pickup' })});
-        var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Plan:* " + pl + "%0A*Type:* " + dt + "%0A";
-        if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
-        waMsg += "%0A*Meds:*%0A" + waItems;
-        window.location.href = "https://wa.me/923055047345?text=" + waMsg;
-    }
+    var n = document.getElementById('sub-name').value;
+    var pInput = document.getElementById('sub-phone').value.trim();
+    var pl = document.getElementById('sub-plan').value; // Monthly/Weekly Refill
+    var dt = document.getElementById('sub-del-type').value;
+    var ad = document.getElementById('sub-cust-addr').value;
+    var waItems = "", sheetItems = "", totalQty = "";
+    
+    // Standardization for the phone number
+    var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
+
+    // This loop now separates Medicine names from their Quantities
+    document.querySelectorAll('.sub-med-row').forEach(r => {
+        var m = r.querySelector('.sm-name').value;
+        var q = r.querySelector('.sm-qty').value;
+        var u = r.querySelector('.sm-usage').value;
+        if(m) { 
+            waItems += `• ${m} (Qty: ${q}, Usage: ${u})%0A`; 
+            sheetItems += `${m}, `;           // For Column D
+            totalQty += `${q} (${u}), `;      // For Column E (New Quantity Column)
+        }
+    });
+
+    if(!n || !pInput || !waItems) return alert("Please fill all required fields.");
+    
+    // SENDING TO GOOGLE SHEETS
+    // 'qty' now carries the quantities specifically for Column E
+    fetch(SCRIPT_URL, { 
+        method:'POST', 
+        mode:'no-cors', 
+        body: JSON.stringify({ 
+            name: n, 
+            phone: p, 
+            order: sheetItems, 
+            qty: totalQty, 
+            type: "SUB: " + dt, 
+            address: ad || 'Pickup' 
+        })
+    });
+    
+    // REDIRECT TO WHATSAPP
+    var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A" +
+                "*Name:* " + n + "%0A" +
+                "*Phone:* " + pInput + "%0A" +
+                "*Plan:* " + pl + "%0A" +
+                "*Type:* " + dt + "%0A";
+    
+    if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
+    
+    waMsg += "%0A*Meds:*%0A" + waItems;
+
+    window.location.href = "https://wa.me/923055047345?text=" + waMsg;
+}
 </script>
 </body>
 </html>
