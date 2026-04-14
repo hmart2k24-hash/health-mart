@@ -316,16 +316,16 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbya4mLNUa7Yr8U5PacWZCQ
         if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
 
         // The Payload now matches the Script exactly
-        var payload = {
+var payload = {
             name: n,
             phone: p,
             order: sheetItems, 
             qty: totalQty, 
-            plan: pl,           // Added this line
+            plan: pl,           // This ensures "Monthly Refill" goes to Column F
             type: "SUB: " + dt, 
             address: ad || 'Pickup'
         };
-
+        
         fetch(SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
