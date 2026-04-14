@@ -21,8 +21,9 @@
             --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
 
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 120px; color: var(--text); overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 140px; color: var(--text); overflow-x: hidden; }
         
+        /* DYNAMIC HEADER */
         header { 
             background: var(--gradient); 
             padding: 40px 20px; 
@@ -34,57 +35,72 @@
         }
         
         header.compact {
-            padding: 12px 20px;
-            border-bottom-left-radius: 15px; 
-            border-bottom-right-radius: 15px;
+            padding: 15px 20px;
+            border-bottom-left-radius: 20px; 
+            border-bottom-right-radius: 20px;
         }
 
         .header-logo { width: 110px; height: auto; margin-bottom: 10px; transition: 0.3s; }
-        header.compact .header-logo { width: 35px; margin-bottom: 0; display: inline-block; vertical-align: middle; }
+        header.compact .header-logo { width: 40px; margin-bottom: 0; display: inline-block; vertical-align: middle; }
 
         .pharmacy-title { display: block; font-size: 22px; font-weight: 700; color: var(--white); transition: 0.3s; }
-        header.compact .pharmacy-title { display: inline-block; font-size: 15px; margin-left: 8px; vertical-align: middle; }
+        header.compact .pharmacy-title { display: inline-block; font-size: 16px; margin-left: 10px; vertical-align: middle; }
 
         .welcome-msg { font-size: 11px; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; display: block; }
         header.compact .welcome-msg { display: none; }
 
-        .container { max-width: 450px; margin: 0 auto; padding: 10px 20px; width: 100%; box-sizing: border-box; }
+        .container { max-width: 450px; margin: 0 auto; padding: 20px; width: 100%; box-sizing: border-box; }
 
-        input, select, textarea { 
-            width: 100%; 
-            padding: 18px; 
-            border: 1.5px solid #e2e8f0; 
-            border-radius: 18px; 
-            margin-bottom: 18px; 
-            font-size: 16px; 
-            box-sizing: border-box; 
-            background: #fafafa; 
-            font-family: inherit;
-            color: #1e293b;
-        }
-        
+        /* INPUT STYLING */
         label { display: block; font-size: 12px; font-weight: 800; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        input, select, textarea { 
+            width: 100%; padding: 18px; border: 1.5px solid #e2e8f0; border-radius: 18px; 
+            margin-bottom: 20px; font-size: 16px; box-sizing: border-box; background: #fafafa; font-family: inherit;
+        }
 
+        /* CARD STYLING RESTORED */
         .card { 
             background: var(--white); border-radius: 26px; padding: 20px; margin-bottom: 15px; display: flex; 
             align-items: center; gap: 18px; cursor: pointer; border: 1px solid rgba(0,0,0,0.01); 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.03); position: relative; overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03); position: relative; overflow: hidden; transition: 0.3s;
         }
+        .card:active { transform: scale(0.96); }
 
-        .social-footer { text-align: center; margin-top: 30px; padding: 25px 0; border-top: 1px solid #eef2f3; }
+        .card-icon { width: 52px; height: 52px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+        .icon-blue { background: #eef4ff; color: var(--secondary); }
+        .icon-gold { background: #fff8e1; color: #fbc02d; }
+        .icon-teal { background: #e0f7f9; color: #008b8b; }
+        .icon-green { background: #e8f9ef; color: #25D366; }
+        .icon-purple { background: #f3e5f5; color: #9c27b0; }
+
+        .card-text b { display: block; font-size: 16px; color: #222; margin-bottom: 3px; }
+        .card-text span { font-size: 12px; color: #888; line-height: 1.4; }
+
+        .badge { position: absolute; top: 12px; right: 15px; font-size: 9px; font-weight: 800; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; }
+        .badge-fast { background: #eef4ff; color: var(--secondary); }
+        .badge-vip { background: #fff8e1; color: #fbc02d; }
+
+        /* FOOTER & SOCIAL RESTORED */
+        .social-footer { text-align: center; margin-top: 30px; padding: 25px 0; border-top: 1px solid #eef2f3; transition: 0.3s; }
         .social-footer.hidden { display: none; }
+        .social-footer p { font-size: 13px; font-weight: 600; color: #95a5a6; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; }
+        .social-links { display: flex; justify-content: center; gap: 20px; }
+        .social-icon { width: 48px; height: 48px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-decoration: none; color: #2c3e50; }
+        
+        .review-btn { display: inline-block; margin-top: 25px; background: #FFD700; color: #222; padding: 12px 25px; border-radius: 25px; font-size: 13px; font-weight: 700; text-decoration: none; box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3); }
 
         .page-view { display: none; background: var(--white); padding: 25px; border-radius: 35px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
-        h3 { font-size: 20px; color: var(--secondary); margin-bottom: 20px; text-align: center; font-weight: 700; }
-        
-        .btn-main { background: var(--secondary); color: white; padding: 20px; width: 100%; border: none; border-radius: 22px; font-weight: 700; font-size: 17px; cursor: pointer; box-shadow: 0 10px 20px rgba(62, 108, 181, 0.2); }
-        .btn-back { border: none; background: none; color: #94A3B8; font-weight: 700; margin-bottom: 10px; cursor: pointer; font-size: 14px; }
+        h3 { font-size: 20px; color: var(--secondary); margin-bottom: 20px; text-align: center; }
 
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--gradient); display: flex; justify-content: space-around; padding: 12px 0 30px 0; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -10px 30px rgba(62, 108, 181, 0.15); z-index: 1000; }
+        .btn-main { background: var(--secondary); color: white; padding: 20px; width: 100%; border: none; border-radius: 22px; font-weight: 700; font-size: 17px; cursor: pointer; }
+        .btn-back { border: none; background: none; color: #94A3B8; font-weight: 700; margin-bottom: 10px; cursor: pointer; }
+
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--gradient); display: flex; justify-content: space-around; padding: 12px 0 30px 0; border-top-left-radius: 30px; border-top-right-radius: 30px; z-index: 1000; }
         .nav-link { text-align: center; text-decoration: none; color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 600; flex: 1; display: flex; flex-direction: column; align-items: center; }
         .nav-link.active { color: white; }
 
-        .sub-med-row div { display: flex; gap: 12px; }
+        /* Usage Field Fix */
+        .sub-med-row div { display: flex; gap: 12px; margin-top: 8px; }
         .sub-med-row .sm-qty { flex: 1; }
         .sub-med-row .sm-usage { flex: 2; }
 
@@ -102,54 +118,69 @@
 <div class="container">
     <div id="home-screen">
         <div class="card" onclick="openPage('order-page')">
+            <span class="badge badge-fast">Express</span>
             <div class="card-icon icon-blue"><i class="fas fa-shopping-basket"></i></div>
-            <div class="card-text"><b>Buy Medicines</b><span>Order now for quick delivery</span></div>
+            <div class="card-text"><b>Buy Medicines</b><span>Buy as you need</span></div>
         </div>
+        
         <div class="card" onclick="openPage('sub-page')">
+            <span class="badge badge-vip">VIP Plan</span>
             <div class="card-icon icon-gold"><i class="fas fa-crown"></i></div>
-            <div class="card-text"><b>Subscription Program</b><span>Automatic monthly refills</span></div>
+            <div class="card-text"><b>Subscription Program</b><span>Never miss a dose again</span></div>
         </div>
+        
+        <div class="card" onclick="window.location.href='https://wa.me/923055047345?text=*PRESCRIPTION*'">
+            <div class="card-icon icon-teal"><i class="fas fa-camera"></i></div>
+            <div class="card-text"><b>Send Prescription</b><span>Upload photo for quick review</span></div>
+        </div>
+        
         <div class="card" onclick="openPage('history-page')">
             <div class="card-icon icon-purple"><i class="fas fa-history"></i></div>
-            <div class="card-text"><b>Order History</b><span>Check status of orders</span></div>
+            <div class="card-text"><b>Order History</b><span>Track your past orders</span></div>
+        </div>
+        
+        <div class="card" onclick="window.location.href='https://wa.me/923055047345?text=*CONSULTANCY*'">
+            <div class="card-icon icon-green"><i class="fas fa-user-md"></i></div>
+            <div class="card-text"><b>For Consultancy</b><span>Talk to our expert pharmacist</span></div>
         </div>
 
         <div id="main-footer" class="social-footer">
             <p>Connect with Us</p>
             <div class="social-links">
-                <a href="https://www.facebook.com/share/1FonSMVDae/?mibextid=wwXIfr" class="social-icon fb"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.tiktok.com/@healthmartpharmacy" class="social-icon tt"><i class="fab fa-tiktok"></i></a>
-                <a href="https://g.co/kgs/zRG68jD" class="social-icon gm"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="https://www.facebook.com/share/1FonSMVDae/?mibextid=wwXIfr" target="_blank" class="social-icon" style="color:#1877F2"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@healthmartpharmacy?_r=1&_t=ZS-95VBWe4Elvs" target="_blank" class="social-icon" style="color:#000"><i class="fab fa-tiktok"></i></a>
+                <a href="https://g.co/kgs/zRG68jD" target="_blank" class="social-icon" style="color:#EA4335"><i class="fas fa-map-marker-alt"></i></a>
             </div>
+            <a href="https://g.co/kgs/zRG68jD" target="_blank" class="review-btn"><i class="fas fa-star"></i> Leave a Google Review</a>
         </div>
     </div>
 
     <div id="order-page" class="page-view">
-        <button class="btn-back" onclick="goHome()">← Back</button>
+        <button class="btn-back" onclick="goHome()">← Back to Home</button>
         <h3>Place Order</h3>
-        <label>Name</label><input type="text" id="cust-name" placeholder="Full Name">
-        <label>WhatsApp</label><input type="tel" id="cust-phone" placeholder="03XXXXXXXXX">
+        <label>Customer Name</label><input type="text" id="cust-name" placeholder="Full Name">
+        <label>WhatsApp Number</label><input type="tel" id="cust-phone" placeholder="03XXXXXXXXX">
         <div id="med-list">
             <div class="med-row" style="display:flex; gap:10px; margin-bottom:10px;">
                 <input type="text" class="m-name" placeholder="Medicine Name" style="flex:2;">
                 <input type="text" class="m-qty" placeholder="Tablets" style="flex:1;">
             </div>
         </div>
-        <button onclick="addMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px;">+ Add Medicine</button>
-        <label>Delivery</label>
+        <button onclick="addMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer; font-weight:600;">+ Add Medicine</button>
+        <label>Delivery Option</label>
         <select id="del-type" onchange="document.getElementById('addr-box').style.display=(this.value=='Home Delivery'?'block':'none')">
-            <option value="Pickup">Store Pickup</option>
+            <option value="Pickup">Pickup from Store</option>
             <option value="Home Delivery">Home Delivery</option>
         </select>
-        <div id="addr-box" style="display:none;"><textarea id="cust-addr" rows="2" placeholder="Address"></textarea></div>
-        <button class="btn-main" onclick="sendOrder()">Send Order</button>
+        <div id="addr-box" style="display:none;"><textarea id="cust-addr" rows="2" placeholder="Home Address"></textarea></div>
+        <button class="btn-main" onclick="sendOrder()">Confirm Order Details</button>
     </div>
 
     <div id="sub-page" class="page-view">
-        <button class="btn-back" onclick="goHome()">← Back</button>
-        <h3>Subscriptions</h3>
-        <label>Name</label><input type="text" id="sub-name" placeholder="Full Name">
-        <label>WhatsApp</label><input type="tel" id="sub-phone" placeholder="03XXXXXXXXX">
+        <button class="btn-back" onclick="goHome()">← Back to Home</button>
+        <h3>Subscription Program</h3>
+        <label>Patient Name</label><input type="text" id="sub-name" placeholder="Patient Full Name">
+        <label>WhatsApp Number</label><input type="tel" id="sub-phone" placeholder="03XXXXXXXXX">
         <div id="sub-med-list">
             <div class="sub-med-row" style="padding:15px; background:#f9f9f9; border-radius:18px; margin-bottom:15px;">
                 <input type="text" class="sm-name" placeholder="Medicine Name" style="width:100%;">
@@ -159,34 +190,38 @@
                 </div>
             </div>
         </div>
-        <button onclick="addSubMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px;">+ Add Another</button>
-        <label>Plan</label>
-        <select id="sub-plan"><option value="Monthly Refill">Monthly</option><option value="Weekly Refill">Weekly</option></select>
-        <label>Delivery</label>
-        <select id="sub-del-type" onchange="document.getElementById('sub-addr-box').style.display=(this.value=='Home Delivery'?'block':'none')">
-            <option value="Pickup">Pickup</option><option value="Home Delivery">Delivery</option>
+        <button onclick="addSubMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer; font-weight:600;">+ Add Another</button>
+        <label>Plan Type</label>
+        <select id="sub-plan">
+            <option value="Monthly Refill">Monthly Refill</option>
+            <option value="Weekly Refill">Weekly Refill</option>
         </select>
-        <div id="sub-addr-box" style="display:none;"><textarea id="sub-cust-addr" rows="2" placeholder="Address"></textarea></div>
-        <button class="btn-main" onclick="sendSub()">Join Program</button>
+        <label>Delivery Method</label>
+        <select id="sub-del-type" onchange="document.getElementById('sub-addr-box').style.display=(this.value=='Home Delivery'?'block':'none')">
+            <option value="Pickup">Pickup from Store</option>
+            <option value="Home Delivery">Home Delivery</option>
+        </select>
+        <div id="sub-addr-box" style="display:none;"><textarea id="sub-cust-addr" rows="2" placeholder="Home Address"></textarea></div>
+        <button class="btn-main" onclick="sendSub()">Join Subscription Program</button>
     </div>
 
     <div id="history-page" class="page-view">
-        <button class="btn-back" onclick="goHome()">← Back</button>
-        <h3>History</h3>
-        <input type="tel" id="log-phone" placeholder="Phone (03...)">
-        <button class="btn-main" id="log-btn" onclick="getHistory()">Check History</button>
-        <div id="res-box" style="margin-top:20px;"></div>
+        <button class="btn-back" onclick="goHome()">← Back to Home</button>
+        <h3>My Account</h3>
+        <input type="tel" id="log-phone" placeholder="Enter Number (03...)">
+        <button class="btn-main" id="log-btn" onclick="getHistory()">View History</button>
+        <div id="res-box" style="margin-top:25px;"></div>
     </div>
 </div>
 
 <div class="bottom-nav">
-    <a href="#" class="nav-link active" onclick="goHome()"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="#" class="nav-link active" id="home-nav" onclick="goHome()"><i class="fas fa-home"></i><span>Home</span></a>
     <a href="tel:03055047345" class="nav-link"><i class="fas fa-phone-alt"></i><span>Call</span></a>
     <a href="https://wa.me/923055047345" class="nav-link"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
 </div>
 
 <script>
-    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp_XWZPenmuB6OqqbfSS9Q5LvRP8PNavRTDW4SfIEPebO_1/exec';
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8Jh79_kR9A4jWKYXcsrp_XWZPenmuB6OqqbfSS9Q5LvRP8PNavRTDW4SfIEPebO_1/exec';
 
     function openPage(id) {
         document.getElementById('home-screen').style.display = 'none';
@@ -218,6 +253,26 @@
         document.getElementById('sub-med-list').appendChild(div);
     }
 
+    function getHistory() {
+        var phInput = document.getElementById('log-phone').value.trim();
+        if(!phInput) return alert("Enter Phone Number");
+        var ph = phInput.startsWith('0') ? phInput.substring(1) : phInput;
+        var btn = document.getElementById('log-btn');
+        btn.innerText = "Finding Records...";
+        fetch(SCRIPT_URL + '?phone=' + ph)
+        .then(res => res.json())
+        .then(d => {
+            if(d.success) {
+                var h = '<div class="welcome-banner">Welcome, <b>' + d.name + '</b>!</div>';
+                d.history.forEach(o => {
+                    h += '<div class="history-item"><p>'+o.items+'</p></div>';
+                });
+                document.getElementById('res-box').innerHTML = h;
+            } else { alert("No history found."); }
+            btn.innerText = "View History";
+        }).catch(() => { alert("Error"); btn.innerText = "View History"; });
+    }
+
     function sendOrder() {
         var n = document.getElementById('cust-name').value;
         var pInput = document.getElementById('cust-phone').value.trim();
@@ -225,16 +280,17 @@
         var ad = document.getElementById('cust-addr').value;
         var waItems = "", ml = "", ql = "";
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
-
         document.querySelectorAll('.med-row').forEach(r => {
             var m = r.querySelector('.m-name').value; 
             var q = r.querySelector('.m-qty').value;
             if(m) { waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; ml += m + ", "; ql += q + ", "; }
         });
-
         if(!n || !pInput || !ml) return alert("Fill all fields");
         fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify({ name:n, phone:p, order:ml, qty:ql, type:dt, address:ad||'Pickup' })});
-        window.location.href = "https://wa.me/923055047345?text=*NEW ORDER HEALTH MART*%0A%0A*Name:* "+n+"%0A*Phone:* "+pInput+"%0A*Type:* "+dt+"%0A*Meds:*%0A"+waItems;
+        var waMsg = "*NEW ORDER HEALTH MART*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
+        if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
+        waMsg += "%0A*Meds:*%0A" + waItems;
+        window.location.href = "https://wa.me/923055047345?text=" + waMsg;
     }
 
     function sendSub() {
@@ -245,36 +301,19 @@
         var ad = document.getElementById('sub-cust-addr').value;
         var waItems = "", sheetItems = "", totalQty = "";
         var p = pInput.startsWith('0') ? pInput.substring(1) : pInput;
-
         document.querySelectorAll('.sub-med-row').forEach(r => {
             var m = r.querySelector('.sm-name').value;
             var q = r.querySelector('.sm-qty').value;
             var u = r.querySelector('.sm-usage').value;
             if(m) { waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; sheetItems += m + ", "; totalQty += q + " (" + u + "), "; }
         });
-
-        if(!n || !pInput || !sheetItems) return alert("Fill all fields");
+        if(!n || !pInput || !sheetItems) return alert("Please fill all fields");
         var payload = { name: n, phone: p, order: sheetItems, qty: totalQty, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-        window.location.href = "https://wa.me/923055047345?text=*NEW ORDER HEALTH MART (Subscription)*%0A%0A*Name:* "+n+"%0A*Phone:* "+pInput+"%0A*Plan:* "+pl+"%0A*Meds:*%0A"+waItems;
-    }
-
-    function getHistory() {
-        var phInput = document.getElementById('log-phone').value.trim();
-        if(!phInput) return alert("Enter Phone Number");
-        var ph = phInput.startsWith('0') ? phInput.substring(1) : phInput;
-        var btn = document.getElementById('log-btn');
-        btn.innerText = "Finding...";
-        fetch(SCRIPT_URL + '?phone=' + ph)
-        .then(res => res.json())
-        .then(d => {
-            if(d.success) {
-                var h = '<b>Welcome, ' + d.name + '</b><br>';
-                d.history.forEach(o => { h += '<div style="background:white; padding:10px; margin-top:5px; border-radius:10px; border:1px solid #eee;">' + o.date + ' - ' + o.items + '</div>'; });
-                document.getElementById('res-box').innerHTML = h;
-            } else { alert("No history found."); }
-            btn.innerText = "Check History";
-        }).catch(() => { alert("Error connecting"); btn.innerText = "Check History"; });
+        var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Plan:* " + pl + "%0A*Type:* " + dt + "%0A";
+        if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
+        waMsg += "%0A*Meds:*%0A" + waItems;
+        window.location.href = "https://wa.me/923055047345?text=" + waMsg;
     }
 </script>
 </body>
