@@ -225,7 +225,10 @@
 // --- UPDATED SCRIPT URL ---
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxv2tNFLhE0yW5zPlXgWjRaEM8TVq8JoClXJ-2WSCeAO36oaSyM6E3WLAY2F6tVXA3N/exec';
 
-    function openPage(id) {
+   function openPage(id) {
+        // Clear all forms before opening a new page
+        resetAllForms();
+        
         document.getElementById('home-screen').style.display = 'none';
         document.querySelectorAll('.page-view').forEach(v => v.style.display = 'none');
         document.getElementById(id).style.display = 'block';
@@ -235,12 +238,14 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxv2tNFLhE0yW5zPlXgWjR
     }
 
     function goHome() {
+        // Clear all forms when going back to home
+        resetAllForms();
+        
         document.querySelectorAll('.page-view').forEach(v => v.style.display = 'none');
         document.getElementById('home-screen').style.display = 'block';
         document.getElementById('main-header').classList.remove('compact');
         document.getElementById('main-footer').classList.remove('hidden');
     }
-
     function addMedRow() {
         var div = document.createElement('div'); div.className = 'med-row';
         div.style.cssText = "display:flex; gap:10px; margin-bottom:10px;";
@@ -378,6 +383,49 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxv2tNFLhE0yW5zPlXgWjR
             waMsg += "%0A*Meds:*%0A" + waItems;
             window.location.href = "https://wa.me/923055047345?text=" + waMsg;
         }, 600);
+    }
+    function resetAllForms() {
+        // 1. Reset all standard inputs, textareas, and selects
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            // Don't reset the search phone in history if you want it to stay
+            if (input.id !== 'log-phone') { 
+                input.value = ''; 
+            }
+        });
+
+        // 2. Reset the "Delivery Type" dropdowns to their first option
+        if(document.getElementById('del-type')) document.getElementById('del-type').selectedIndex = 0;
+        if(document.getElementById('sub-del-type')) document.getElementById('sub-del-type').selectedIndex = 0;
+        
+        // 3. Hide the address boxes
+        if(document.getElementById('addr-box')) document.getElementById('addr-box').style.display = 'none';
+        if(document.getElementById('sub-addr-box')) document.getElementById('sub-addr-box').style.display = 'none';
+
+        // 4. Remove extra medicine rows (keep only the first one)
+        const medList = document.getElementById('med-list');
+        if (medList) {
+            while (medList.children.length > 1) {
+                medList.removeChild(medList.lastChild);
+            }
+        }
+
+        const subMedList = document.getElementById('sub-med-list');
+        if (subMedList) {
+            while (subMedList.children.length > 1) {
+                subMedList.removeChild(subMedList.lastChild);
+            }
+        }
+
+        // 5. Re-enable buttons and reset text (in case an order was just placed)
+        document.querySelectorAll('.btn-main').forEach(btn => {
+            btn.disabled = false;
+            if (btn.onclick.toString().includes('sendSub')) {
+                btn.innerText = "Join Subscription Program";
+            } else if (btn.onclick.toString().includes('sendOrder')) {
+                btn.innerText = "Confirm Order Details";
+            }
+        });
     }
 </script>
 </body>
