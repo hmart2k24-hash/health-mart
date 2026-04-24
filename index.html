@@ -427,15 +427,22 @@ function sendOrder() {
             body: JSON.stringify({ name:n, phone:p, order:ml, qty:ql, type:dt, address:ad||'Pickup' })
         });
 
-        setTimeout(function() {
-            // --- NEW: ANNIVERSARY BRANDING & PROMO CODE ---
-            var waMsg = "*NEW ORDER: HEALTH MART*%0A(2nd Anniversary Offer)%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
+       setTimeout(function() {
+            // Smart Date Check for May 2026
+            var today = new Date();
+            var isMay = (today.getMonth() === 4 && today.getFullYear() === 2026); // 4 represents May
+            
+            var anniversaryHeader = isMay ? "(2nd Anniversary Offer)%0A" : "";
+            var promoFooter = isMay ? "%0A*PROMO CODE:* HEALTH5" : "";
+
+            var waMsg = "*NEW ORDER: HEALTH MART*%0A" + anniversaryHeader + "%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
+            
             if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
-            waMsg += "%0A*Meds:*%0A" + waItems + "%0A*PROMO CODE:* HEALTH5";
+            
+            waMsg += "%0A*Meds:*%0A" + waItems + promoFooter;
             
             window.location.href = "https://wa.me/923055047345?text=" + waMsg;
-        }, 800); // Increased buffer to ensure Sheet records the data
-    }
+        }, 800);
 
     function sendSub() {
         var n = document.getElementById('sub-name').value;
@@ -472,13 +479,22 @@ function sendOrder() {
         var payload = { name: n, phone: p, order: medNames, qty: justQtys, usage: justUsages, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
 
-        setTimeout(function() {
-            var waMsg = "*NEW ORDER HEALTH MART (Subscription)*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Plan:* " + pl + "%0A*Type:* " + dt + "%0A";
+       setTimeout(function() {
+            // Smart Date Check for May 2026
+            var today = new Date();
+            var isMay = (today.getMonth() === 4 && today.getFullYear() === 2026); 
+            
+            var anniversaryHeader = isMay ? "(2nd Anniversary Offer)%0A" : "";
+            var promoFooter = isMay ? "%0A*PROMO CODE:* HEALTH5" : "";
+
+            var waMsg = "*SUBSCRIPTION: HEALTH MART*%0A" + anniversaryHeader + "%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Plan:* " + pl + "%0A";
+            
             if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
-            waMsg += "%0A*Meds:*%0A" + waItems;
+            
+            waMsg += "%0A*Meds:*%0A" + waItems + promoFooter;
+            
             window.location.href = "https://wa.me/923055047345?text=" + waMsg;
-        }, 600);
-    }
+        }, 800); // Increased to 800ms for better reliability with Google Sheets
     function resetAllForms() {
         // 1. Reset all standard inputs, textareas, and selects
         const inputs = document.querySelectorAll('input, textarea, select');
