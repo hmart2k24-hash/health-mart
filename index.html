@@ -12,6 +12,64 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+        .popup-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Support for Safari/iPhone */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-content {
+    background: white;
+    width: 85%;
+    max-width: 360px;
+    padding: 35px 25px;
+    border-radius: 32px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    animation: appleScale 0.3s ease-out;
+}
+
+@keyframes appleScale {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-popup {
+    position: absolute;
+    top: 15px; right: 20px;
+    background: #f1f5f9; border: none;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    font-size: 18px; color: #64748b;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.popup-icon {
+    width: 60px; height: 60px;
+    background: #eef4ff; color: var(--secondary);
+    font-size: 24px; border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 15px;
+}
+
+.promo-code {
+    background: #f8fafc;
+    border: 1.5px dashed var(--primary);
+    padding: 12px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--secondary);
+    margin: 20px 0;
+}
         :root { 
             --primary: #78D1DA; 
             --secondary: #3E6CB5; 
@@ -108,7 +166,20 @@
     </style>
 </head>
 <body>
-
+<div id="promo-popup" class="popup-overlay">
+    <div class="popup-content">
+        <button class="close-popup" onclick="closePromo()">&times;</button>
+        <div class="popup-icon"><i class="fas fa-bullhorn"></i></div>
+        <h2 style="margin:0; color:var(--secondary);">Special Launch Offer!</h2>
+        <p style="font-size:14px; color:#64748b; margin-top:10px;">
+            To celebrate our Digital Launch on <b>5th May</b>, get a 
+            <span style="color:var(--primary); font-weight:700;">5% FLAT DISCOUNT</span> 
+            on all orders placed through this website.
+        </p>
+        <div class="promo-code">CODE: HEALTH5</div>
+        <button class="btn-main" onclick="closePromo()">Got it, Thanks!</button>
+    </div>
+</div>
 <header id="main-header">
     <img src="favicon.png" alt="Health Mart" class="header-logo">
     <span class="pharmacy-title">Health Mart Pharmacy</span>
@@ -224,7 +295,25 @@
 <script>
 // --- UPDATED SCRIPT URL ---
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxv2tNFLhE0yW5zPlXgWjRaEM8TVq8JoClXJ-2WSCeAO36oaSyM6E3WLAY2F6tVXA3N/exec';
+window.onload = function() {
+        const promoStatus = localStorage.getItem('promoMay2026');
+        const today = new Date();
+        const expiryDate = new Date('2026-06-01'); // Banner stops showing June 1st
 
+        // Show if: 1. It's before June, and 2. They haven't closed it yet
+        if (today < expiryDate && !promoStatus) {
+            setTimeout(() => {
+                document.getElementById('promo-popup').style.display = 'flex';
+            }, 1000);
+        }
+    };
+
+    function closePromo() {
+        document.getElementById('promo-popup').style.display = 'none';
+        // Set a permanent flag so it doesn't show again for this user
+        localStorage.setItem('promoMay2026', 'closed');
+    }
+    
    function openPage(id) {
         // Clear all forms before opening a new page
         resetAllForms();
