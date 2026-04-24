@@ -169,18 +169,18 @@
 <div id="promo-popup" class="popup-overlay">
     <div class="popup-content">
         <button class="close-popup" onclick="closePromo()">&times;</button>
-        <div class="popup-icon"><i class="fas fa-bullhorn"></i></div>
-        <h2 style="margin:0; color:var(--secondary);">Special Launch Offer!</h2>
+        <div class="popup-icon"><i class="fas fa-cake-candles"></i></div>
+        <h2 style="margin:0; color:var(--secondary);">2nd Anniversary Special!</h2>
         <p style="font-size:14px; color:#64748b; margin-top:10px;">
-            To celebrate our Digital Launch on <b>5th May</b>, get a 
-            <span style="color:var(--primary); font-weight:700;">5% FLAT DISCOUNT</span> 
-            on all orders placed through this website.
+            Celebrating 2 years of <b>Health Mart Pharmacy</b> on 5th May! 
+            To thank you, get a <span style="color:var(--primary); font-weight:700;">5% FLAT DISCOUNT</span> 
+            on all website orders through May.
         </p>
         <div class="promo-code">CODE: HEALTH5</div>
-        <button class="btn-main" onclick="closePromo()">Got it, Thanks!</button>
+        <button class="btn-main" onclick="closePromo()">Celebrate & Shop</button>
     </div>
 </div>
-<header id="main-header">
+    <header id="main-header">
     <img src="favicon.png" alt="Health Mart" class="header-logo">
     <span class="pharmacy-title">Health Mart Pharmacy</span>
     <span class="welcome-msg">Your Trusted Health Partner</span>
@@ -388,7 +388,7 @@ window.onload = function() {
         }).catch(() => { alert("Error connecting to server."); btn.innerText = "View My Orders"; });
     }
 
-    function sendOrder() {
+function sendOrder() {
         var n = document.getElementById('cust-name').value;
         var pInput = document.getElementById('cust-phone').value.trim();
         var dt = document.getElementById('del-type').value;
@@ -402,10 +402,9 @@ window.onload = function() {
         rows.forEach(r => {
             var m = r.querySelector('.m-name').value.trim(); 
             var q = r.querySelector('.m-qty').value.trim();
-            
-            if(m || q) { // If user started typing in either field
-                if(!m || !q) { // Check if one is missing
-                    validationError = true;
+            if(m || q) {
+                if(!m || !q) { 
+                    validationError = true; 
                 } else {
                     waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; 
                     ml += m + ", "; 
@@ -417,6 +416,11 @@ window.onload = function() {
         if(!n || !pInput || !ml) return alert("Please enter Customer Name, Phone, and at least one Medicine with Quantity.");
         if(validationError) return alert("Please provide both Medicine Name and Quantity for all rows.");
 
+        // --- NEW: PREVENT DOUBLE RECORDS ---
+        var btn = event.target;
+        btn.disabled = true;
+        btn.innerText = "Processing Order...";
+
         fetch(SCRIPT_URL, { 
             method:'POST', 
             mode:'no-cors', 
@@ -424,11 +428,13 @@ window.onload = function() {
         });
 
         setTimeout(function() {
-            var waMsg = "*NEW ORDER HEALTH MART*%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
+            // --- NEW: ANNIVERSARY BRANDING & PROMO CODE ---
+            var waMsg = "*NEW ORDER: HEALTH MART*%0A(2nd Anniversary Offer)%0A%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
             if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
-            waMsg += "%0A*Meds:*%0A" + waItems;
+            waMsg += "%0A*Meds:*%0A" + waItems + "%0A*PROMO CODE:* HEALTH5";
+            
             window.location.href = "https://wa.me/923055047345?text=" + waMsg;
-        }, 600);
+        }, 800); // Increased buffer to ensure Sheet records the data
     }
 
     function sendSub() {
