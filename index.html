@@ -388,7 +388,7 @@ window.onload = function() {
         }).catch(() => { alert("Error connecting to server."); btn.innerText = "View My Orders"; });
     }
 
-function sendOrder() {
+function sendOrder(e) {
         var n = document.getElementById('cust-name').value;
         var pInput = document.getElementById('cust-phone').value.trim();
         var dt = document.getElementById('del-type').value;
@@ -403,9 +403,8 @@ function sendOrder() {
             var m = r.querySelector('.m-name').value.trim(); 
             var q = r.querySelector('.m-qty').value.trim();
             if(m || q) {
-                if(!m || !q) { 
-                    validationError = true; 
-                } else {
+                if(!m || !q) { validationError = true; } 
+                else {
                     waItems += '• ' + m + ' (' + q + ' Tablets)%0A'; 
                     ml += m + ", "; 
                     ql += q + ", "; 
@@ -413,13 +412,13 @@ function sendOrder() {
             }
         });
 
-        if(!n || !pInput || !ml) return alert("Please enter Customer Name, Phone, and at least one Medicine with Quantity.");
-        if(validationError) return alert("Please provide both Medicine Name and Quantity for all rows.");
+        if(!n || !pInput || !ml) return alert("Please fill Name, Phone, and Medicines.");
+        if(validationError) return alert("Please fill both Name and Quantity.");
 
-        // --- NEW: PREVENT DOUBLE RECORDS ---
-        var btn = event.target;
+        // Safe button disable
+        var btn = e.target;
         btn.disabled = true;
-        btn.innerText = "Processing Order...";
+        btn.innerText = "Processing...";
 
         fetch(SCRIPT_URL, { 
             method:'POST', 
@@ -427,24 +426,21 @@ function sendOrder() {
             body: JSON.stringify({ name:n, phone:p, order:ml, qty:ql, type:dt, address:ad||'Pickup' })
         });
 
-       setTimeout(function() {
-            // Smart Date Check for May 2026
+        setTimeout(function() {
             var today = new Date();
-            var isMay = (today.getMonth() === 4 && today.getFullYear() === 2026); // 4 represents May
-            
+            var isMay = (today.getMonth() === 4 && today.getFullYear() === 2026);
             var anniversaryHeader = isMay ? "(2nd Anniversary Offer)%0A" : "";
             var promoFooter = isMay ? "%0A*PROMO CODE:* HEALTH5" : "";
 
             var waMsg = "*NEW ORDER: HEALTH MART*%0A" + anniversaryHeader + "%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Type:* " + dt + "%0A";
-            
             if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
-            
             waMsg += "%0A*Meds:*%0A" + waItems + promoFooter;
             
             window.location.href = "https://wa.me/923055047345?text=" + waMsg;
         }, 800);
+    }
 
-    function sendSub() {
+    function sendSub(e) {
         var n = document.getElementById('sub-name').value;
         var pInput = document.getElementById('sub-phone').value.trim();
         var pl = document.getElementById('sub-plan').value; 
@@ -460,11 +456,9 @@ function sendOrder() {
             var m = r.querySelector('.sm-name').value.trim();
             var q = r.querySelector('.sm-qty').value.trim();
             var u = r.querySelector('.sm-usage').value.trim();
-            
-            if(m || q || u) { // If user started typing in any field
-                if(!m || !q || !u) { // Check if any part of the row is missing
-                    validationError = true;
-                } else {
+            if(m || q || u) {
+                if(!m || !q || !u) { validationError = true; } 
+                else {
                     waItems += '• ' + m + ' (' + q + ' Tablets) - Usage: ' + u + '%0A'; 
                     medNames += m + ", "; 
                     justQtys += q + ", "; 
@@ -473,28 +467,29 @@ function sendOrder() {
             }
         });
 
-        if(!n || !pInput || !medNames) return alert("Please enter Patient Name, Phone, and at least one Medicine with Quantity and Usage.");
-        if(validationError) return alert("Please provide Medicine Name, Quantity, AND Usage for all subscription rows.");
+        if(!n || !pInput || !medNames) return alert("Please fill all details.");
+        if(validationError) return alert("Please fill Name, Qty, and Usage.");
+
+        var btn = e.target;
+        btn.disabled = true;
+        btn.innerText = "Processing...";
 
         var payload = { name: n, phone: p, order: medNames, qty: justQtys, usage: justUsages, plan: pl, type: "SUB: " + dt, address: ad || 'Pickup' };
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
 
-       setTimeout(function() {
-            // Smart Date Check for May 2026
+        setTimeout(function() {
             var today = new Date();
-            var isMay = (today.getMonth() === 4 && today.getFullYear() === 2026); 
-            
+            var isMay = (today.getMonth() === 4 && today.getFullYear() === 2026);
             var anniversaryHeader = isMay ? "(2nd Anniversary Offer)%0A" : "";
             var promoFooter = isMay ? "%0A*PROMO CODE:* HEALTH5" : "";
 
             var waMsg = "*SUBSCRIPTION: HEALTH MART*%0A" + anniversaryHeader + "%0A*Name:* " + n + "%0A*Phone:* " + pInput + "%0A*Plan:* " + pl + "%0A";
-            
             if(dt == "Home Delivery") waMsg += "*Address:* " + ad + "%0A";
-            
             waMsg += "%0A*Meds:*%0A" + waItems + promoFooter;
             
             window.location.href = "https://wa.me/923055047345?text=" + waMsg;
-        }, 800); // Increased to 800ms for better reliability with Google Sheets
+        }, 800);
+    }
     function resetAllForms() {
         // 1. Reset all standard inputs, textareas, and selects
         const inputs = document.querySelectorAll('input, textarea, select');
