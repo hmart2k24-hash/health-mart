@@ -12,6 +12,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+        #sub-plan, #sub-del-type, #del-type {
+    color: #2c3e50 !important; /* Force dark navy text */
+    background-color: #ffffff !important;
+    opacity: 1 !important;
+    -webkit-opacity: 1 !important;
+}
+
+/* This fixes a common issue on iPhones where select text is invisible */
+select:not([multiple]) {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
         select {
     color: #2c3e50 !important;
     background-color: #ffffff !important;
@@ -280,8 +296,7 @@
             </div>
         </div>
         <button onclick="addSubMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer; font-weight:600;">+ Add Another</button>
-       
-        <label>Plan Type</label>
+       <label>Plan Type</label>
 <select id="sub-plan">
     <option value="Weekly Refill" selected>Weekly Refill</option>
     <option value="Bi-Weekly Refill">Bi-Weekly Refill</option>
