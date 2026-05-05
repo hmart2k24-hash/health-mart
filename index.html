@@ -263,10 +263,12 @@
         </div>
         <button onclick="addSubMedRow()" style="background:none; border:1px dashed var(--primary); width:100%; padding:15px; border-radius:15px; margin-bottom:20px; cursor:pointer; font-weight:600;">+ Add Another</button>
         <label>Plan Type</label>
-        <select id="sub-plan">
-            <option value="Monthly Refill">Monthly Refill</option>
-            <option value="Weekly Refill">Weekly Refill</option>
-        </select>
+        <label>Plan Type</label>
+<select id="sub-plan">
+    <option value="Weekly Refill" selected>Weekly Refill</option>
+    <option value="Bi-Weekly Refill">Bi-Weekly Refill</option>
+    <option value="Monthly Refill">Monthly Refill</option>
+</select>
         <label>Delivery Method</label>
         <select id="sub-del-type" onchange="document.getElementById('sub-addr-box').style.display=(this.value=='Home Delivery'?'block':'none')">
             <option value="Pickup">Pickup from Store</option>
